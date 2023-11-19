@@ -1,6 +1,6 @@
 module github.com/Mau005/KraynoSerer
 
-go 1.21.3
+go 1.20
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
