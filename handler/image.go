@@ -83,7 +83,9 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 
 	newName := api.GenerateHash(fmt.Sprintf("%d", todays.ID)) //Genero un sha256, proceso el id para ese hash, luego sumo la extencon del file
 	fileExtencion := newName + "." + verify[len(verify)-1]
-	pathSave := fmt.Sprintf("%s/%s/", configuration.IMAGEN_PATH, acc.Name)
+	pathSave := fmt.Sprintf("%s/%s/", configuration.IMAGEN_PATH, api.GenerateHash(acc.Name))
+	pathConsume := fmt.Sprintf("%s/%s/%s", "todays", api.GenerateHash(acc.Name), fileExtencion)
+	fmt.Println(pathConsume)
 
 	err = os.MkdirAll(pathSave, os.ModePerm)
 	if err != nil {
@@ -105,8 +107,9 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var encr models.FileEncrypts
+	var encr models.Files
 	encr.TodaysID = &todays.ID
+	encr.PathConsume = pathConsume
 	encr.PathEncrypt = fileExtencion
 	encr.PathOrigin = pathSave + fileExtencion
 

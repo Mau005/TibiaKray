@@ -7,9 +7,9 @@ type News struct {
 	Title        string
 	Content      string
 	AccountID    *uint
-	StatusNews   bool           //Check generate
-	FileEncrypts []FileEncrypts `gorm:"foreignKey:NewsID"`
-	Account      Account        `gorm:"foreignKey:AccountID"`
+	StatusNews   bool    //Check generate
+	FileEncrypts []Files `gorm:"foreignKey:NewsID"`
+	Account      Account `gorm:"foreignKey:AccountID"`
 }
 
 type NewsTicket struct {

@@ -25,7 +25,7 @@ func AutoMigrate() {
 	DB.AutoMigrate(models.Todays{}, models.Comments{})
 	DB.AutoMigrate(models.NewsTicket{})
 	DB.AutoMigrate(models.News{})
-	DB.AutoMigrate(models.FileEncrypts{})
+	DB.AutoMigrate(models.Files{})
 	DB.AutoMigrate(models.Forum{}, models.ForumThreads{}, models.ForumThreadsContent{})
 
 }
