@@ -11,10 +11,14 @@ import (
 )
 
 func NewRouter() *mux.Router {
-	fs := http.FileServer(http.Dir("./static"))
+
 	router := mux.NewRouter()
 	router.Use(middleware.CommonMiddleware)
+	fs := http.FileServer(http.Dir("./static"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+
+	fileImage := http.FileServer(http.Dir("./data/image"))
+	router.PathPrefix("/image/").Handler(http.StripPrefix("/image/", fileImage))
 
 	var HomeHandler handler.HomeHandler
 	router.HandleFunc("/", HomeHandler.Home).Methods("GET")
@@ -36,6 +40,7 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/News", nil).Methods("GET")
 	router.HandleFunc("/Todays", nil).Methods("GET")
 	router.HandleFunc("/Todays/{page}", nil).Methods("GET")
+	router.HandleFunc("/logout", AccountHandler.Logout).Methods("GET")
 
 	security := router.PathPrefix("/auth").Subrouter()
 	security.Use(middleware.CommonMiddleware)
@@ -47,5 +52,6 @@ func NewRouter() *mux.Router {
 
 	security.HandleFunc("/my_profile", AccountHandler.MyProfileHandler).Methods("GET")
 	security.HandleFunc("/my_setting", AccountHandler.MyProfileSettingPOST).Methods("POST")
+	security.HandleFunc("/change_password", AccountHandler.MyProfileChangePasswordHandler).Methods("POST")
 	return router
 }

@@ -7,7 +7,7 @@ import (
 
 type FileEncryptsController struct{}
 
-func (fec *FileEncryptsController) CreateEncrypFile(fileEncr models.FileEncrypts) (models.FileEncrypts, error) {
+func (fec *FileEncryptsController) CreateEncrypFile(fileEncr models.Files) (models.Files, error) {
 
 	if err := database.DB.Create(&fileEncr).Error; err != nil {
 		return fileEncr, err
@@ -18,7 +18,7 @@ func (fec *FileEncryptsController) CreateEncrypFile(fileEncr models.FileEncrypts
 }
 
 func (fec *FileEncryptsController) GetEncrypFile(hash string) (string, error) {
-	var enc models.FileEncrypts
+	var enc models.Files
 	if err := database.DB.Where("path_encrypt = ?", hash).First(&enc).Error; err != nil {
 		return enc.PathOrigin, err
 	}

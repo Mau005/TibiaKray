@@ -7,8 +7,8 @@ type Todays struct {
 	Title        string
 	Description  string
 	AccountID    uint
-	Status       bool           `gorm:"default:false"`
-	Account      Account        `gorm:"foreignKey:AccountID"`
-	Comments     []Comments     `gorm:"foreignKey:TodaysID"`
-	FileEncrypts []FileEncrypts `gorm:"foreignKey:TodaysID"`
+	Status       bool       `gorm:"default:false"`
+	Account      Account    `gorm:"foreignKey:AccountID"`
+	Comments     []Comments `gorm:"foreignKey:TodaysID"`
+	FileEncrypts []Files    `gorm:"foreignKey:TodaysID"`
 }

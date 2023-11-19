@@ -105,10 +105,10 @@
                             <img src="/static/assets/images/logo.png" alt="" width="90">
                         </a>
                         <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
-                            <li class="active">
+                            <li class="">
                                 <a href="/"> {{.Lenguaje.news}}</a>
                             </li>
-                            <li class="">
+                            <li class="active">
                                 <a href="/todays">{{.Lenguaje.today}}</a>
                             </li>
                             <li class="">
@@ -271,53 +271,49 @@
             <div class="container">
                 <div class="nk-gap-4"></div>
                     <div class="text-center">
-                        <h2 class="nk-title display-4">The Most Voted This Weeks</h2>
+                        <h2 class="nk-title display-4">{{.Lenguaje.today}}</h2>
                     </div>
                 
                 <div class="nk-gap-4"></div>
                 <!-- START: Posts List -->
                 <div class="nk-blog-list">
                     <!-- START: Post -->
-                    <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                        <div class="nk-post-thumb">
-                            <div class="nk-post-type"><span class="ion-image"></span></div>
-                            <div class="nk-post-category">
-                                <a href="#">News</a>
+                    {{range .Todays}}
+                        <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
+                            <div class="nk-post-thumb">
+                                {{ if eq (len .FileEncrypts) 1 }}
+                                    {{range .FileEncrypts}}
+                                    <a href="news-single-image.html">
+                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
+                                    </a>
+                                    {{end}}
+                                {{ else }}
+                                    {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}
+                                    <div class="nk-carousel-2" data-arrows="true">
+                                        <div class="nk-carousel-inner">
+                                    {{range .FileEncrypts}}
+                                            <div>
+                                                <div>
+                                                    <a href="news-single-image.html">
+                                                    <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
+                                                </a>
+                                                </div>
+                                            </div>
+                                    {{end}}
+                                        </div>
+                                    </div> 
+                                {{ end }}
                             </div>
-                            <a href="news-single-image.html">
-                                <img src="/static/assets/images/post-1-mid.jpg" alt="" class="nk-img-stretch">
-                            </a>
-                        </div>
-                        <div class="nk-post-content">
-                            <div data-mouse-parallax-z="2">
-                                <h2 class="nk-post-title h1">
-                                    <a href="news-single-image.html">Image Blog Post</a>
-                                </h2>
-                                <div class="nk-post-date"> September 18, 2016 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: Post -->
-                    <!-- START: Post -->
-                    <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                        <div class="nk-post-thumb">
-                            <div class="nk-post-type"><span class="ion-videocamera"></span></div>
-                            <div class="nk-post-category">
-                                <a href="#">Release</a>
-                            </div>
-                            <a href="news-single-video.html">
-                                <img src="/static/assets/images/post-2-mid.jpg" alt="" class="nk-img-stretch">
-                            </a>
-                        </div>
-                        <div class="nk-post-content">
-                            <div data-mouse-parallax-z="2">
-                                <h2 class="nk-post-title h1">
-                                    <a href="news-single-video.html">Video Blog Post</a>
-                                </h2>
-                                <div class="nk-post-date"> September 5, 2016 </div>
+                            <div class="nk-post-content">
+                                <div data-mouse-parallax-z="2">
+                                    <h2 class="nk-post-title h1">
+                                        <a href="news-single-image.html">{{.Title}}</a>
+                                    </h2>
+                                    <div class="nk-post-date"> {{.Description}}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {{end}}
                     <!-- END: Post -->
                     <!-- START: Post -->
                     <div class="nk-pagination nk-pagination-center">
@@ -354,6 +350,17 @@
 -->
         <div class="nk-side-buttons nk-side-buttons-visible">
             <ul>
+                {{if eq .UserName ""}}
+                {{else}}
+                <li>
+                    <form action="/auth/upload_image" method="get">
+
+                        <button>
+                            <span class="icon ion-upload"></span>
+                        </button>
+                    </form>
+                </li>
+                {{end}}
                 <li>
                     <span class="nk-btn nk-btn-lg nk-btn-icon nk-bg-audio-toggle">
                         <span class="icon">
@@ -362,6 +369,7 @@
                         </span>
                     </span>
                 </li>
+                
                 <li class="nk-scroll-top">
                     <span class="nk-btn nk-btn-lg nk-btn-icon">
                         <span class="icon ion-ios-arrow-up"></span>

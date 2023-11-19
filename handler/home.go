@@ -5,6 +5,7 @@ import (
 	"text/template"
 
 	"github.com/Mau005/KraynoSerer/controller"
+	"github.com/Mau005/KraynoSerer/models"
 )
 
 type HomeHandler struct{}
@@ -29,6 +30,17 @@ func (hh *HomeHandler) Todays(w http.ResponseWriter, r *http.Request) {
 	}
 	var api controller.ApiController
 	sc := api.GetBaseWeb(r)
-	templ.Execute(w, sc)
+	var todayCont controller.TodaysController
+
+	todays, _ := todayCont.GetTodayView()
+
+	todaysWeb := struct {
+		models.StructModel
+		Todays []models.Todays
+	}{
+		StructModel: sc,
+		Todays:      todays,
+	}
+	templ.Execute(w, todaysWeb)
 
 }

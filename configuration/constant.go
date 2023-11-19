@@ -25,5 +25,5 @@ const (
 )
 
 const (
-	IMAGEN_PATH = "data/todays"
+	IMAGEN_PATH = "data/image/todays"
 )

@@ -148,3 +148,31 @@ func (ac *AccountHandler) MyProfileSettingPOST(w http.ResponseWriter, r *http.Re
 
 	http.Redirect(w, r, "/auth/my_profile", http.StatusSeeOther)
 }
+
+func (ac *AccountHandler) MyProfileChangePasswordHandler(w http.ResponseWriter, r *http.Request) {
+	password := r.FormValue("password")
+	passwordTwo := r.FormValue("password2")
+	if password != passwordTwo || password == "" || passwordTwo == "" {
+		return
+	}
+
+	var api controller.ApiController
+	newPassword := api.GenerateCryptPassword(password)
+
+	acc, err := api.GetSessionAccount(r)
+	if err != nil {
+		return
+	}
+	acc.Password = newPassword
+	var accController controller.AccountController
+	accController.SaveAccount(acc)
+	ac.Logout(w, r)
+
+}
+
+func (ac *AccountHandler) Logout(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	api.SaveSession(nil, w, r)
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
