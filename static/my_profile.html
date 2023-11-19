@@ -185,14 +185,14 @@
                 <div class="nano-content">
                     <div class="nk-nav-table">
                         <div class="nk-nav-row">
-                            <a href="index.html" class="nk-nav-logo">
+                            <a href="/" class="nk-nav-logo">
                                 <img src="/static/assets/images/logo.png" alt="" width="150">
                             </a>
                         </div>
                         <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
                             <ul class="nk-nav">
                                 <li class=" ">
-                                    <a href="/my_profile"> {{.Lenguaje.myprofile}}</a>
+                                    <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
                                 </li>
                                 <li class=" ">
                                     <a href="/report">{{.Lenguaje.report}}</a>
@@ -268,90 +268,205 @@
         <!-- Daily Image fun-->
 
         <div class="nk-main">
+            <div class="nk-gap-4"></div>
+            <div class="text-center">
+                <h2 class="nk-title display-4">{{.Lenguaje.myaccount}}</h2>
+            </div>
+            <div class="nk-gap-4"></div>
+
+            <!-- END: Header Title -->
             <div class="container">
-                <div class="nk-gap-4"></div>
-                    <div class="text-center">
-                        <h2 class="nk-title display-4">The Most Voted This Weeks</h2>
-                    </div>
-                
-                <div class="nk-gap-4"></div>
-                <!-- START: Posts List -->
-                <div class="nk-blog-list">
-                    <!-- START: Post -->
-                    <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                        <div class="nk-post-thumb">
-                            <div class="nk-post-type"><span class="ion-image"></span></div>
-                            <div class="nk-post-category">
-                                <a href="#">News</a>
-                            </div>
-                            <a href="news-single-image.html">
-                                <img src="/static/assets/images/post-1-mid.jpg" alt="" class="nk-img-stretch">
-                            </a>
-                        </div>
-                        <div class="nk-post-content">
-                            <div data-mouse-parallax-z="2">
-                                <h2 class="nk-post-title h1">
-                                    <a href="news-single-image.html">Image Blog Post</a>
-                                </h2>
-                                <div class="nk-post-date"> September 18, 2016 </div>
+                <div class="nk-social-profile nk-social-profile-container-offset">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-3">
+                            <div class="nk-social-profile-avatar">
+                                <form action="/guardar_avatar" method="post" enctype="multipart/form-data">
+                                    <label for="avatar-upload" style="cursor: pointer;">
+                                        <img id="avatar-preview" src="/static/assets/images/avatar-1.jpg" alt="nK">
+                                    </label>
+                                    <input type="file" id="avatar-upload" name="avatar" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
+                                    <center><button class="nk-btn link-effect-4">{{.Lenguaje.uploadimage}}</button></center>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                    <!-- END: Post -->
-                    <!-- START: Post -->
-                    <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                        <div class="nk-post-thumb">
-                            <div class="nk-post-type"><span class="ion-videocamera"></span></div>
-                            <div class="nk-post-category">
-                                <a href="#">Release</a>
-                            </div>
-                            <a href="news-single-video.html">
-                                <img src="/static/assets/images/post-2-mid.jpg" alt="" class="nk-img-stretch">
-                            </a>
-                        </div>
-                        <div class="nk-post-content">
-                            <div data-mouse-parallax-z="2">
-                                <h2 class="nk-post-title h1">
-                                    <a href="news-single-video.html">Video Blog Post</a>
-                                </h2>
-                                <div class="nk-post-date"> September 5, 2016 </div>
+                        <div class="col-md-7 col-lg-9">
+                            <div class="nk-social-profile-info">
+                                <div class="nk-gap-2"></div>
+                                <h1 class="nk-social-profile-info-name">{{.UserName}}</h1>
+                                {{if eq .StreamMode false}}
+                                <div class="nk-social-profile-info-username">@{{.Email}}</div>
+                                {{else}}
+                                <div class="nk-social-profile-info-username">@{{.Lenguaje.systemstreamen}}</div>
+                                {{end}}
+                                
+
                             </div>
                         </div>
                     </div>
-                    <!-- END: Post -->
-                    <!-- START: Post -->
-                    <div class="nk-pagination nk-pagination-center">
-                        <a href="#" class="nk-btn nk-btn-lg nk-btn-circle">Load More ...</a>
-                    </div>
-                    <!-- END: Pagination -->
                 </div>
-                <!-- END: Posts List -->
+                <div class="row vertical-gap">
+                    <div class="col-lg-3">
+                        <!--
+                START: Sidebar
+
+                Additional Classes:
+                    .nk-sidebar-left
+                    .nk-sidebar-right
+                    .nk-sidebar-sticky
+            -->
+                        <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
+                            <div class="nk-gap-2"></div>
+                            <div class="nk-social-menu d-none d-lg-block">
+                                <div class="nk-social-menu">
+                                    <ul>
+                                        <li class="">
+                                            <a href="social-user-activity.html"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a href="social-user-notifications.html"> {{.Lenguaje.messages}}<span class="nk-badge">999+</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}<span class="nk-badge">999+</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a href="social-user-friends.html"> {{.Lenguaje.friends}}</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="social-user-friends.html"> {{.Lenguaje.notifications}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="nk-accordion d-lg-none" id="nk-social-menu-mobile" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="nk-social-menu-mobile-1-heading">
+                                        <a data-toggle="collapse" data-parent="#nk-social-menu-mobile" href="#nk-social-menu-mobile-1" aria-expanded="true" aria-controls="nk-social-menu-mobile-1" class="collapsed"> Menu </a>
+                                    </div>
+                                    <div id="nk-social-menu-mobile-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="nk-social-menu-mobile-1-heading">
+                                        <div class="nk-social-menu">
+                                            <ul>
+                                                <li class="">
+                                                    <a href="social-user-activity.html"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="social-user-notifications.html"> {{.Lenguaje.messages}}<span class="nk-badge">999+</span></a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}<span class="nk-badge">999+</span></a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="social-user-friends.html"> {{.Lenguaje.friends}}</a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="social-user-friends.html"> {{.Lenguaje.notifications}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nk-gap-4 d-none d-lg-block"></div>
+                        </aside>
+                        <!-- END: Sidebar -->
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="nk-gap-2 d-none d-lg-block"></div>
+                        <div class="nk-social-container">
+                            <!-- START: Settings -->
+                            <div class="nk-tabs">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#tabs-2-1" role="tab" data-toggle="tab">{{.Lenguaje.myaccount}}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tabs-2-2" role="tab" data-toggle="tab">{{.Lenguaje.setting}}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tabs-2-3" role="tab" data-toggle="tab">Tibia</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade  show active" id="tabs-2-1">
+                                        <div class="nk-gap-1"></div>
+                                        <form action="#">
+                                            <a>{{.Lenguaje.setting}}</a>
+                                            <input type="hidden" class="form-control" name="email" placeholder="Account Email" value="{{.Email}}" disabled>
+                                            <div class="nk-gap-2"></div>
+                                            <input type="password" class="form-control" name="password" placeholder="{{.Lenguaje.changepassword}}">
+                                            <div class="nk-gap-2"></div>
+                                            <input type="password" class="form-control" name="password2" placeholder="{{.Lenguaje.newpassword}}">
+                                            <div class="mt-10">
+                                                <em>{{.Lenguaje.repeatnewpassword}}</em>
+                                            </div>
+                                            <div class="nk-gap-2"></div>
+                                            <button class="nk-btn link-effect-4 float-right">{{.Lenguaje.savechanges}}</button>
+                                        </form>
+                                        <div class="nk-gap-1"></div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="tabs-2-2">
+                                        <div class="nk-gap-1"></div>
+                                        
+                                        <form method="POST" action="/auth/my_setting">
+                                            <div class="nk-gap-2"></div>
+                                            <div class="container">
+                                                <div class="row vertical-gap">
+                                                    
+                                                        {{if eq .StreamMode false}}
+                                                        <input type="checkbox" id="streammode" name="streammode" class="form-check-input"> {{.Lenguaje.modestream}} </label>
+                                                        {{else}}
+                                                        <input type="checkbox" id="streammode" name="streammode" class="form-check-input" checked> {{.Lenguaje.modestream}} </label>
+                                                        {{end}}
+                                                        
+                                                        <div class="nk-gap-2"></div>
+                                                        
+                                                        <select class="form-control" id="lenguaje" name="lenguaje">
+                                                            <option disabled selected>{{.Lenguaje.language}}</option>
+                                                            <option>{{.Lenguaje.en}}</option>
+                                                            <option>{{.Lenguaje.es}}</option>
+                                                            <option>{{.Lenguaje.br}}</option>
+                                                            <option>{{.Lenguaje.pl}}</option>
+                                                        </select>
+                                                        
+                                                        <div class="nk-gap-2"></div>
+                                                        <div class="nk-gap-2"></div>
+                                                        
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="nk-gap-2"></div>
+                                            <button class="nk-btn link-effect-4 float-right">{{.Lenguaje.savechanges}}</button>
+                                        </form>
+                                        <div class="nk-gap-1"></div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="tabs-2-3">
+                                        <div class="nk-gap-1"></div>
+                                        <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=3XP0nyLz6Y8"></div>
+                                        <div class="nk-gap-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: Settings -->
+                        </div>
+                        <div class="nk-gap-4"></div>
+                    </div>
+                </div>
                 <div class="nk-gap-4"></div>
                 <div class="nk-gap-3"></div>
             </div>
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
-                <img class="nk-footer-top-corner" src="assets/images/footer-corner.png" alt="">
+                <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
                 <div class="container">
                     <div class="nk-gap-2"></div>
                     <div class="nk-gap"></div>
                     <p> &copy; 2023 AinhoSoft.</p>
                     <div class="nk-footer-links">
-                        <a href="#" class="link-effect">Terms of Service</a> <span>|</span> <a href="#" class="link-effect">Privacy Policy</a>
+                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}/a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
                     </div>
                     <div class="nk-gap-4"></div>
                 </div>
             </footer>
             <!-- END: Footer -->
         </div>
-        <!--
-    START: Share Buttons
-        .nk-share-buttons-left
--->
-
-        <!--
-    START: Side Buttons
-        .nk-side-buttons-visible
--->
         <div class="nk-side-buttons nk-side-buttons-visible">
             <ul>
                 <li>
