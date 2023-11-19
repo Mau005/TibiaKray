@@ -12,4 +12,5 @@ type StructModel struct {
 	MSGError        string
 	RouterError     string
 	NameButtonError string
+	StreamMode      bool
 }

@@ -3,7 +3,9 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"text/template"
 	"time"
 
 	"github.com/Mau005/KraynoSerer/configuration"
@@ -76,7 +78,73 @@ func (ac *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 		})
 		return
 	}
-
 	json.NewEncoder(w).Encode(acc)
 
+}
+
+func (ac *AccountHandler) MyProfileHandler(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	cs := api.GetBaseWeb(r)
+
+	if cs.Email == "" {
+		json.NewEncoder(w).Encode(models.Exception{Message: "No tienes permiso HIDEPUTA"})
+		return
+	}
+
+	template, err := template.ParseFiles("static/my_profile.html")
+	if err != nil {
+		return
+	}
+
+	prueba := struct {
+		models.StructModel
+		Test string
+	}{
+		StructModel: cs,
+		Test:        "hola",
+	}
+
+	template.Execute(w, prueba)
+}
+
+func (ac *AccountHandler) MyProfileSettingPOST(w http.ResponseWriter, r *http.Request) {
+	streamMode := r.FormValue("streammode")
+	lenguaje := r.FormValue("lenguaje")
+
+	var api controller.ApiController
+
+	sm := api.GetBaseWeb(r)
+
+	var acc controller.AccountController
+
+	account, err := acc.GetAccount(sm.Email)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	account.StreamMode = streamMode == "on"
+
+	if lenguaje != "" {
+		baseLenguaje := make([]string, 0, len(controller.Lenguaje)-1)
+		for key := range controller.Lenguaje {
+			if key == "base" {
+				continue
+			}
+			baseLenguaje = append(baseLenguaje, key)
+		}
+		base := controller.Lenguaje[account.Languaje]
+		for _, value := range baseLenguaje {
+			if base[value] == lenguaje {
+				account.Languaje = value
+			}
+		}
+	}
+	err = acc.UpdateSession(account, w, r)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	http.Redirect(w, r, "/auth/my_profile", http.StatusSeeOther)
 }

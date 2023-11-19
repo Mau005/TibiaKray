@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"strings"
@@ -20,6 +21,13 @@ import (
 )
 
 var Lenguaje map[string]map[string]string = make(map[string]map[string]string) //load data
+var ExtencionImage = map[string]bool{
+	"jpg":  true,
+	"jpeg": true,
+	"png":  true,
+	"gif":  true,
+	"bmp":  true,
+}
 
 type ApiController struct{}
 
@@ -68,9 +76,10 @@ func (ac *ApiController) CompareCryptPassword(password, passwordTwo string) erro
 func (ac *ApiController) generateClaims(account *models.Account) *models.Claims {
 	expirationTime := time.Now().Add(configuration.EXPIRATION_TOKEN * time.Hour)
 	return &models.Claims{
-		Email:    account.Email,
-		UserName: account.Name,
-		Group:    account.Groups,
+		Email:      account.Email,
+		UserName:   account.Name,
+		Group:      account.Groups,
+		StreamMode: account.StreamMode,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},
@@ -144,8 +153,9 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 	sc.UserName = claims.UserName
 	sc.Email = claims.Email
 	sc.Group = claims.Group
+	sc.StreamMode = claims.StreamMode
 	//Configuration User Session
-	sc.Lenguaje = Lenguaje["en"]
+	sc.Lenguaje = Lenguaje["en"] //posibilidad de usar las ips para identificar el pais para el idioma!
 	var accController AccountController
 	account, err := accController.GetAccount(sc.Email)
 	if err == nil {
@@ -191,4 +201,20 @@ func (ac *ApiController) GenerateHash(content string) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-func (ac *ApiController) GenerateEncrypt()
+func (ac *ApiController) GenerateEncrypt(fileOrigin multipart.File, origin, nameFile string, account *models.Account, idEncrypt uint, validations map[string]bool) {
+	defer fileOrigin.Close()
+	verify := strings.Split(nameFile, ".")
+
+	if !(validations[verify[len(verify)-1]]) {
+		log.Println("La extencion indicada no es correcta")
+		return
+	}
+
+	EncrName := ac.GenerateHash(fmt.Sprintf("%d", idEncrypt))
+	EncrNameExtencion := EncrName + "." + verify[len(verify)-1]
+
+	pathOrigin := origin + EncrName + EncrNameExtencion
+	pathDir := origin
+	fmt.Println(pathDir, pathOrigin)
+
+}

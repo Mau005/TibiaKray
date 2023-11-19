@@ -45,5 +45,7 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/upload_image", imageHanlder.UploadImageHandler).Methods("GET")
 	security.HandleFunc("/upload_image", imageHanlder.LoadImage).Methods("POST")
 
+	security.HandleFunc("/my_profile", AccountHandler.MyProfileHandler).Methods("GET")
+	security.HandleFunc("/my_setting", AccountHandler.MyProfileSettingPOST).Methods("POST")
 	return router
 }
