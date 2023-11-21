@@ -1,18 +1,17 @@
 book = '''
-Upload image
-Characters
-Messages
-Favorite Images
-Friends
-Notifications
-My account
-Setting
-My profile
-Language
-Change Password
-New Password
-Repeat New Password
-Save Changes
+Tell us your experience
+Upload Image
+Authorize Post
+Delete post
+To comment you need to be registered
+Published
+Written by
+View
+Comments
+Voted
+Post your comment
+Post Comment
+Message
 '''
 
 newBook  = book.split("\n")

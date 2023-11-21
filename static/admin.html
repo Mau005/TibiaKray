@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 56px; /* Altura del header */
+    }
+    .sidebar {
+      position: fixed;
+      top: 56px; /* Altura del header */
+      bottom: 0;
+      left: 0;
+      width: 250px;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    .content {
+      margin-left: 250px; /* Ancho de la barra lateral */
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Administration panel</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/my_profile">Welcome to the administration panel {{.UserName}}</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="sidebar">
+    <h5>Modulos</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/todays_aproved">Todays Aproved</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Forum Aproved</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Configurations De tu hermana</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h1>{{.Title}}</h1>
+    <p>{{.Content}}</p>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

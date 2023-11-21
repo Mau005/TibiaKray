@@ -223,7 +223,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                {{if ge .Group  3 }}
+                                {{if ge .Access  3 }}
                                 <li class=" ">
                                     <a href="/auth/admin">Admin</a>
                                 </li>
@@ -253,7 +253,7 @@
         <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
             <div class="nano">
                 <div class="nano-content">
-                    <a href="index.html" class="nk-nav-logo">
+                    <a href="/" class="nk-nav-logo">
                         <img src="/static/assets/images/logo.png" alt="" width="90">
                     </a>
                     <div class="nk-navbar-mobile-content">
@@ -274,30 +274,19 @@
                     <div class="text-center">
                         <h2 class="nk-title display-4">{{.Lenguaje.plusvoted}}</h2>
                     </div>
-                <div class="nk-carousel-2" data-arrows="true">
-                    <div class="nk-carousel-inner">
-                        <div>
-                            <div>
-                                <img src="/static/assets/images/image-1-600x600.jpg" alt="" class="nk-img-fit">
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <img src="/static/assets/images/image-2-600x600.jpg" alt="" class="nk-img-fit">
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <img src="/static/assets/images/image-3-600x600.jpg" alt="" class="nk-img-fit">
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <img src="/static/assets/images/image-4-600x600.jpg" alt="" class="nk-img-fit">
-                            </div>
+                    <div class="nk-carousel-2" data-arrows="true">
+                        <div class="nk-carousel-inner">
+                            {{range $index, $today := .Todays}}
+                                {{range $today.Files}}
+                                <div>
+                                    <div>
+                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-fit">
+                                    </div>
+                                </div>
+                                {{end}}
+                            {{end}}
                         </div>
                     </div>
-                </div>
                 <!-- END: Carousel -->
             </div>
             <div class="container">
@@ -368,7 +357,7 @@
                     <div class="nk-gap"></div>
                     <p> &copy; 2023 AinhoSoft.</p>
                     <div class="nk-footer-links">
-                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}/a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
+                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}</a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
                     </div>
                     <div class="nk-gap-4"></div>
                 </div>

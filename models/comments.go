@@ -5,7 +5,8 @@ import "gorm.io/gorm"
 type Comments struct {
 	gorm.Model
 	Comment   string
-	TodaysID  uint
+	TodaysID  *uint
 	AccountID uint
 	Account   Account `gorm:"foreignKey:AccountID"`
+	Todays    Todays  `gorm:"foreignKey:TodaysID"`
 }

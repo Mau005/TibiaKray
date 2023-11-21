@@ -2,10 +2,12 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/Mau005/KraynoSerer/database"
 	"github.com/Mau005/KraynoSerer/models"
+	"gorm.io/gorm"
 )
 
 type AccountController struct{}
@@ -98,4 +100,56 @@ func (ac *AccountController) UpdateSession(account *models.Account, w http.Respo
 
 	api.SaveSession(&token, w, r)
 	return nil
+}
+
+func (ac *AccountController) CreateComment(comment models.Comments) (models.Comments, error) {
+	if err := database.DB.Create(&comment).Error; err != nil {
+		return comment, err
+	}
+	return comment, nil
+}
+func (ac *AccountController) SaveComment(comment models.Comments) (models.Comments, error) {
+	if err := database.DB.Save(&comment).Error; err != nil {
+		return comment, err
+	}
+	return comment, nil
+}
+func (ac *AccountController) GetCommentTodays(idTodays uint) ([]models.Comments, error) {
+	var comments []models.Comments
+	if err := database.DB.Preload("Account", func(db *gorm.DB) *gorm.DB {
+		return db.Select("id, name, email, access")
+	}).Where("todays_id = ?", idTodays).Find(&comments).Error; err != nil {
+		return comments, err
+	}
+	return comments, nil
+}
+
+func (ac *AccountController) AddCommentTodays(id, commentText string, account *models.Account) (comment models.Comments, err error) {
+	if id == "" || commentText == "" {
+		return comment, err
+	}
+
+	idTodays, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return comment, err
+	}
+
+	var tdControll TodaysController
+	todays, err := tdControll.GetToday(uint(idTodays))
+	if err != nil {
+		return comment, err
+	}
+
+	comment.Account = *account
+	comment.AccountID = account.ID
+	comment.Comment = commentText
+	comment.Todays = todays
+	comment.TodaysID = &todays.ID
+
+	com, err := ac.CreateComment(comment)
+	if err != nil {
+		return comment, err
+	}
+
+	return com, nil
 }

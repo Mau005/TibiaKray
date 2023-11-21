@@ -27,3 +27,9 @@ const (
 const (
 	IMAGEN_PATH = "data/image/todays"
 )
+
+const (
+	//router web
+	ROUTER_TODAYS_POST         = "/todays_post/%d"
+	ROUTER_TODAYS_POST_APROVED = "/auth/todays_aproved/%d"
+)

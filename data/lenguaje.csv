@@ -41,8 +41,22 @@ notifications;Notifications;Notificaciones;Notificações;Powiadomienia
 myaccount;My account;Mi Cuenta;Minha conta;Moje konto
 setting;Setting;Configuración;Configuração;Ustawienie
 myprofile;My profile;Mi Perfil;Meu perfil;Mój profil
-language;Language;Idioma;Idioma;Język
-changepassword;Change Password;Cambiar Contraseña;Cambiar Contrasenha;Zmień hasło
-newpassword;New Password;Nueva Contraseña;Nova Contrasenha;nowe hasło
-repeatnewpassword;Repeat New Password;Repetir Nueva Contraseña;Repetir Nueva Contraseña;Powtórz nowe hasło
-savechanges;Save Changes;Guardar cambios;Guardar Cambios;Zapisz zmiany
+language;Language;Idioma;Linguagem;Język
+changepassword;Change Password;Cambiar Contraseña;Alterar a senha;Zmień hasło
+newpassword;New Password;Nueva Contraseña;Nova Senha;nowe hasło
+repeatnewpassword;Repeat New Password;Repetir Nueva Contraseña;Repita a nova senha;Powtórz nowe hasło
+savechanges;Save Changes;Guardar cambios;Guardar mudanças;Zapisz zmiany
+uploadcontent;Upload Content;Subir Contenido;Carregar conteúdo;Prześlij zawartość
+tellusyourexperience;Tell us your experience;Cuéntanos tu experiencia;Conte-nos sua experiência;Opowiedz nam o swoim doświadczeniu
+uploadimage;Upload Image;Cargar imagen;Enviar Imagem;Załaduj obrazek
+authorizepost;Authorize Post;Autorizar publicación;Autorizar postagem;Autoryzuj pocztę
+deletepost;Delete post;Eliminar mensaje;Apague a postagem;Usuń post
+tocommentyouneedtoberegistered;To comment you need to be registered;Para comentar es necesario estar registrado;Para comentar você precisa estar cadastrado;Aby móc komentować musisz się zarejestrować
+published;Published;Publicado;Publicados;Opublikowany
+writtenby;Written by;Escrito por;Escrito por;Scenariusz
+view;View;Vista;Visualizar;Pogląd
+comments;Comments;Comentarios;Comentários;Uwagi
+voted;Voted;Votado;Votado;Zagłosowano
+postyourcomment;Post your comment;Publica tu comentario;Poste seu comentário;Opublikuj swój komentarz
+postcomment;Post Comment;publicar comentario;Postar comentário;Wyślij komentarz
+message;Message;Mensaje;Mensagem;Wiadomość

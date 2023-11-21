@@ -7,7 +7,7 @@ type StructModel struct {
 	Daily           []string
 	Email           string
 	UserName        string
-	Group           uint8
+	Access          uint8
 	TitleError      string
 	MSGError        string
 	RouterError     string

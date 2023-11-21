@@ -9,4 +9,5 @@ type Files struct {
 	PathConsume string
 	NewsID      *uint
 	TodaysID    *uint
+	Todays      *Todays `gorm:"foreignKey:TodaysID"`
 }
