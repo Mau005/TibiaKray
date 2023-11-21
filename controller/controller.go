@@ -78,7 +78,7 @@ func (ac *ApiController) generateClaims(account *models.Account) *models.Claims 
 	return &models.Claims{
 		Email:      account.Email,
 		UserName:   account.Name,
-		Group:      account.Groups,
+		Access:     account.Access,
 		StreamMode: account.StreamMode,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
@@ -152,7 +152,7 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 	//Configuration User Session
 	sc.UserName = claims.UserName
 	sc.Email = claims.Email
-	sc.Group = claims.Group
+	sc.Access = claims.Access
 	sc.StreamMode = claims.StreamMode
 	//Configuration User Session
 	sc.Lenguaje = Lenguaje["en"] //posibilidad de usar las ips para identificar el pais para el idioma!
@@ -217,4 +217,21 @@ func (ac *ApiController) GenerateEncrypt(fileOrigin multipart.File, origin, name
 	pathDir := origin
 	fmt.Println(pathDir, pathOrigin)
 
+}
+
+func (ac *ApiController) NormalizeString(count int, content string) (result string) {
+
+	if !(len(content) >= count) {
+		return content
+	}
+
+	for _, characteres := range content {
+		result += string(characteres)
+		if count <= len(result) {
+			result += "..."
+			break
+		}
+	}
+
+	return result
 }

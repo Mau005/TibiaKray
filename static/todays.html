@@ -185,7 +185,7 @@
                 <div class="nano-content">
                     <div class="nk-nav-table">
                         <div class="nk-nav-row">
-                            <a href="index.html" class="nk-nav-logo">
+                            <a href="/" class="nk-nav-logo">
                                 <img src="/static/assets/images/logo.png" alt="" width="150">
                             </a>
                         </div>
@@ -223,7 +223,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                {{if ge .Group  3 }}
+                                {{if ge .Access  3 }}
                                 <li class=" ">
                                     <a href="/auth/admin">Admin</a>
                                 </li>
@@ -278,12 +278,12 @@
                 <!-- START: Posts List -->
                 <div class="nk-blog-list">
                     <!-- START: Post -->
-                    {{range .Todays}}
+                    {{range $index, $today := .Todays}}
                         <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
                             <div class="nk-post-thumb">
-                                {{ if eq (len .FileEncrypts) 1 }}
-                                    {{range .FileEncrypts}}
-                                    <a href="news-single-image.html">
+                                {{ if eq (len $today.Files) 1 }}
+                                    {{range $today.Files}}
+                                    <a href="/todays_post/{{$today.ID}}">
                                         <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
                                     </a>
                                     {{end}}
@@ -291,10 +291,10 @@
                                     {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}
                                     <div class="nk-carousel-2" data-arrows="true">
                                         <div class="nk-carousel-inner">
-                                    {{range .FileEncrypts}}
+                                    {{range .Files}}
                                             <div>
                                                 <div>
-                                                    <a href="news-single-image.html">
+                                                    <a href="/todays_post/{{$today.ID}}">
                                                     <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
                                                 </a>
                                                 </div>
@@ -326,13 +326,13 @@
                 <div class="nk-gap-3"></div>
             </div>
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
-                <img class="nk-footer-top-corner" src="assets/images/footer-corner.png" alt="">
+                <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
                 <div class="container">
                     <div class="nk-gap-2"></div>
                     <div class="nk-gap"></div>
                     <p> &copy; 2023 AinhoSoft.</p>
                     <div class="nk-footer-links">
-                        <a href="#" class="link-effect">Terms of Service</a> <span>|</span> <a href="#" class="link-effect">Privacy Policy</a>
+                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}</a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
                     </div>
                     <div class="nk-gap-4"></div>
                 </div>
@@ -353,12 +353,7 @@
                 {{if eq .UserName ""}}
                 {{else}}
                 <li>
-                    <form action="/auth/upload_image" method="get">
-
-                        <button>
-                            <span class="icon ion-upload"></span>
-                        </button>
-                    </form>
+                    <a href="/auth/upload_image" class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.uploadcontent}}</a>
                 </li>
                 {{end}}
                 <li>

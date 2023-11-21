@@ -48,8 +48,6 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	}
 	title := r.FormValue("title")
 	description := r.FormValue("description")
-	log.Println(title)
-	log.Print(description)
 	file, handler, err := r.FormFile("documents")
 
 	if err != nil {
@@ -58,7 +56,6 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 
-	fmt.Println("Name DOcuments: ", handler.Filename)
 	verify := strings.Split(handler.Filename, ".")
 
 	if !(extencion[verify[len(verify)-1]]) {
@@ -85,7 +82,6 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	fileExtencion := newName + "." + verify[len(verify)-1]
 	pathSave := fmt.Sprintf("%s/%s/", configuration.IMAGEN_PATH, api.GenerateHash(acc.Name))
 	pathConsume := fmt.Sprintf("%s/%s/%s", "todays", api.GenerateHash(acc.Name), fileExtencion)
-	fmt.Println(pathConsume)
 
 	err = os.MkdirAll(pathSave, os.ModePerm)
 	if err != nil {
@@ -112,6 +108,7 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	encr.PathConsume = pathConsume
 	encr.PathEncrypt = fileExtencion
 	encr.PathOrigin = pathSave + fileExtencion
+	encr.Todays = &todays
 
 	var encrController controller.FileEncryptsController
 
@@ -120,6 +117,6 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(enc)
+	http.Redirect(w, r, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, *enc.TodaysID), http.StatusSeeOther)
 
 }

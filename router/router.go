@@ -23,6 +23,8 @@ func NewRouter() *mux.Router {
 	var HomeHandler handler.HomeHandler
 	router.HandleFunc("/", HomeHandler.Home).Methods("GET")
 	router.HandleFunc("/todays", HomeHandler.Todays).Methods("GET")
+	router.HandleFunc("/todays_post/{id}", HomeHandler.TodaysPost).Methods("GET")
+
 	router.HandleFunc("/404", handler.Page404).Methods("GET")
 	router.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
 		template, err := template.ParseFiles("static/test.html")
@@ -53,5 +55,12 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/my_profile", AccountHandler.MyProfileHandler).Methods("GET")
 	security.HandleFunc("/my_setting", AccountHandler.MyProfileSettingPOST).Methods("POST")
 	security.HandleFunc("/change_password", AccountHandler.MyProfileChangePasswordHandler).Methods("POST")
+	security.HandleFunc("/add_comment", AccountHandler.AddCommentTodays).Methods("POST")
+
+	var adminHandler handler.AdminHandler
+	security.HandleFunc("/admin", adminHandler.Lobby).Methods("GET")
+	security.HandleFunc("/todays_aproved", adminHandler.TodaysAproved).Methods("GET")
+	security.HandleFunc("/todays_aproved/{id}", adminHandler.TodaysAprovedPOST).Methods("POST")
+
 	return router
 }

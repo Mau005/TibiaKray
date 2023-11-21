@@ -68,7 +68,7 @@ func (ac *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 	if conditions {
 		return
 	}
-	acc, err := accController.CreateAccount(email, username, password)
+	_, err := accController.CreateAccount(email, username, password)
 	if err != nil {
 		json.NewEncoder(w).Encode(models.Exception{
 			Error:     configuration.ERROR_SERVICE_ACCOUNT,
@@ -78,7 +78,8 @@ func (ac *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 		})
 		return
 	}
-	json.NewEncoder(w).Encode(acc)
+	var HomeHandler HomeHandler
+	HomeHandler.Home(w, r)
 
 }
 
@@ -175,4 +176,27 @@ func (ac *AccountHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	api.SaveSession(nil, w, r)
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func (ac *AccountHandler) AddCommentTodays(w http.ResponseWriter, r *http.Request) {
+	comment := r.FormValue("comments")
+	id := r.FormValue("id")
+
+	var api controller.ApiController
+	seccion, err := api.GetSessionAccount(r)
+	if err != nil {
+		return
+	}
+	var accManager controller.AccountController
+	account, err := accManager.GetAccount(seccion.Email)
+	if err != nil {
+		return
+	}
+
+	comn, err := accManager.AddCommentTodays(id, comment, account)
+	if err != nil {
+		return
+	}
+
+	http.Redirect(w, r, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, *comn.TodaysID), http.StatusSeeOther)
 }

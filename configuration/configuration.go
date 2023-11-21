@@ -37,10 +37,15 @@ type Email struct {
 	SmtpServer   string `yaml:"SmtpServer"`
 }
 
+type Access struct {
+	AprovedTodays uint8 `yaml:"AprovedTodays"`
+}
+
 type Configuration struct {
 	DataBase DataBase `yaml:"DataBase"`
 	Server   Server   `yaml:"Server"`
 	Email    Email    `yaml:"Email"`
+	Access   Access   `yaml:"Access"`
 }
 
 func LoadConfiguration(fileName string) error {
