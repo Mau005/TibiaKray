@@ -40,6 +40,8 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/create_user", AccountHandler.CreateAccount).Methods("POST")
 	router.HandleFunc("/login", AccountHandler.Login).Methods("POST")
 	router.HandleFunc("/News", nil).Methods("GET")
+	var errHandler handler.ErrorHandler
+	router.NotFoundHandler = http.HandlerFunc(errHandler.DefaultError)
 	router.HandleFunc("/Todays", nil).Methods("GET")
 	router.HandleFunc("/Todays/{page}", nil).Methods("GET")
 	router.HandleFunc("/logout", AccountHandler.Logout).Methods("GET")

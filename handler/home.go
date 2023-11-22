@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"text/template"
 
+	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/models"
 	"github.com/gorilla/mux"
@@ -66,12 +67,19 @@ func (hh *HomeHandler) Todays(w http.ResponseWriter, r *http.Request) {
 }
 
 func (hh *HomeHandler) TodaysPost(w http.ResponseWriter, r *http.Request) {
-
+	var api controller.ApiController
+	sc := api.GetBaseWeb(r)
 	arg := mux.Vars(r)
+
+	var ErrorHandler ErrorHandler
 
 	idTodays, err := strconv.ParseUint(arg["id"], 10, 64)
 	if err != nil {
-		log.Println(err)
+		sc.NameButtonError = "Volver"
+		sc.MSGError = "No se puede procesar un ID tan grande"
+		sc.TitleError = "Error inesperado"
+		sc.RouterError = configuration.ROUTER_INDEX
+		ErrorHandler.PageError(w, r, sc)
 		return
 	}
 
@@ -87,8 +95,6 @@ func (hh *HomeHandler) TodaysPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	var api controller.ApiController
-	sc := api.GetBaseWeb(r)
 
 	todaysWeb := struct {
 		models.StructModel

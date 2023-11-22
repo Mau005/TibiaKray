@@ -25,11 +25,23 @@ const (
 )
 
 const (
+	//Path controller
 	IMAGEN_PATH = "data/image/todays"
 )
 
 const (
+	PATH_WEB_ERROR        = "static/error404.html"
+	PATH_WEB_ADMIN        = "static/admin.html"
+	PATH_WEB_INDEX        = "static/index.html"
+	PATH_WEB_MY_PROFILE   = "static/my_profile.html"
+	PATH_WEB_TODAYS       = "static/todays.html"
+	PATH_WEB_TODAYS_POST  = "static/todays_post.html"
+	PATH_WEB_UPLOAD_FILES = "static/upload_files.html"
+)
+
+const (
 	//router web
+	ROUTER_INDEX               = "/"
 	ROUTER_TODAYS_POST         = "/todays_post/%d"
 	ROUTER_TODAYS_POST_APROVED = "/auth/todays_aproved/%d"
 )
