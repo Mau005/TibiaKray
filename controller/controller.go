@@ -11,6 +11,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -20,7 +21,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var Lenguaje map[string]map[string]string = make(map[string]map[string]string) //load data
+var Lenguaje map[string]map[string]string = make(map[string]map[string]string)   //load data
+var LenguajeInternal map[string]map[int]string = make(map[string]map[int]string) //load data
+
 var ExtencionImage = map[string]bool{
 	"jpg":  true,
 	"jpeg": true,
@@ -69,6 +72,45 @@ func (ac *ApiController) InitLenguaje(path_file string) error {
 	return nil
 }
 
+func (ac *ApiController) InitLenguajeServer(path_file string) error {
+
+	file, err := os.Open(path_file)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	list_map := make([]string, 0, 5)
+	for {
+		record, e := reader.Read()
+		if e != nil {
+			break
+		}
+
+		if record[0] == "base" {
+			for _, value := range record {
+				LenguajeInternal[value] = make(map[int]string)
+				list_map = append(list_map, value)
+			}
+			continue
+		}
+
+		for index, value := range list_map {
+			//index, valor es, en
+			idVar, err := strconv.ParseInt(record[0], 10, 8)
+			if err != nil {
+				log.Println(err, idVar, record[0])
+				continue
+			}
+			//fmt.Println(fmt.Sprintf("KEY: |%d| Value: |%s|", int(idVar), record[index]))
+			LenguajeInternal[value][int(idVar)] = record[index]
+		}
+	}
+
+	return nil
+}
+
 func (ac *ApiController) CompareCryptPassword(password, passwordTwo string) error {
 	return bcrypt.CompareHashAndPassword([]byte(password), []byte(passwordTwo))
 }
@@ -80,6 +122,7 @@ func (ac *ApiController) generateClaims(account *models.Account) *models.Claims 
 		UserName:   account.Name,
 		Access:     account.Access,
 		StreamMode: account.StreamMode,
+		Lenguaje:   account.Languaje,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},
@@ -154,6 +197,13 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 	sc.Email = claims.Email
 	sc.Access = claims.Access
 	sc.StreamMode = claims.StreamMode
+
+	if claims.Lenguaje == "" {
+		sc.LenguajeDefault = "en"
+	} else {
+		sc.LenguajeDefault = claims.Lenguaje
+	}
+
 	//Configuration User Session
 	sc.Lenguaje = Lenguaje["en"] //posibilidad de usar las ips para identificar el pais para el idioma!
 	var accController AccountController
@@ -165,9 +215,15 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 	//Config Lenguaje
 
 	//End Lenguaje
-
-	sc.News = *News
-	sc.NewsTicket = *NewsTicket
+	fmt.Println(News)
+	if News != nil {
+		sc.News = *News
+	}
+	if NewsTicket != nil {
+		sc.NewsTicket = *NewsTicket
+	}
+	//
+	//
 	return sc
 }
 

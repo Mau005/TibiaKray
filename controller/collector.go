@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"log"
 	"strings"
 
 	"github.com/Mau005/KraynoSerer/configuration"
@@ -17,8 +18,9 @@ type CollectorController struct{}
 func (cc *CollectorController) GenerateNewsTibia() (err error) {
 	news, err := cc.GetNews()
 	if err != nil {
-		return err
+		log.Println(err)
 	}
+
 	News = &news
 
 	newsT, err := cc.GetNewsTickets()
@@ -97,6 +99,9 @@ func (cc *CollectorController) procesingNews(content []string) (newsT []models.N
 	}
 
 	newsT, err = cc.subProcesingNews(group)
+	if err != nil {
+		return newsT, err
+	}
 
 	return newsT, err
 }

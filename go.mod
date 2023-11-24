@@ -33,6 +33,7 @@ require (
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.24.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect

@@ -18,8 +18,12 @@ type AccountHandler struct{}
 func (ac *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("user")
 	password := r.FormValue("passworduser")
+	var ApiController controller.ApiController
+	sc := ApiController.GetBaseWeb(r)
+	var errHandler ErrorHandler
 
 	if email == "" || password == "" {
+		errHandler.PageErrorMSG(http.StatusNoContent, configuration.ErrorEmptyField, "", w, r, sc)
 		return
 	}
 
@@ -27,18 +31,12 @@ func (ac *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	token, err := accController.Login(email, password)
 	if err != nil {
-		json.NewEncoder(w).Encode(models.Exception{
-			Error:     configuration.ERROR_SERVICE_ACCOUNT,
-			Status:    http.StatusNetworkAuthenticationRequired,
-			Message:   configuration.ERROR_PRIVILEGES_GEN,
-			TimeStamp: time.Now(),
-		})
+		errHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPassword, "", w, r, sc)
 		return
 	}
 	var api controller.ApiController
 	api.SaveSession(&token, w, r)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
-	fmt.Println("Inicio Session")
 
 }
 
@@ -51,10 +49,18 @@ func (ac *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 	password := r.FormValue("password")
 
 	if policy != "on" {
+		var ApiController controller.ApiController
+		sc := ApiController.GetBaseWeb(r)
+		var errHandler ErrorHandler
+		errHandler.PageErrorMSG(http.StatusNotAcceptable, configuration.ErrorPolicies, "", w, r, sc)
 		return
 	}
 
 	if password == "" {
+		var ApiController controller.ApiController
+		sc := ApiController.GetBaseWeb(r)
+		var errHandler ErrorHandler
+		errHandler.PageErrorMSG(http.StatusNotAcceptable, configuration.ErrorEmptyField, "", w, r, sc)
 		return
 	}
 
@@ -78,8 +84,19 @@ func (ac *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) 
 		})
 		return
 	}
-	var HomeHandler HomeHandler
-	HomeHandler.Home(w, r)
+	token, err := accController.Login(email, password)
+	if err != nil {
+		json.NewEncoder(w).Encode(models.Exception{
+			Error:     configuration.ERROR_SERVICE_ACCOUNT,
+			Status:    http.StatusNetworkAuthenticationRequired,
+			Message:   configuration.ERROR_PRIVILEGES_GEN,
+			TimeStamp: time.Now(),
+		})
+		return
+	}
+	var api controller.ApiController
+	api.SaveSession(&token, w, r)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 
 }
 

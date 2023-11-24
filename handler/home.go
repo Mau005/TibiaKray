@@ -79,7 +79,7 @@ func (hh *HomeHandler) TodaysPost(w http.ResponseWriter, r *http.Request) {
 		sc.MSGError = "No se puede procesar un ID tan grande"
 		sc.TitleError = "Error inesperado"
 		sc.RouterError = configuration.ROUTER_INDEX
-		ErrorHandler.PageError(w, r, sc)
+		ErrorHandler.PageErrorStructModel(w, r, sc)
 		return
 	}
 

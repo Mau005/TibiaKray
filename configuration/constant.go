@@ -45,3 +45,15 @@ const (
 	ROUTER_TODAYS_POST         = "/todays_post/%d"
 	ROUTER_TODAYS_POST_APROVED = "/auth/todays_aproved/%d"
 )
+
+const (
+	//Var Multilenguaje
+	ErrorDefault = iota + 1
+	ErrorPassword
+	ErrorEmptyField
+	ErrorPrivileges
+	ErrorInternal
+	ErrorError
+	ErrorCode
+	ErrorPolicies
+)
