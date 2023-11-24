@@ -31,6 +31,11 @@ func main() {
 		log.Panic(err)
 	}
 
+	err = api.InitLenguajeServer("data/errorServer.csv")
+	if err != nil {
+		log.Panic(err)
+	}
+
 	err = database.ConnectionDataBase()
 	if err != nil {
 		log.Panic(err)
@@ -44,6 +49,7 @@ func main() {
 			}
 		}
 	*/
+
 	log.Println("Listening Server Run", fmt.Sprintf("%s:%d", conf.Config.Server.Ip, conf.Config.Server.Port))
 	log.Fatal(http.ListenAndServe(
 		fmt.Sprintf("%s:%d", conf.Config.Server.Ip, conf.Config.Server.Port),

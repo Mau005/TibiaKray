@@ -7,5 +7,6 @@ type Claims struct {
 	UserName   string
 	Access     uint8
 	StreamMode bool
+	Lenguaje   string
 	jwt.StandardClaims
 }

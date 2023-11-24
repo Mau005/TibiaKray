@@ -13,4 +13,5 @@ type StructModel struct {
 	RouterError     string
 	NameButtonError string
 	StreamMode      bool
+	LenguajeDefault string
 }

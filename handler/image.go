@@ -35,7 +35,8 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	acc, err := api.GetSessionAccount(r)
 	if err != nil {
 		//Problem Security solicitude log in web
-		log.Println("Usuario no se encuentra logueado no esta autorizado")
+		//var errorHandler ErrorHandler
+		//errorHandler.DefaultError()
 		return
 	}
 
@@ -46,6 +47,7 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 		"gif":  true,
 		"bmp":  true,
 	}
+
 	title := r.FormValue("title")
 	description := r.FormValue("description")
 	file, handler, err := r.FormFile("documents")
