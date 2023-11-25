@@ -37,6 +37,7 @@ const (
 	PATH_WEB_TODAYS       = "static/todays.html"
 	PATH_WEB_TODAYS_POST  = "static/todays_post.html"
 	PATH_WEB_UPLOAD_FILES = "static/upload_files.html"
+	PATH_WEB_SHARED_LOOT  = "static/shared_loot.html"
 )
 
 const (
