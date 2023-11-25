@@ -55,16 +55,15 @@ func (ac *ApiController) InitLenguaje(path_file string) error {
 		if err != nil {
 			break
 		}
-		content := strings.Split(record[0], ";")
-		if content[0] == "base" {
-			lenguajeList = content[0:]
-			for _, value := range content[0:] {
+		if record[0] == "base" {
+			lenguajeList = record[0:]
+			for _, value := range record[0:] {
 				Lenguaje[value] = make(map[string]string)
 			}
 		} else {
 			for index, value := range lenguajeList {
 				//fmt.Println(fmt.Sprintf("Idioma: %s Variable: %s Valor: %s", value, content[0], content[index]))
-				Lenguaje[value][content[0]] = content[index]
+				Lenguaje[value][record[0]] = record[index]
 			}
 		}
 	}
@@ -215,7 +214,6 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 	//Config Lenguaje
 
 	//End Lenguaje
-	fmt.Println(News)
 	if News != nil {
 		sc.News = *News
 	}

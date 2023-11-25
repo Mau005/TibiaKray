@@ -1,62 +1,63 @@
-base;en;es;br;pl
-title;Title;Título;Título;Tytuł
-news;News;Notícias;Notícias;Aktualności
-today;Today;Hoy;Hoje;Dzisiaj
-tools;Tools;Herramientas;Ferramentas;Narzędzia
-plusvoted;The Most Voted This Weeks;Los más votados esta semana;Os mais votados desta semana;Najczęściej głosowane w tym tygodniu
-login;Log In;Acceso;Conecte-se;Zaloguj sie
-register;Register;Registro;Registro;Rejestr
-remember;Remember Me;Acuérdate de mí;Lembre de mim;Zapamiętaj mnie
-password;Password;Contraseña;Senha;Hasło
-lostpassword;Lost Password;Contraseña perdida;Senha perdida;Zgubione hasło
-newpassword;Get New Password;Obtener nueva contraseña;Obtenha uma nova senha;Uzyskaj nowe hasło
-acceptpolicies;accept the policies of TibiaKray;aceptar las políticas de TibiaKray;aceite as políticas do TibiaKray;zaakceptuj politykę TibiaKray
-termservice;Terms of Service;Términos de servicio;Termos de serviço;Warunki usługi
-privacypolicy;Privacy Policy;política de privacidad;política de Privacidade;Polityka prywatności
-user;UserName;Nombre de usuario;Nome de usuário;Nazwa użytkownika
-repeat;Repeat;Repetir;Repita;Powtarzać
-myprofile;My Profile;Mi perfil;Meu perfil;Mój profil
-report;Report;Informe;Relatório;Raport
-forum;Forum;Foro;Fórum;Forum
-bossstrategy;Boss Strategy;Estrategia del jefe;Estratégia do Chefe;Strategia szefa
-imbuiments;Imbuiments;Imbumentos;Imbumentos;Nasycenia
-rashid;Rashid;Rashid;Rashid;Rashid
-sharedloot;Shared Loot;Botín compartido;Saque Compartilhado;Wspólny łup
-sharedexp;Shared Exp;Exp.compartida;Exp Compartilhada;Wspólne eksp
-tsbotsids;TSBots Ids;Identificadores de TSBots;IDs de TSBots;Identyfikatory TSBotów
-description;Description;Descripción;Descrição;Opis
-send;Send;Enviar;Enviar;Wysłać
-systemstreamen;Stream System Enabled;Sistema Stream Habilitado;Sistema Stream Habilitado;Habilitacja Sistema Stream
-modestream;Stream mode;Modo de transmisión;Modo de transmissão;Tryb strumieniowy
-es;Spanish;Español;Espanhol;hiszpański
-en;English;Inglés;Inglês;język angielski
-pl;Polish;Polaco;polonês;Polski
-br;Portuguese;portugués;Português;portugalski
-uploadimage;Upload image;Cargar Imagen;Cargar Imagem;Załaduj obrazek
-characters;Characters;Personajes;Personagens;Postacie
-messages;Messages;Mensajes;Mensagens;Wiadomości
-favoriteimages;Favorite Images;Imagenes Favoritas;Imagens favoritas;Ulubione obrazy
-friends;Friends;Amigos;Amigos;Przyjaciele
-notifications;Notifications;Notificaciones;Notificações;Powiadomienia
-myaccount;My account;Mi Cuenta;Minha conta;Moje konto
-setting;Setting;Configuración;Configuração;Ustawienie
-myprofile;My profile;Mi Perfil;Meu perfil;Mój profil
-language;Language;Idioma;Linguagem;Język
-changepassword;Change Password;Cambiar Contraseña;Alterar a senha;Zmień hasło
-newpassword;New Password;Nueva Contraseña;Nova Senha;nowe hasło
-repeatnewpassword;Repeat New Password;Repetir Nueva Contraseña;Repita a nova senha;Powtórz nowe hasło
-savechanges;Save Changes;Guardar cambios;Guardar mudanças;Zapisz zmiany
-uploadcontent;Upload Content;Subir Contenido;Carregar conteúdo;Prześlij zawartość
-tellusyourexperience;Tell us your experience;Cuéntanos tu experiencia;Conte-nos sua experiência;Opowiedz nam o swoim doświadczeniu
-uploadimage;Upload Image;Cargar imagen;Enviar Imagem;Załaduj obrazek
-authorizepost;Authorize Post;Autorizar publicación;Autorizar postagem;Autoryzuj pocztę
-deletepost;Delete post;Eliminar mensaje;Apague a postagem;Usuń post
-tocommentyouneedtoberegistered;To comment you need to be registered;Para comentar es necesario estar registrado;Para comentar você precisa estar cadastrado;Aby móc komentować musisz się zarejestrować
-published;Published;Publicado;Publicados;Opublikowany
-writtenby;Written by;Escrito por;Escrito por;Scenariusz
-view;View;Vista;Visualizar;Pogląd
-comments;Comments;Comentarios;Comentários;Uwagi
-voted;Voted;Votado;Votado;Zagłosowano
-postyourcomment;Post your comment;Publica tu comentario;Poste seu comentário;Opublikuj swój komentarz
-postcomment;Post Comment;publicar comentario;Postar comentário;Wyślij komentarz
-message;Message;Mensaje;Mensagem;Wiadomość
+base,en,es,br,pl
+title,Title,Título,Título,Tytuł
+news,News,Notícias,Notícias,Aktualności
+today,Today,Hoy,Hoje,Dzisiaj
+tools,Tools,Herramientas,Ferramentas,Narzędzia
+plusvoted,The Most Voted This Weeks,Los más votados esta semana,Os mais votados desta semana,Najczęściej głosowane w tym tygodniu
+login,Log In,Acceso,Conecte-se,Zaloguj sie
+register,Register,Registro,Registro,Rejestr
+remember,Remember Me,Acuérdate de mí,Lembre de mim,Zapamiętaj mnie
+password,Password,Contraseña,Senha,Hasło
+lostpassword,Lost Password,Contraseña perdida,Senha perdida,Zgubione hasło
+newpassword,Get New Password,Obtener nueva contraseña,Obtenha uma nova senha,Uzyskaj nowe hasło
+acceptpolicies,accept the policies of TibiaKray,aceptar las políticas de TibiaKray,aceite as políticas do TibiaKray,zaakceptuj politykę TibiaKray
+termservice,Terms of Service,Términos de servicio,Termos de serviço,Warunki usługi
+privacypolicy,Privacy Policy,política de privacidad,política de Privacidade,Polityka prywatności
+user,UserName,Nombre de usuario,Nome de usuário,Nazwa użytkownika
+repeat,Repeat,Repetir,Repita,Powtarzać
+myprofile,My Profile,Mi perfil,Meu perfil,Mój profil
+report,Report,Informe,Relatório,Raport
+forum,Forum,Foro,Fórum,Forum
+bossstrategy,Boss Strategy,Estrategia del jefe,Estratégia do Chefe,Strategia szefa
+imbuiments,Imbuiments,Imbumentos,Imbumentos,Nasycenia
+rashid,Rashid,Rashid,Rashid,Rashid
+sharedloot,Shared Loot,Botín compartido,Saque Compartilhado,Wspólny łup
+sharedexp,Shared Exp,Exp.compartida,Exp Compartilhada,Wspólne eksp
+tsbotsids,TSBots Ids,Identificadores de TSBots,IDs de TSBots,Identyfikatory TSBotów
+description,Description,Descripción,Descrição,Opis
+send,Send,Enviar,Enviar,Wysłać
+systemstreamen,Stream System Enabled,Sistema Stream Habilitado,Sistema Stream Habilitado,Habilitacja Sistema Stream
+modestream,Stream mode,Modo de transmisión,Modo de transmissão,Tryb strumieniowy
+es,Spanish,Español,Espanhol,hiszpański
+en,English,Inglés,Inglês,język angielski
+pl,Polish,Polaco,polonês,Polski
+br,Portuguese,portugués,Português,portugalski
+uploadimage,Upload image,Cargar Imagen,Cargar Imagem,Załaduj obrazek
+characters,Characters,Personajes,Personagens,Postacie
+messages,Messages,Mensajes,Mensagens,Wiadomości
+favoriteimages,Favorite Images,Imagenes Favoritas,Imagens favoritas,Ulubione obrazy
+friends,Friends,Amigos,Amigos,Przyjaciele
+notifications,Notifications,Notificaciones,Notificações,Powiadomienia
+myaccount,My account,Mi Cuenta,Minha conta,Moje konto
+setting,Setting,Configuración,Configuração,Ustawienie
+myprofile,My profile,Mi Perfil,Meu perfil,Mój profil
+language,Language,Idioma,Linguagem,Język
+changepassword,Change Password,Cambiar Contraseña,Alterar a senha,Zmień hasło
+newpassword,New Password,Nueva Contraseña,Nova Senha,nowe hasło
+repeatnewpassword,Repeat New Password,Repetir Nueva Contraseña,Repita a nova senha,Powtórz nowe hasło
+savechanges,Save Changes,Guardar cambios,Guardar mudanças,Zapisz zmiany
+uploadcontent,Upload Content,Subir Contenido,Carregar conteúdo,Prześlij zawartość
+tellusyourexperience,Tell us your experience,Cuéntanos tu experiencia,Conte-nos sua experiência,Opowiedz nam o swoim doświadczeniu
+uploadimage,Upload Image,Cargar imagen,Enviar Imagem,Załaduj obrazek
+authorizepost,Authorize Post,Autorizar publicación,Autorizar postagem,Autoryzuj pocztę
+deletepost,Delete post,Eliminar mensaje,Apague a postagem,Usuń post
+tocommentyouneedtoberegistered,To comment you need to be registered,Para comentar es necesario estar registrado,Para comentar você precisa estar cadastrado,Aby móc komentować musisz się zarejestrować
+published,Published,Publicado,Publicados,Opublikowany
+writtenby,Written by,Escrito por,Escrito por,Scenariusz
+view,View,Vista,Visualizar,Pogląd
+comments,Comments,Comentarios,Comentários,Uwagi
+voted,Voted,Votado,Votado,Zagłosowano
+postyourcomment,Post your comment,Publica tu comentario,Poste seu comentário,Opublikuj swój komentarz
+postcomment,Post Comment,publicar comentario,Postar comentário,Wyślij komentarz
+message,Message,Mensaje,Mensagem,Wiadomość
+rulesimages,"This content has to be approved by an administrator. Please wait, I can share this link if you like, but it will not be shown on the main page yet.","Este contenido tiene que ser aprobado por un administrador, Por favor espere, pude compartir este enlace si gusta, pero en la pagina principal aun no sera mostrada","Este conteúdo precisa ser aprovado por um administrador. Aguarde, posso compartilhar este link se você quiser, mas ele ainda não será exibido na página principal.","Ta treść musi zostać zatwierdzona przez administratora. Proszę czekać, mogę udostępnić ten link, jeśli chcesz, ale nie będzie on jeszcze wyświetlany na stronie głównej."

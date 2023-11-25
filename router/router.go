@@ -46,6 +46,10 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/Todays/{page}", nil).Methods("GET")
 	router.HandleFunc("/logout", AccountHandler.Logout).Methods("GET")
 
+	var toolshandler handler.ToolsHandler
+	router.HandleFunc("/shared_loot", toolshandler.SharedLootHandler).Methods("GET")
+	router.HandleFunc("/shared_loot", toolshandler.SharedLootProcess).Methods("POST")
+
 	security := router.PathPrefix("/auth").Subrouter()
 	security.Use(middleware.CommonMiddleware)
 	security.Use(middleware.SessionMiddleware)
