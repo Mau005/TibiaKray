@@ -12,7 +12,7 @@ import (
 
 type ToolsHandler struct{}
 
-func (th *ToolsHandler) SharedExpHandler(w http.ResponseWriter, r *http.Request) {
+func (th *ToolsHandler) SharedLootHandler(w http.ResponseWriter, r *http.Request) {
 	var api controller.ApiController
 	sm := api.GetBaseWeb(r)
 
@@ -25,7 +25,7 @@ func (th *ToolsHandler) SharedExpHandler(w http.ResponseWriter, r *http.Request)
 
 }
 
-func (th *ToolsHandler) SharedExpProcess(w http.ResponseWriter, r *http.Request) {
+func (th *ToolsHandler) SharedLootProcess(w http.ResponseWriter, r *http.Request) {
 
 	data := r.FormValue("message")
 	if data == "" {
@@ -34,7 +34,7 @@ func (th *ToolsHandler) SharedExpProcess(w http.ResponseWriter, r *http.Request)
 	}
 	var toolsManager controller.ToolsController
 
-	err := toolsManager.SharedLoot(data, nil)
+	err := toolsManager.SharedLoot(data)
 	if err != nil {
 		log.Println(err)
 	}
