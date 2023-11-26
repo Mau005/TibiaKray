@@ -46,15 +46,15 @@ func (tc *ToolsController) SharedLoot(content string) error {
 
 	}
 	sub_total := 0
-	for _, characterHight := range lootHight {
-		for _, characterLow := range lootLow {
-			if characterHight.Balance == 0 {
+	for indexHight, characterHight := range lootHight {
+		for indexLow, characterLow := range lootLow {
+			if characterHight.Balance == 0 || characterLow.Balance == 0 {
 				continue
 			}
-			fmt.Printf("Hight: %d Low:%d\n", characterHight.Balance, characterLow.Balance)
+			//fmt.Printf("Hight: %d Low:%d\n", characterHight.Balance, characterLow.Balance)
 			residuo := characterHight.Balance + characterLow.Balance
 			pagar := characterLow.Balance
-			fmt.Println("Residuo ", residuo)
+			//fmt.Println("Residuo ", residuo)
 			if residuo >= 0 {
 				pagar = -characterHight.Balance
 				characterLow.Balance = residuo
@@ -64,6 +64,9 @@ func (tc *ToolsController) SharedLoot(content string) error {
 				characterLow.Balance = 0
 				characterHight.Balance = residuo
 			}
+			lootHight[indexHight] = characterHight
+			lootLow[indexLow] = characterLow
+
 			fmt.Printf("%s tiene que pagarle a %s un total de: %d\n", characterHight.Name, characterLow.Name, pagar)
 
 		}
