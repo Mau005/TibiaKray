@@ -125,6 +125,14 @@ func (tc *ToolsController) PreparingSharedLoot(content string) (SharedLoot, erro
 			break
 		}
 		name := tc.NormalizeString(character_content["characters"][Name+i], normalize)
+		leader := " (Leader)"
+		if len(name) >= len(leader){
+		  captured := name[len(name)-len(leader):]
+		  fmt.Printf("Captured: |%s|/n",captured)
+		  if captured == leader{
+		    name = strings.Trim(name[:len(name)-len(leader)], " ")
+		  }
+		}
 		loot := tc.normalizeStrInt(1, character_content["characters"][Loot+i], ":", normalize)
 		supplies := tc.normalizeStrInt(1, character_content["characters"][Supplies+i], ":", normalize)
 		balance := tc.normalizeStrInt(1, character_content["characters"][Balance+i], ":", normalize)
