@@ -177,3 +177,14 @@ func (tc *ToolsController) NormalizeString(content string, removeList []string) 
 	}
 	return strings.Trim(content, " ")
 }
+
+func (tc *ToolsController) SharedExp(level string) (string, error){
+  levelBase, err := strconv.ParseInt(level, 10, 32)
+  if err != nil || levelBase == 0 {
+    return "", err
+  }
+  porcent := levelBase / 3
+  min := levelBase - porcent
+  max := (min * 1.5) + levelBase
+  return fmt.Sprintf("Min: %d, Max: %d", min, max), nil
+}
