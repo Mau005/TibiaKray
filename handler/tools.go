@@ -39,7 +39,8 @@ func (th *ToolsHandler) SharedLootProcess(w http.ResponseWriter, r *http.Request
 		log.Println(err)
 	}
   w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode("Protocol converted not using")
+  w.WriteHeader(http.StatusNotAcceptable)
+	json.NewEncoder(w).Encode("Protocol not support")
 
 }
 
