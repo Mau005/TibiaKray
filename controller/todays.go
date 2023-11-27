@@ -62,3 +62,18 @@ func (tc *TodaysController) GetTodaysLobby() (todays []models.Todays, err error)
 	}
 	return todays, nil
 }
+
+func (tc *TodaysController) GetTodayPage(page int) (photos []models.Todays, err error) {
+	offset := (page - 1) * 4
+	limit := 4
+
+	if err := database.DB.Preload("Files").Preload("Comments.Account", func(db *gorm.DB) *gorm.DB {
+		return db.Select("id, name, email, access")
+	}).Preload("Account", func(db *gorm.DB) *gorm.DB {
+		return db.Select("id, name, email, access")
+	}).Where("status = 1").Offset(offset).Limit(limit).Find(&photos).Error; err != nil {
+		return photos, err
+	}
+
+	return photos, err
+}

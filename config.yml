@@ -5,7 +5,7 @@ DataBase:
   Password: 12345
   NameDB: Kry
   SqlitePath: Kry.db
-  Engine: mysql
+  Engine: sqlite
 Server:
   Ip: 127.0.0.1
   Port: 8000

@@ -23,7 +23,11 @@ func NewRouter() *mux.Router {
 	var HomeHandler handler.HomeHandler
 	router.HandleFunc("/", HomeHandler.Home).Methods("GET")
 	router.HandleFunc("/todays", HomeHandler.Todays).Methods("GET")
+
 	router.HandleFunc("/todays_post/{id}", HomeHandler.TodaysPost).Methods("GET")
+
+	var imageHandler handler.ImageHandler
+	router.HandleFunc("/todays/{page}", imageHandler.GetPhotosHandler).Methods("GET")
 
 	router.HandleFunc("/404", handler.Page404).Methods("GET")
 	router.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
@@ -42,8 +46,6 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/News", nil).Methods("GET")
 	var errHandler handler.ErrorHandler
 	router.NotFoundHandler = http.HandlerFunc(errHandler.DefaultError)
-	router.HandleFunc("/Todays", nil).Methods("GET")
-	router.HandleFunc("/Todays/{page}", nil).Methods("GET")
 	router.HandleFunc("/logout", AccountHandler.Logout).Methods("GET")
 
 	var toolshandler handler.ToolsHandler

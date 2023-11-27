@@ -111,13 +111,13 @@
                             <img src="/static/assets/images/logo.png" alt="" width="90">
                         </a>
                         <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
-                            <li class="active">
+                            <li class="">
                                 <a href="/"> {{.Lenguaje.news}}</a>
                             </li>
                             <li class="">
                                 <a href="/todays">{{.Lenguaje.today}}</a>
                             </li>
-                            <li class="">
+                            <li class="active">
                                 <a href="/tools">{{.Lenguaje.tools}}</a>
                             </li>
                         </ul>
@@ -290,7 +290,7 @@
             <div class="container">
                 <div class="nk-gap-4"></div>
                 <div class="text-center">
-                    <h2 class="nk-title display-4">{{.Lenguaje.news}}</h2>
+                    <h2 class="nk-title display-4">{{.Lenguaje.sharedloot}}</h2>
                 </div>
             </div>
             <div class="container">
@@ -335,12 +335,12 @@
                     <div class="col-lg-4">
                         <div class="nk-box-3 bg-dark-1">
                             <div class="nk-widget">
-                                <h4 class="nk-widget-title">Players Shared:</h4>
+                                <h4 class="nk-widget-title">{{.Lenguaje.sharedplayer}}:</h4>
                                 <div>
                                     <ul class="nk-widget-categories">
                                         {{ if eq (len .ProcesingData) 0 }}
                                         <li>
-                                            <a>Aun no has procesado nada</a>
+                                            <a>{{.Lenguaje.notprocesing}}</a>
                                         </li>
                                         {{else}}
                                             {{range $key, $value := .ProcesingData}}

@@ -172,12 +172,18 @@ func (tc *ToolsController) NormalizeString(content string, removeList []string) 
 	return strings.Trim(content, " ")
 }
 
-func (tc *ToolsController) SharedExp(level string) (string, error) {
+func (tc *ToolsController) SharedExp(level string, sm models.StructModel) (string, error) {
 	levelBase, err := strconv.ParseInt(level, 10, 32)
 	if err != nil || levelBase == 0 {
 		return "", err
 	}
 	max := int(math.Round(float64(levelBase) * 1.5))
 	min := int(math.Round(float64(levelBase) / 1.5))
-	return fmt.Sprintf("Min: %d, Max: %d", min, max), nil
+
+	return fmt.Sprintf("%s: %d, %s: %d", Lenguaje[sm.LenguajeDefault]["min"], min, Lenguaje[sm.LenguajeDefault]["max"], max), nil
+}
+
+func (tc *ToolsController) Rashid() string {
+
+	return ""
 }

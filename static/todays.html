@@ -288,66 +288,15 @@
                 <div class="nk-gap-4"></div>
                 <!-- START: Posts List -->
                 <div class="nk-blog-list">
-                    <!-- START: Post -->
-                    {{range $index, $today := .Todays}}
-                        <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                            <div class="nk-post-thumb">
-                                {{ if eq (len $today.Files) 1 }}
-                                    {{range $today.Files}}
-                                    <a href="/todays_post/{{$today.ID}}">
-                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                    </a>
-                                    {{end}}
-                                {{ else }}
-                                    {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}
-                                    <div class="nk-carousel-2" data-arrows="true">
-                                        <div class="nk-carousel-inner">
-                                    {{range .Files}}
-                                            <div>
-                                                <div>
-                                                    <a href="/todays_post/{{$today.ID}}">
-                                                    <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                                </a>
-                                                </div>
-                                            </div>
-                                    {{end}}
-                                        </div>
-                                    </div> 
-                                {{ end }}
-                            </div>
-                            <div class="nk-post-content">
-                                <div data-mouse-parallax-z="2">
-                                    <h2 class="nk-post-title h1">
-                                        <a>{{.Title}}</a>
-                                    </h2>
-                                    <div class="nk-post-date"> {{.Description}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    {{end}}
-                    <!-- END: Post -->
-                    <!-- START: Post -->
-                    <div class="nk-pagination nk-pagination-center">
-                        <a href="#" class="nk-btn nk-btn-lg nk-btn-circle">Load More ...</a>
+                    <div  id="photo-container">
+
                     </div>
-                    <!-- END: Pagination -->
+                    <!-- Tu código HTML existente aquí -->
                 </div>
                 <!-- END: Posts List -->
                 <div class="nk-gap-4"></div>
                 <div class="nk-gap-3"></div>
             </div>
-            <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
-                <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
-                <div class="container">
-                    <div class="nk-gap-2"></div>
-                    <div class="nk-gap"></div>
-                    <p> &copy; 2023 AinhoSoft.</p>
-                    <div class="nk-footer-links">
-                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}</a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
-                    </div>
-                    <div class="nk-gap-4"></div>
-                </div>
-            </footer>
             <!-- END: Footer -->
         </div>
         <!--
@@ -494,6 +443,104 @@
         <!-- GODLIKE -->
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Tu script aquí
+                let page = 1;
+        
+                const loadPhotos = async () => {
+                    const response = await fetch(`/todays/${page}`);
+                    const todays = await response.json();
+        
+                    const photoContainer = document.getElementById('photo-container');
+        
+                    todays.forEach(today => {
+                        const photoHTML = generatePhotoHTML(today);
+                        photoContainer.innerHTML += photoHTML;
+                    });
+        
+                    page++; // Incrementa el número de página para la próxima carga
+                };
+        
+                const generatePhotoHTML = (today) => {
+                    let photoHTML = ``;
+                    if (today.Files.length == 1){
+                        photoHTML += `
+                            <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
+                                <div class="nk-post-thumb">
+                                    <a href="/todays_post/${today.ID}">
+                                        <img src="/image/${today.Files[0].PathConsume}" alt="" class="nk-img-stretch">
+                                    </a>
+                                </div>  
+                                <div class="nk-post-content">
+                                    <div data-mouse-parallax-z="2">
+                                        <h2 class="nk-post-title h1">
+                                            <a>${today.Title}</a>
+                                        </h2>
+                                        <div class="nk-post-date">${today.Description}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }else{
+                        photoHTML += `
+                        <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
+                            <div class="nk-post-thumb">
+                                <div class="nk-carousel-2" data-arrows="true">
+                                    <div class="nk-carousel-inner">
+                                        
+                        `
+                        today.Files.forEach(file =>{
+                            photoHTML += `
+                                        <div>
+                                            <a href="/todays_post/${today.ID}">
+                                                <img src="/image/${file.PathConsume}" alt="" class="nk-img-stretch">
+                                            </a>
+                                        </div>
+                                `;
+                        });
+                        photoHTML += `
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nk-post-content">
+                                <div data-mouse-parallax-z="2">
+                                    <h2 class="nk-post-title h1">
+                                        <a>${today.Title}</a>
+                                    </h2>
+                                    <div class="nk-post-date">${today.Description}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        `
+    
+                    }
+                    
+                    console.log('Esto: ', today);
+                   
+                    return photoHTML;
+                };
+                
+        
+                // Carga fotos iniciales al cargar la página
+                window.onload = loadPhotos;
+                
+        
+                // Carga más fotos cuando el usuario baja la página
+                window.onscroll = () => {
+                    const loadMoreContainer = document.getElementById('load-more-container');
+                    const loadMoreBtn = document.getElementById('load-more-btn');
+        
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                        loadPhotos();
+                    }
+                    
+                };
+                
+            });
+            
+            </script>
         <!-- END: Scripts -->
     </body>
 </html>

@@ -96,9 +96,12 @@ func (th *ToolsHandler) SharedExpProcess(w http.ResponseWriter, r *http.Request)
 	var toolsManager controller.ToolsController
 	level := r.FormValue("lvl")
 
+	var api controller.ApiController
+	sc := api.GetBaseWeb(r)
+
 	w.Header().Add("Content-Type", "application/json")
 
-	lvl, err := toolsManager.SharedExp(level)
+	lvl, err := toolsManager.SharedExp(level, sc)
 	if err != nil {
 		json.NewEncoder(w).Encode(Response{Error: err.Error()})
 		return

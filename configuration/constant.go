@@ -59,4 +59,5 @@ const (
 	ErrorError
 	ErrorCode
 	ErrorPolicies
+	NotAuthorized
 )

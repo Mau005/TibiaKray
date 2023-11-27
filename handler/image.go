@@ -1,17 +1,20 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/models"
+	"github.com/gorilla/mux"
 )
 
 type ImageHandler struct{}
@@ -121,4 +124,17 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, *enc.TodaysID), http.StatusSeeOther)
 
+}
+
+func (su *ImageHandler) GetPhotosHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	page, err := strconv.Atoi(vars["page"])
+	if err != nil {
+		http.Error(w, "Invalid page number", http.StatusBadRequest)
+		return
+	}
+
+	var todaysManager controller.TodaysController
+	photos, err := todaysManager.GetTodayPage(page)
+	json.NewEncoder(w).Encode(photos)
 }

@@ -1,13 +1,11 @@
 package middleware
 
 import (
-	"encoding/json"
 	"net/http"
-	"time"
 
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
-	"github.com/Mau005/KraynoSerer/models"
+	"github.com/Mau005/KraynoSerer/handler"
 )
 
 func CommonMiddleware(next http.Handler) http.Handler {
@@ -30,28 +28,18 @@ func SessionMiddleware(next http.Handler) http.Handler {
 		}
 		var api controller.ApiController
 		if tokenStr, ok := session.Values["token"].(string); !ok {
-			w.WriteHeader(http.StatusNetworkAuthenticationRequired)
-			json.NewEncoder(w).Encode(models.Exception{
-				Error:         configuration.ERROR_SERVICE_ACCOUNT,
-				Status:        http.StatusNetworkAuthenticationRequired,
-				Message:       configuration.ERROR_PRIVILEGES_GEN,
-				TimeStamp:     time.Now(),
-				TransactionId: "1",
-				CorrelationId: "1",
-			})
+			var api controller.ApiController
+			sc := api.GetBaseWeb(r)
+			var ErrorHandler handler.ErrorHandler
+			ErrorHandler.PageErrorMSG(http.StatusNetworkAuthenticationRequired, configuration.NotAuthorized, configuration.ROUTER_INDEX, w, r, sc)
 			return
 		} else {
 			err = api.AuthenticateJWT(tokenStr)
 			if err != nil {
-				w.WriteHeader(http.StatusNetworkAuthenticationRequired)
-				json.NewEncoder(w).Encode(models.Exception{
-					Error:         configuration.ERROR_SERVICE_ACCOUNT,
-					Status:        http.StatusNetworkAuthenticationRequired,
-					Message:       configuration.ERROR_PRIVILEGES_GEN,
-					TimeStamp:     time.Now(),
-					TransactionId: "1",
-					CorrelationId: "1",
-				})
+				var api controller.ApiController
+				sc := api.GetBaseWeb(r)
+				var ErrorHandler handler.ErrorHandler
+				ErrorHandler.PageErrorMSG(http.StatusNetworkAuthenticationRequired, configuration.NotAuthorized, configuration.ROUTER_INDEX, w, r, sc)
 				return
 			}
 
