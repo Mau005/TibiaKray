@@ -39,6 +39,7 @@ const (
 	PATH_WEB_UPLOAD_FILES = "static/upload_files.html"
 	PATH_WEB_SHARED_LOOT  = "static/shared_loot.html"
 	PATH_WEB_TOOLS        = "static/tools.html"
+	PATH_WEB_SHARED_EXP   = "static/shared_exp.html"
 )
 
 const (

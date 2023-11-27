@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"html/template"
 	"log"
 	"net/http"
@@ -72,4 +73,36 @@ func (th *ToolsHandler) ToolsHandlerItems(w http.ResponseWriter, r *http.Request
 		log.Println(err)
 	}
 	template.Execute(w, sm)
+}
+
+func (th *ToolsHandler) SharedExpHanlder(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_SHARED_EXP)
+	if err != err {
+		log.Println(err)
+		return
+	}
+	template.Execute(w, sm)
+}
+
+type Response struct {
+	Message string `json:"message"`
+	Error   string `json:"error"`
+}
+
+func (th *ToolsHandler) SharedExpProcess(w http.ResponseWriter, r *http.Request) {
+	var toolsManager controller.ToolsController
+	level := r.FormValue("lvl")
+
+	w.Header().Add("Content-Type", "application/json")
+
+	lvl, err := toolsManager.SharedExp(level)
+	if err != nil {
+		json.NewEncoder(w).Encode(Response{Error: err.Error()})
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(Response{Message: lvl})
 }

@@ -63,7 +63,8 @@
             <div class="nk-preloader-skip">Skip</div>
         </div>
 
-        <div class="nk-page-background op-5" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
+        <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
+        
         <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
         <!-- END: Page Background -->
         <!-- START: Page Border -->
@@ -104,7 +105,7 @@
                             <img src="/static/assets/images/logo.png" alt="" width="90">
                         </a>
                         <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
-                            <li class="">
+                            <li class="active">
                                 <a href="/"> {{.Lenguaje.news}}</a>
                             </li>
                             <li class="">
@@ -190,9 +191,15 @@
                         </div>
                         <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
                             <ul class="nk-nav">
+                                {{if eq .UserName ""}}
+                                <li class=" ">
+                                    <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
+                                </li>
+                                {{else}}
                                 <li class=" ">
                                     <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
                                 </li>
+                                {{end}}
                                 <li class=" ">
                                     <a href="/report">{{.Lenguaje.report}}</a>
                                 </li>
@@ -212,7 +219,7 @@
                                             <a href="/rashid"> {{.Lenguaje.rashid}}</a>
                                         </li>
                                         <li class=" ">
-                                            <a href="/sharedloot"> {{.Lenguaje.sharedloot}}</a>
+                                            <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
                                         </li>
                                         <li class=" ">
                                             <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
@@ -222,6 +229,12 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {{if eq .UserName ""}}
+                                {{else}}
+                                    <li class=" ">
+                                        <a href="/logout">Desconectarse</a>
+                                    </li>
+                                {{end}}
                                 {{if ge .Access  3 }}
                                 <li class=" ">
                                     <a href="/auth/admin">Admin</a>
@@ -252,7 +265,7 @@
         <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
             <div class="nano">
                 <div class="nano-content">
-                    <a href="index.html" class="nk-nav-logo">
+                    <a href="/" class="nk-nav-logo">
                         <img src="/static/assets/images/logo.png" alt="" width="90">
                     </a>
                     <div class="nk-navbar-mobile-content">
@@ -265,49 +278,36 @@
         </div>
         <!-- END: Navbar Mobile -->
         <!-- Daily Image fun-->
+
         <div class="nk-main">
+            <div class="text-center">
+                <h2 class="nk-title display-3">{{.Lenguaje.sharedexp}}</h2>
+            </div>
             <div class="container">
-                <div class="nk-gap-4"></div>
-                <div class="nk-store">
-                    <!-- START: Products List -->
-                    <div class="row no-gutters">
-                        <div class="col-sm-6 col-lg-4">
-                            <!-- START: Product -->
-                            <div class="nk-product" data-mouse-parallax-z="2">
-                                <div>
-                                    <div class="nk-carousel-3" data-size="1" data-mouse-parallax-z="3">
-                                        <div>
-                                            <img class="nk-img-stretch" src="static/assets/images-svg/shared_loot.svg" width="400" height="508" alt="Women Tshirt">
-                                        </div>
-                                    </div>
-                                    <h2 class="nk-product-title h5" data-mouse-parallax-z="1"><a href="/shared_loot">{{.Lenguaje.sharedloot}}</a></h2>
-                                    <a>{{.Lenguaje.descriptionsharedloot}}</a>
-                                    <div class="nk-product-bottom">
-                                        
-                                        <div>
-                                            <a href="/shared_loot">{{.Lenguaje.getin}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END: Product -->
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="nk-box-3 bg-dark-1">
+                            <h2 class="nk-title h3 text-center">{{.Lenguaje.sharedexp}}</h2>
+                            <div class="nk-gap-2"></div>
+                            <form id="form-sharedexp" class="nk-form nk-form-style-1">
+                                <input type="number" class="form-control required" name="lvl" id = "lvl" placeholder="LVL *">
+                                <div class="nk-gap-1"></div>
+                                <span id="msg"></span>
+                                <div class="nk-gap-1"></div>
+                                <button class="nk-btn link-effect-4" onclick="checkAnswer(event)">{{.Lenguaje.send}}</button>
+                            </form>
                         </div>
                     </div>
-                    <!-- END: Products List -->
-                    <div class="nk-gap-5"></div>
-                    <!-- START: Pagination -->
-                    <!-- END: Pagination -->
                 </div>
-                <div class="nk-gap-4"></div>
-                <div class="nk-gap-3"></div>
             </div>
             
-            <!-- START: Footer -->
-            <!--
-    Additional Classes:
-        .nk-footer-parallax
-        .nk-footer-parallax-opacity
--->
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
                 <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
                 <div class="container">
@@ -450,6 +450,33 @@
         <!-- GODLIKE -->
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
+        <script>
+            function checkAnswer(event) {
+                event.preventDefault();
+                // Obtén el valor del campo de nivel (lvl)
+                var lvlValue = $("#lvl").val();
+        
+                // Realiza una solicitud AJAX al servidor
+                $.ajax({
+                    type: "POST",
+                    url: "/sharedexp", // Reemplaza con la URL de tu servidor
+                    data: { lvl: lvlValue },
+                    success: function(response) {
+                        // Maneja la respuesta del servidor
+                        var msgElement = $("#msg");
+                        if (response.error) {
+                            msgElement.text("Error: " + response.error).css("color", "red");
+                        } else {
+                            msgElement.text(response.message).css("color", "green");
+                        }
+                    },
+                    error: function(error) {
+                        // Maneja errores en la solicitud AJAX
+                        console.error("Error en la solicitud AJAX: ", error);
+                    }
+                });
+            }
+        </script>
         <!-- END: Scripts -->
     </body>
 </html>

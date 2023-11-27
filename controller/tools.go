@@ -3,6 +3,7 @@ package controller
 import (
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 
@@ -176,8 +177,7 @@ func (tc *ToolsController) SharedExp(level string) (string, error) {
 	if err != nil || levelBase == 0 {
 		return "", err
 	}
-	porcent := levelBase / 3
-	min := levelBase - porcent
-	max := int64(float64(min)*1.5) + levelBase
+	max := int(math.Round(float64(levelBase) * 1.5))
+	min := int(math.Round(float64(levelBase) / 1.5))
 	return fmt.Sprintf("Min: %d, Max: %d", min, max), nil
 }
