@@ -1,16 +1,22 @@
 package handler
 
 import (
-	"encoding/json"
 	"html/template"
 	"log"
 	"net/http"
 
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
+	"github.com/Mau005/KraynoSerer/models"
 )
 
 type ToolsHandler struct{}
+
+type SharedLootController struct {
+	models.StructModel
+	SharedLootHight models.SharedLoot
+	ProcesingData   map[string][]string
+}
 
 func (th *ToolsHandler) SharedLootHandler(w http.ResponseWriter, r *http.Request) {
 	var api controller.ApiController
@@ -21,29 +27,49 @@ func (th *ToolsHandler) SharedLootHandler(w http.ResponseWriter, r *http.Request
 		log.Println(err)
 		return
 	}
-	template.Execute(w, sm)
-
+	template.Execute(w, SharedLootController{StructModel: sm, SharedLootHight: configuration.SharedLootHightNow})
 }
 
 func (th *ToolsHandler) SharedLootProcess(w http.ResponseWriter, r *http.Request) {
-
 	data := r.FormValue("message")
-	if data == "" {
+	var api controller.ApiController
 
+	sm := api.GetBaseWeb(r)
+	template, err := template.ParseFiles(configuration.PATH_WEB_SHARED_LOOT)
+	if err != err {
+		log.Println(err)
+		return
+	}
+
+	if data == "" {
+		sm.MSGError = "Protocolo No Sportado"
+		template.Execute(w, SharedLootController{StructModel: sm, SharedLootHight: configuration.SharedLootHightNow})
 		return
 	}
 	var toolsManager controller.ToolsController
 
-	err := toolsManager.SharedLoot(data)
+	_, sharedMap, err := toolsManager.SharedLoot(data)
 	if err != nil {
-		log.Println(err)
+		sm.MSGError = err.Error()
+		template.Execute(w, SharedLootController{StructModel: sm, SharedLootHight: configuration.SharedLootHightNow})
+		return
 	}
-  w.Header().Set("Content-Type", "application/json")
-  w.WriteHeader(http.StatusNotAcceptable)
-	json.NewEncoder(w).Encode("Protocol not support")
+
+	template.Execute(w, SharedLootController{StructModel: sm, SharedLootHight: configuration.SharedLootHightNow, ProcesingData: sharedMap})
 
 }
 
 /*
 
  */
+
+func (th *ToolsHandler) ToolsHandlerItems(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_TOOLS)
+	if err != nil {
+		log.Println(err)
+	}
+	template.Execute(w, sm)
+}

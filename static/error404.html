@@ -191,9 +191,15 @@
                         </div>
                         <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
                             <ul class="nk-nav">
+                                {{if eq .UserName ""}}
+                                <li class=" ">
+                                    <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
+                                </li>
+                                {{else}}
                                 <li class=" ">
                                     <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
                                 </li>
+                                {{end}}
                                 <li class=" ">
                                     <a href="/report">{{.Lenguaje.report}}</a>
                                 </li>
@@ -213,7 +219,7 @@
                                             <a href="/rashid"> {{.Lenguaje.rashid}}</a>
                                         </li>
                                         <li class=" ">
-                                            <a href="/sharedloot"> {{.Lenguaje.sharedloot}}</a>
+                                            <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
                                         </li>
                                         <li class=" ">
                                             <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
@@ -223,6 +229,12 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {{if eq .UserName ""}}
+                                {{else}}
+                                    <li class=" ">
+                                        <a href="/logout">Desconectarse</a>
+                                    </li>
+                                {{end}}
                                 {{if ge .Access  3 }}
                                 <li class=" ">
                                     <a href="/auth/admin">Admin</a>

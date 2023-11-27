@@ -52,7 +52,7 @@
          data-close-... data used for closing preloader
          data-open-...  data used for opening preloader
     -->
-            <div class="nk-preloader-bg" style="background-color: #000;" data-close-frames="23" data-close-speed="1.2" data-close-sprites="/static/assets/images/preloader-bg.png" data-open-frames="23" data-open-speed="1.2" data-open-sprites="/static/assets/images/preloader-bg-bw.png">
+            <div class="nk-preloader-bg" style="background-color: #000;" data-close-frames="23" data-close-speed="1.2" data-close-sprites="/static/assets/images/preloader-bg.png" data-open-frames="23" data-open-speed="1.2" data-open-sprites="./assets/images/preloader-bg-bw.png">
             </div>
             <div class="nk-preloader-content">
                 <div>
@@ -64,6 +64,7 @@
         </div>
 
         <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
+        
         <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
         <!-- END: Page Background -->
         <!-- START: Page Border -->
@@ -104,10 +105,10 @@
                             <img src="/static/assets/images/logo.png" alt="" width="90">
                         </a>
                         <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
-                            <li class="">
+                            <li class="active">
                                 <a href="/"> {{.Lenguaje.news}}</a>
                             </li>
-                            <li class="active">
+                            <li class="">
                                 <a href="/todays">{{.Lenguaje.today}}</a>
                             </li>
                             <li class="">
@@ -279,189 +280,48 @@
         <!-- Daily Image fun-->
 
         <div class="nk-main">
-
-            <!-- END: Header Title -->
+            <div class="text-center">
+                <h2 class="nk-title display-3">{{.Lenguaje.plusvoted}}</h2>
+            </div>
             <div class="container">
                 <div class="nk-gap-4"></div>
-                <div class="text-center">
-                    <h2 class="nk-title display-4">{{.Todays.Title}}</h2>
-                </div>
-                <div class="row">
-                    <div class="nk-blog-container ">
-                        
-                        <!-- START: Post -->
-                        <div class="nk-blog-post nk-blog-post-single">
-                            {{if not .Todays.Status}}
-                                <div class="nk-info-box bg-main-1">
-                                    <div class="nk-info-box-icon">
-                                        <i class="ion-information-circled"></i>
-                                    </div> 
-                                    {{.Lenguaje.rulesimages}}
-                                </div>
-                            {{end}}
-                            <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                                <div class="nk-post-thumb">
-                                    {{ if eq (len .Todays.Files) 1 }}
-                                        {{range .Todays.Files}}
-                                        <a href="/image/{{.PathConsume}}">
-                                            <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                        </a>
-                                        {{end}}
-                                    {{ else }}
-                                        {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}
-                                        <div class="nk-carousel-2" data-arrows="true">
-                                            <div class="nk-carousel-inner">
-                                        {{range .Todays.Files}}
-                                                <div>
-                                                    <div>
-                                                        <a href="/image/{{.PathConsume}}">
-                                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                                        </a>
-                                                    </div>
-                                                    
-                                                </div>
-                                        {{end}}
-                                            </div>
-                                        </div> 
-                                    {{ end }}
-                                </div>
-
-                                <div class="nk-post-content">
-                                    <div data-mouse-parallax-z="2">
-                                        {{if not .Todays.Status}}
-                                        <div class="nk-info-box bg-main-1">
-                                            <div class="nk-info-box-icon">
-                                                <i class="ion-information-circled"></i>
-                                            </div> 
-                                            {{.Lenguaje.rulesimages}}
+                <div class="nk-store">
+                    <!-- START: Products List -->
+                    <div class="row no-gutters">
+                        <div class="col-sm-6 col-lg-4">
+                            <!-- START: Product -->
+                            <div class="nk-product" data-mouse-parallax-z="2">
+                                <div>
+                                    <div class="nk-carousel-3" data-size="1" data-mouse-parallax-z="3">
+                                        <div>
+                                            <img class="nk-img-stretch" src="static/assets/images-svg/shared_loot.svg" width="400" height="508" alt="Women Tshirt">
                                         </div>
-                                        {{end}}
-                                        <div class="nk-gap-4"></div>
-                                        <center>
-                                        <aside class="nk-sidebar ">
-
-                                            <div class="nk-gap d-lg-none"></div>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><strong>{{.Lenguaje.published}}:</strong> &nbsp;&nbsp;&nbsp;</td>
-                                                        <td>{{.Todays.CreatedAt.Format "2006-01-02 15:04:05"}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>{{.Lenguaje.writtenby}}:</strong> &nbsp;&nbsp;&nbsp;</td>
-                                                        <td><a href="#">{{.Todays.Account.Name}}</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>{{.Lenguaje.view}}:</strong> &nbsp;&nbsp;&nbsp;</td>
-                                                        <td>589</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>{{.Lenguaje.comments}}:</strong> &nbsp;&nbsp;&nbsp;</td>
-                                                        <td>{{len .Todays.Comments}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>{{.Lenguaje.voted}}:</strong> &nbsp;&nbsp;</td>
-                                                        <td>
-                                                            <span class="nk-action-heart">
-                                                                <span class="num">17</span>
-                                                                <span class="like-icon ion-android-favorite-outline"></span>
-                                                                <span class="liked-icon ion-android-favorite"></span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            </aside>
-                                            {{if ge .Access 3}}
-                                                {{if .Todays.Status}}
-                                                <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
-                                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.deletepost}}</button>
-                                                </form>
-                                                {{else}}
-                                                <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
-                                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.deletepost}}</button>
-                                                </form>
-                                                <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
-                                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.authorizepost}}</button>
-                                                </form>
-                                                {{end}}
-                                            {{end}}
-                                        </center>
+                                    </div>
+                                    <h2 class="nk-product-title h5" data-mouse-parallax-z="1"><a href="/shared_loot">{{.Lenguaje.sharedloot}}</a></h2>
+                                    <a>{{.Lenguaje.descriptionsharedloot}}</a>
+                                    <div class="nk-product-bottom">
+                                        
+                                        <div>
+                                            <a href="/shared_loot">{{.Lenguaje.getin}}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-
-
-                            <!-- START: Post Text -->
-                            <div class="nk-post-text mt-1">
-                                
-                                <blockquote class="nk-blockquote">
-                                    <div class="nk-blockquote-icon">“</div>
-                                    <em>{{.Todays.Description}}</em>
-                                    <div class="nk-blockquote-author">{{.Todays.Account.Name}}</div>
-                                </blockquote>
-                            </div>
-                            <!-- END: Post Author -->
-                            <!-- START: Comments -->
-                            <div class="nk-comments" id="comments">
-                                <h3 class="nk-title h4 text-center">{{len .Todays.Comments}} {{.Lenguaje.comments}}</h3>
-                                <div class="nk-gap-2"></div>
-                                <!-- START: Comment -->
-                                {{ range .Todays.Comments}}
-                                <div class="nk-comment">
-                                    <div class="nk-comment-avatar">
-                                        <a href="#"><img src="/static/assets/images/avatar-2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="nk-comment-meta">
-                                        <div class="nk-comment-name h5"><a href="#">{{.Account.Name}}</a></div>
-                                        <div class="nk-comment-date">{{.CreatedAt.Format "2006-01-02 15:04:05"}}</div>
-                                    </div>
-                                    <p>
-                                        {{.Comment}}
-                                    </p>
-                                    <div class="text-right">
-                                        <span class="nk-action-heart">
-                                            <span class="like-icon ion-android-favorite-outline"></span>
-                                            <span class="liked-icon ion-android-favorite"></span>
-                                            <span class="num">0</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                {{end}}
-                                <!-- END: Comment -->
-                                <!-- START: Reply -->
-                                <div class="nk-reply">
-                                {{if eq .UserName ""}}
-                                <h3 class="nk-title h4 text-center">{{.Lenguaje.tocommentyouneedtoberegistered}}</h3>
-                                {{else}}
-                                
-                                    <h3 class="nk-title h4 text-center">{{.Lenguaje.postyourcomment}}</h3>
-                                    <div class="nk-gap-2"></div>
-                                    <form action="/auth/add_comment" method="POST" class="nk-form nk-form-style-1" novalidate="novalidate">
-                                        <div class="nk-gap-1"></div>
-                                        <input type="hidden" name="id" id="id" value="{{.Todays.ID}}">
-                                        <textarea class="form-control required" name="comments" id="comments" rows="5" placeholder="{{.Lenguaje.message}} *" aria-required="true"></textarea>
-                                        <div class="nk-gap-1"></div>
-                                        <div class="nk-form-response-success"></div>
-                                        <div class="nk-form-response-error"></div>
-                                        <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.postcomment}}</button>
-                                    </form>
-                                
-                                {{end}}
-                                </div>
-                                <!-- END: Reply -->
-                            </div>
-                            <!-- END: Comments -->
+                            <!-- END: Product -->
                         </div>
-                        <!-- END: Post -->
-                        <div class="nk-gap-4"></div>
                     </div>
+                    <!-- END: Products List -->
+                    <div class="nk-gap-5"></div>
+                    <!-- START: Pagination -->
+                    <!-- END: Pagination -->
                 </div>
                 <div class="nk-gap-4"></div>
                 <div class="nk-gap-3"></div>
             </div>
             
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
                 <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
                 <div class="container">

@@ -49,6 +49,7 @@ func NewRouter() *mux.Router {
 	var toolshandler handler.ToolsHandler
 	router.HandleFunc("/shared_loot", toolshandler.SharedLootHandler).Methods("GET")
 	router.HandleFunc("/shared_loot", toolshandler.SharedLootProcess).Methods("POST")
+	router.HandleFunc("/tools", toolshandler.ToolsHandlerItems).Methods("GEt")
 
 	security := router.PathPrefix("/auth").Subrouter()
 	security.Use(middleware.CommonMiddleware)

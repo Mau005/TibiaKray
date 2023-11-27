@@ -266,9 +266,40 @@
         <!-- END: Navbar Mobile -->
         <!-- Daily Image fun-->
         <div class="nk-main">
-            <div class="nk-gap-4"></div>
-            <div class="text-center">
-                <h2 class="nk-title display-4">{{.Lenguaje.tools}}</h2>
+            <div class="container">
+                <div class="nk-gap-4"></div>
+                <div class="nk-store">
+                    <!-- START: Products List -->
+                    <div class="row no-gutters">
+                        <div class="col-sm-6 col-lg-4">
+                            <!-- START: Product -->
+                            <div class="nk-product" data-mouse-parallax-z="2">
+                                <div>
+                                    <div class="nk-carousel-3" data-size="1" data-mouse-parallax-z="3">
+                                        <div>
+                                            <img class="nk-img-stretch" src="static/assets/images-svg/shared_loot.svg" width="400" height="508" alt="Women Tshirt">
+                                        </div>
+                                    </div>
+                                    <h2 class="nk-product-title h5" data-mouse-parallax-z="1"><a href="/shared_loot">{{.Lenguaje.sharedloot}}</a></h2>
+                                    <a>{{.Lenguaje.descriptionsharedloot}}</a>
+                                    <div class="nk-product-bottom">
+                                        
+                                        <div>
+                                            <a href="/shared_loot">{{.Lenguaje.getin}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: Product -->
+                        </div>
+                    </div>
+                    <!-- END: Products List -->
+                    <div class="nk-gap-5"></div>
+                    <!-- START: Pagination -->
+                    <!-- END: Pagination -->
+                </div>
+                <div class="nk-gap-4"></div>
+                <div class="nk-gap-3"></div>
             </div>
             
             <!-- START: Footer -->

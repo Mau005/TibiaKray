@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"os"
 
+	"github.com/Mau005/KraynoSerer/models"
 	"github.com/go-yaml/yaml"
 	"github.com/gorilla/sessions"
 )
@@ -12,6 +13,7 @@ import (
 var Security string
 var Store *sessions.CookieStore
 var Config *Configuration
+var SharedLootHightNow models.SharedLoot
 
 type DataBase struct {
 	Host       string `yaml:"Host"`

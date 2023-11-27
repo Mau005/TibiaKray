@@ -23,8 +23,8 @@ func (eh *ErrorHandler) DefaultError(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	sc.NameButtonError = "Home"
-	sc.MSGError = "Codigo de error 404, esta web esta en mantenimiento o se encuentra en contrucción"
-	sc.TitleError = fmt.Sprintf("Opps! Error %d: %s", http.StatusUnauthorized, "Contraseñas incorrectas")
+	sc.MSGError = controller.LenguajeInternal[sc.LenguajeDefault][configuration.ErrorDefault]
+	sc.TitleError = fmt.Sprintf("Opps! %s: %d!", controller.LenguajeInternal[sc.LenguajeDefault][configuration.ErrorCode], http.StatusNotFound)
 	sc.RouterError = configuration.ROUTER_INDEX
 	template.Execute(w, sc)
 }

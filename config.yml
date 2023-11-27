@@ -1,11 +1,11 @@
 DataBase:
-  Host: www.ainhosoft.cl
+  Host: localhost
   Port: 3306
-  User: mau
-  Password: Fcua29hd.8orda4p2
-  NameDB: Kray
+  User: root
+  Password: 12345
+  NameDB: Kry
   SqlitePath: Kry.db
-  Engine: sqlite
+  Engine: mysql
 Server:
   Ip: 127.0.0.1
   Port: 8000

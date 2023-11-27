@@ -33,10 +33,12 @@ func (hh *HomeHandler) Home(w http.ResponseWriter, r *http.Request) {
 
 	modelNew := struct {
 		models.StructModel
-		Todays []models.Todays
+		Todays          []models.Todays
+		SharedLootHight models.SharedLoot
 	}{
-		StructModel: sc,
-		Todays:      data,
+		StructModel:     sc,
+		Todays:          data,
+		SharedLootHight: configuration.SharedLootHightNow,
 	}
 
 	templ.Execute(w, modelNew)

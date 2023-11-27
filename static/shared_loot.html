@@ -36,6 +36,12 @@
         <link rel="stylesheet" href="/static/assets/css/godlike.css">
         <!-- Custom Styles -->
         <link rel="stylesheet" href="/static/assets/css/custom.css">
+        <style>
+        /* Agrega estilos según sea necesario */
+        .copyable {
+            cursor: pointer;
+        }
+    </style>
         <!-- END: Styles -->
         <!-- jQuery -->
         <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -191,9 +197,15 @@
                         </div>
                         <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
                             <ul class="nk-nav">
+                                {{if eq .UserName ""}}
+                                <li class=" ">
+                                    <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
+                                </li>
+                                {{else}}
                                 <li class=" ">
                                     <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
                                 </li>
+                                {{end}}
                                 <li class=" ">
                                     <a href="/report">{{.Lenguaje.report}}</a>
                                 </li>
@@ -213,7 +225,7 @@
                                             <a href="/rashid"> {{.Lenguaje.rashid}}</a>
                                         </li>
                                         <li class=" ">
-                                            <a href="/sharedloot"> {{.Lenguaje.sharedloot}}</a>
+                                            <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
                                         </li>
                                         <li class=" ">
                                             <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
@@ -223,6 +235,12 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {{if eq .UserName ""}}
+                                {{else}}
+                                    <li class=" ">
+                                        <a href="/logout">Desconectarse</a>
+                                    </li>
+                                {{end}}
                                 {{if ge .Access  3 }}
                                 <li class=" ">
                                     <a href="/auth/admin">Admin</a>
@@ -276,22 +294,73 @@
                 </div>
             </div>
             <div class="container">
-                <div class="nk-gap-4"></div>
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-3">
-                        <div class="nk-box-3 bg-dark-1">
-                            <h2 class="nk-title h3 text-center">{{.Lenguaje.sharedloot}}</h2>
-                            <div class="nk-gap-2"></div>
-                            <form action="/shared_loot" method="post" class="nk-form nk-form-ajax nk-form-style-1">
-                                <textarea class="form-control required" name="message" rows="15" placeholder="Message *"></textarea>
-                                <div class="nk-gap-1"></div>
-                                <div class="nk-form-response-success"></div>
-                                <div class="nk-form-response-error"></div>
-                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.send}}</button>
-                            </form>
+                <div class="nk-header-table">
+                    <div class="nk-header-table-cell">
+                        <div class="container">
+                            <div class="nk-header-text">
+                                <h1 class="nk-title">{{.Lenguaje.profitstoday}}<span class="d-block"></span>
+                                    {{if eq .SharedLootHight.Leader.Name ""}}
+                                    <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
+                                        <span>{{.Lenguaje.profitstodaynot}}!.</span>
+                                    </span>
+                                    {{else}}
+                                    <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
+                                        <span>Team Leader: {{.SharedLootHight.Leader.Name}} <em>Balance: {{.SharedLootHight.Balance}}</em>.</span>
+                                        {{range .SharedLootHight.Character}}
+                                        <span>Player: {{.Name }} <small>Balance: {{.Balance}}</small>.</span>
+                                        {{end}}
+                                    </span>
+                                {{end}}
+                                </h1>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="nk-gap-4"></div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="nk-blog-grid-2">
+                            <div class="nk-box-3 bg-dark-1">
+                                <h2 class="nk-title h3 text-center">{{.Lenguaje.sharedloot}}</h2>
+                                <div class="nk-gap-2"></div>
+                                <form action="/shared_loot" method="post" class="nk-form nk-form-style-1">
+                                    <textarea class="form-control required" name="message" rows="15" placeholder="Message *"></textarea>
+                                    <span style="color: red;">{{.MSGError}}</span>
+                                    <div class="nk-gap-1"></div>
+                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.send}}</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="nk-box-3 bg-dark-1">
+                            <div class="nk-widget">
+                                <h4 class="nk-widget-title">Players Shared:</h4>
+                                <div>
+                                    <ul class="nk-widget-categories">
+                                        {{ if eq (len .ProcesingData) 0 }}
+                                        <li>
+                                            <a>Aun no has procesado nada</a>
+                                        </li>
+                                        {{else}}
+                                            {{range $key, $value := .ProcesingData}}
+                                                <li>
+                                                    <a>{{$key}}</a>
+                                                    {{range $value}}
+                                                    <li class="copyable" onclick="copyToClipboard(this)">{{.}}</li>
+                                                    {{end}}
+                                                
+                                                </li>
+                                            
+                                            {{end}}
+                                        {{end}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-gap-4"></div>
                 <div class="nk-gap-4"></div>
             </div>
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
@@ -436,6 +505,27 @@
         <!-- GODLIKE -->
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
+        <script>
+            // Función para copiar el contenido de un elemento al portapapeles
+            function copyToClipboard(element) {
+                // Crear un elemento de texto temporal
+                const tempElement = document.createElement('textarea');
+                tempElement.value = element.textContent;
+    
+                // Añadir el elemento temporal al DOM
+                document.body.appendChild(tempElement);
+    
+                // Seleccionar y copiar el texto
+                tempElement.select();
+                document.execCommand('copy');
+    
+                // Eliminar el elemento temporal
+                document.body.removeChild(tempElement);
+    
+                // Puedes agregar alguna acción adicional después de copiar, si es necesario
+                alert('Copiado al portapapeles: ' + element.textContent);
+            }
+        </script>
         <!-- END: Scripts -->
     </body>
 </html>

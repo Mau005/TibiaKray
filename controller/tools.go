@@ -1,41 +1,28 @@
 package controller
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
-	"time"
+
+	"github.com/Mau005/KraynoSerer/configuration"
+	"github.com/Mau005/KraynoSerer/models"
 )
 
 type ToolsController struct{}
 
-type SharedLoot struct {
-	DateStart time.Time
-	DateEnd   time.Time
-	Time      time.Time
-	LootType  string
-	Loot      int
-	Supplies  int
-	Balance   int
-	Character []Character
-}
-
-type Character struct {
-	Name     string
-	Loot     int
-	Supplies int
-	Balance  int
-	Damage   int
-	Healing  int
-}
-
-func (tc *ToolsController) SharedLoot(content string) error {
+func (tc *ToolsController) SharedLoot(content string) (models.SharedLoot, map[string][]string, error) {
 	shared_loot, _ := tc.PreparingSharedLoot(content)
 	//loot := shared_loot.Loot
+	var paymentsNames map[string][]string
+	if shared_loot.Balance == 0 || len(shared_loot.Character) <= 1 {
+		return shared_loot, paymentsNames, errors.New("Error de protoclo")
+	}
 
 	profitXPersona := shared_loot.Balance / len(shared_loot.Character)
-	var lootLow []Character
-	var lootHight []Character
+	var lootLow []models.CharacterShared
+	var lootHight []models.CharacterShared
 	for _, elements := range shared_loot.Character {
 		elements.Balance = (elements.Supplies + profitXPersona) - elements.Loot
 		if 0 >= elements.Balance {
@@ -45,7 +32,7 @@ func (tc *ToolsController) SharedLoot(content string) error {
 		}
 
 	}
-	sub_total := 0
+	paymentsNames = make(map[string][]string, len(shared_loot.Character))
 	for indexHight, characterHight := range lootHight {
 		for indexLow, characterLow := range lootLow {
 			if characterHight.Balance == 0 || characterLow.Balance == 0 {
@@ -66,24 +53,20 @@ func (tc *ToolsController) SharedLoot(content string) error {
 			}
 			lootHight[indexHight] = characterHight
 			lootLow[indexLow] = characterLow
-
-			fmt.Printf("%s tiene que pagarle a %s un total de: %d\n", characterHight.Name, characterLow.Name, pagar)
-
+			paymentsNames[characterHight.Name] = append(paymentsNames[characterHight.Name], fmt.Sprintf("transfer %d to %s", pagar, characterLow.Name))
+			//"transfer 3434 to Mau Tank Persistente"
+			//fmt.Printf("%s tiene que pagarle a %s un total de: %d\n", characterHight.Name, characterLow.Name, pagar)
 		}
 
 	}
 
-	fmt.Println("Balance: ", shared_loot.Balance)
-	fmt.Println("Profit: ", profitXPersona)
-	fmt.Println("Total general: ", sub_total)
-
-	return nil
+	return shared_loot, paymentsNames, nil
 }
 
-func (tc *ToolsController) PreparingSharedLoot(content string) (SharedLoot, error) {
+func (tc *ToolsController) PreparingSharedLoot(content string) (models.SharedLoot, error) {
 
 	list_conte := strings.Split(content, "\n")
-	var sl SharedLoot
+	var sl models.SharedLoot
 	map_contet := make(map[string]string, len(list_conte)) //Map content var init
 	normalize := []string{"\r", "\t"}                      //list normalize string
 	character_content := make(map[string][]string)         //list do character content
@@ -111,7 +94,7 @@ func (tc *ToolsController) PreparingSharedLoot(content string) (SharedLoot, erro
 	sl.LootType = map_contet["Loot Type"]
 	sl.Supplies = tc.normalizeStrInt(0, map_contet["Supplies"], ":", normalize)
 	//END Asing Shared Loot
-	var character_list []Character
+	var character_list []models.CharacterShared
 	const (
 		Name = iota
 		Loot
@@ -121,32 +104,42 @@ func (tc *ToolsController) PreparingSharedLoot(content string) (SharedLoot, erro
 		Healing
 	)
 	for i := 0; i < len(character_content["characters"]); i += 6 {
+		var leaderStatus bool
 		if len(character_content["characters"]) <= Healing+i {
 			break
 		}
 		name := tc.NormalizeString(character_content["characters"][Name+i], normalize)
 		leader := " (Leader)"
-		if len(name) >= len(leader){
-		  captured := name[len(name)-len(leader):]
-		  fmt.Printf("Captured: |%s|/n",captured)
-		  if captured == leader{
-		    name = strings.Trim(name[:len(name)-len(leader)], " ")
-		  }
+		if len(name) >= len(leader) {
+			captured := name[len(name)-len(leader):]
+			fmt.Printf("Captured: |%s|/n", captured)
+			if captured == leader {
+				name = strings.Trim(name[:len(name)-len(leader)], " ")
+				leaderStatus = true
+			}
 		}
 		loot := tc.normalizeStrInt(1, character_content["characters"][Loot+i], ":", normalize)
 		supplies := tc.normalizeStrInt(1, character_content["characters"][Supplies+i], ":", normalize)
 		balance := tc.normalizeStrInt(1, character_content["characters"][Balance+i], ":", normalize)
 		damage := tc.normalizeStrInt(1, character_content["characters"][Damage+i], ":", normalize)
 		healing := tc.normalizeStrInt(1, character_content["characters"][Healing+i], ":", normalize)
-		character_list = append(character_list, Character{
+		objeCharacter := models.CharacterShared{
 			Name:     name,
 			Loot:     loot,
 			Supplies: supplies,
 			Balance:  balance,
 			Damage:   damage,
-			Healing:  healing})
+			Healing:  healing}
+		character_list = append(character_list, objeCharacter)
+		if leaderStatus {
+			sl.Leader = objeCharacter
+			leaderStatus = false
+		}
 	}
 	sl.Character = character_list
+	if configuration.SharedLootHightNow.Balance <= sl.Balance {
+		configuration.SharedLootHightNow = sl
+	}
 
 	return sl, nil
 }
@@ -178,13 +171,13 @@ func (tc *ToolsController) NormalizeString(content string, removeList []string) 
 	return strings.Trim(content, " ")
 }
 
-func (tc *ToolsController) SharedExp(level string) (string, error){
-  levelBase, err := strconv.ParseInt(level, 10, 32)
-  if err != nil || levelBase == 0 {
-    return "", err
-  }
-  porcent := levelBase / 3
-  min := levelBase - porcent
-  max := (min * 1.5) + levelBase
-  return fmt.Sprintf("Min: %d, Max: %d", min, max), nil
+func (tc *ToolsController) SharedExp(level string) (string, error) {
+	levelBase, err := strconv.ParseInt(level, 10, 32)
+	if err != nil || levelBase == 0 {
+		return "", err
+	}
+	porcent := levelBase / 3
+	min := levelBase - porcent
+	max := int64(float64(min)*1.5) + levelBase
+	return fmt.Sprintf("Min: %d, Max: %d", min, max), nil
 }
