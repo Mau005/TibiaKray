@@ -6,6 +6,7 @@ import (
 	"math"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/models"
@@ -113,7 +114,6 @@ func (tc *ToolsController) PreparingSharedLoot(content string) (models.SharedLoo
 		leader := " (Leader)"
 		if len(name) >= len(leader) {
 			captured := name[len(name)-len(leader):]
-			fmt.Printf("Captured: |%s|/n", captured)
 			if captured == leader {
 				name = strings.Trim(name[:len(name)-len(leader)], " ")
 				leaderStatus = true
@@ -183,7 +183,34 @@ func (tc *ToolsController) SharedExp(level string, sm models.StructModel) (strin
 	return fmt.Sprintf("%s: %d, %s: %d", Lenguaje[sm.LenguajeDefault]["min"], min, Lenguaje[sm.LenguajeDefault]["max"], max), nil
 }
 
-func (tc *ToolsController) Rashid() string {
+func (tc *ToolsController) InitRashid() string {
 
-	return ""
+	date := time.Now()
+	day := int(date.Weekday())
+
+	if date.Hour() <= 6 {
+		if day == 0 {
+			day = 7
+		} else {
+			day -= 1
+		}
+
+	}
+	switch day {
+	case configuration.MONDAY:
+		configuration.Rashid = "RashidMonday"
+	case configuration.TUESDAY:
+		configuration.Rashid = "RashidTuesday"
+	case configuration.WEDNESDAY:
+		configuration.Rashid = "RashidWednesday"
+	case configuration.THURSDAY:
+		configuration.Rashid = "RashidThursday"
+	case configuration.FRIDAY:
+		configuration.Rashid = "RashidFriday"
+	case configuration.SATURDAY:
+		configuration.Rashid = "RashidSaturday"
+	case configuration.SUNDAY:
+		configuration.Rashid = "RashidSunday"
+	}
+	return configuration.Rashid
 }

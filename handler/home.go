@@ -35,10 +35,12 @@ func (hh *HomeHandler) Home(w http.ResponseWriter, r *http.Request) {
 		models.StructModel
 		Todays          []models.Todays
 		SharedLootHight models.SharedLoot
+		Rashid          string
 	}{
 		StructModel:     sc,
 		Todays:          data,
 		SharedLootHight: configuration.SharedLootHightNow,
+		Rashid:          configuration.Rashid,
 	}
 
 	templ.Execute(w, modelNew)
@@ -106,5 +108,4 @@ func (hh *HomeHandler) TodaysPost(w http.ResponseWriter, r *http.Request) {
 		Todays:      todays,
 	}
 	templ.Execute(w, todaysWeb)
-
 }

@@ -61,3 +61,12 @@ const (
 	ErrorPolicies
 	NotAuthorized
 )
+const (
+	MONDAY = iota + 1
+	TUESDAY
+	WEDNESDAY
+	THURSDAY
+	FRIDAY
+	SATURDAY
+	SUNDAY
+)

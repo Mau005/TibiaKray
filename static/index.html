@@ -326,7 +326,7 @@
                     <div class="col-lg-4">
                         <div class="nk-box-3 bg-dark-1">
                             <div class="nk-widget">
-                                <h4 class="nk-widget-title">{{.Lenguaje.profitstoday}}</h4>
+                                <h4 class="nk-widget-title">{{.Lenguaje.profitstoday}}:</h4>
                                 <h1 class="nk-widget-title">
                                 {{if eq .SharedLootHight.Leader.Name ""}}
                                 <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
@@ -340,6 +340,12 @@
                                     {{end}}
                                 </span>
                                 {{end}}
+                                </h1>
+                                <h4 class="nk-widget-title">Rashid:</h4>
+                                <h1 class="nk-widget-title">
+                                    <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
+                                        <span>{{index .Lenguaje .Rashid}}!.</span>
+                                    </span>
                                 </h1>
                             </div>
                         </div>

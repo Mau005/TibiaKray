@@ -17,12 +17,22 @@ func (tc *TodaysController) GetToday(id uint) (today models.Todays, err error) {
 		return today, err
 	}
 
+	// Suponemos que el primer elemento de la respuesta contiene los datos deseados
+
+	// Incrementar el contador
+	if err := database.DB.Model(&today).UpdateColumn("views", gorm.Expr("views + ?", 1)).Error; err != nil {
+		return today, err
+	}
+
 	return today, err
 }
 
 func (tc *TodaysController) GetTodayView() (todays []models.Todays, err error) {
 
 	if err = database.DB.Preload("Files").Where("status = 1").Order("created_at desc").Find(&todays).Error; err != nil {
+		return todays, err
+	}
+	if err := database.DB.Model(&todays).UpdateColumn("views", gorm.Expr("views + ?", 1)).Error; err != nil {
 		return todays, err
 	}
 	return todays, err
@@ -60,6 +70,17 @@ func (tc *TodaysController) GetTodaysLobby() (todays []models.Todays, err error)
 	}).Preload("Files").Order("created_at  desc").Limit(3).Where("status = 1").Find(&todays).Error; err != nil {
 		return todays, err
 	}
+
+	if len(todays) > 0 {
+		// Suponemos que el primer elemento de la respuesta contiene los datos deseados
+		firstPhoto := todays[0]
+
+		// Incrementar el contador
+		if err := database.DB.Model(&firstPhoto).UpdateColumn("views", gorm.Expr("views + ?", 1)).Error; err != nil {
+			return todays, err
+		}
+	}
+
 	return todays, nil
 }
 
@@ -71,8 +92,18 @@ func (tc *TodaysController) GetTodayPage(page int) (photos []models.Todays, err 
 		return db.Select("id, name, email, access")
 	}).Preload("Account", func(db *gorm.DB) *gorm.DB {
 		return db.Select("id, name, email, access")
-	}).Where("status = 1").Offset(offset).Limit(limit).Find(&photos).Error; err != nil {
+	}).Order("created_at desc").Where("status = 1").Offset(offset).Limit(limit).Find(&photos).Error; err != nil {
 		return photos, err
+	}
+
+	if len(photos) > 0 {
+		// Suponemos que el primer elemento de la respuesta contiene los datos deseados
+		firstPhoto := photos[0]
+
+		// Incrementar el contador
+		if err := database.DB.Model(&firstPhoto).UpdateColumn("Views", gorm.Expr("views + ?", 1)).Error; err != nil {
+			return photos, err
+		}
 	}
 
 	return photos, err

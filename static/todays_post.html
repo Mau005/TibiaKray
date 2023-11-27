@@ -286,61 +286,59 @@
                 <div class="text-center">
                     <h2 class="nk-title display-4">{{.Todays.Title}}</h2>
                 </div>
-                <div class="row">
-                    <div class="nk-blog-container ">
+                <div class="nk-blog-container ">
                         
-                        <!-- START: Post -->
-                        <div class="nk-blog-post nk-blog-post-single">
-                            {{if not .Todays.Status}}
-                                <div class="nk-info-box bg-main-1">
-                                    <div class="nk-info-box-icon">
-                                        <i class="ion-information-circled"></i>
-                                    </div> 
-                                    {{.Lenguaje.rulesimages}}
-                                </div>
-                            {{end}}
-                            <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                                <div class="nk-post-thumb">
-                                    {{ if eq (len .Todays.Files) 1 }}
-                                        {{range .Todays.Files}}
-                                        <a href="/image/{{.PathConsume}}">
-                                            <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                        </a>
-                                        {{end}}
-                                    {{ else }}
-                                        {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}
-                                        <div class="nk-carousel-2" data-arrows="true">
-                                            <div class="nk-carousel-inner">
-                                        {{range .Todays.Files}}
+                    <!-- START: Post -->
+                    <div class="nk-blog-post nk-blog-post-single">
+                        {{if not .Todays.Status}}
+                            <div class="nk-info-box bg-main-1">
+                                <div class="nk-info-box-icon">
+                                    <i class="ion-information-circled"></i>
+                                </div> 
+                                {{.Lenguaje.rulesimages}}
+                            </div>
+                        {{end}}
+                        <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
+                            <div class="nk-post-thumb">
+                                {{ if eq (len .Todays.Files) 1 }}
+                                    {{range .Todays.Files}}
+                                    <a href="/image/{{.PathConsume}}">
+                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
+                                    </a>
+                                    {{end}}
+                                {{ else }}
+                                    {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}
+                                    <div class="nk-carousel-2" data-arrows="true">
+                                        <div class="nk-carousel-inner">
+                                    {{range .Todays.Files}}
+                                            <div>
                                                 <div>
-                                                    <div>
-                                                        <a href="/image/{{.PathConsume}}">
-                                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                                        </a>
-                                                    </div>
-                                                    
+                                                    <a href="/image/{{.PathConsume}}">
+                                                    <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
+                                                    </a>
                                                 </div>
-                                        {{end}}
+                                                
                                             </div>
-                                        </div> 
-                                    {{ end }}
-                                </div>
-
-                                <div class="nk-post-content">
-                                    <div data-mouse-parallax-z="2">
-                                        {{if not .Todays.Status}}
-                                        <div class="nk-info-box bg-main-1">
-                                            <div class="nk-info-box-icon">
-                                                <i class="ion-information-circled"></i>
-                                            </div> 
-                                            {{.Lenguaje.rulesimages}}
+                                    {{end}}
                                         </div>
-                                        {{end}}
-                                        <div class="nk-gap-4"></div>
-                                        <center>
-                                        <aside class="nk-sidebar ">
+                                    </div> 
+                                {{ end }}
+                            </div>
 
-                                            <div class="nk-gap d-lg-none"></div>
+                            <div class="nk-post-content">
+                                <div data-mouse-parallax-z="2">
+                                    {{if not .Todays.Status}}
+                                    <div class="nk-info-box bg-main-1">
+                                        <div class="nk-info-box-icon">
+                                            <i class="ion-information-circled"></i>
+                                        </div> 
+                                        {{.Lenguaje.rulesimages}}
+                                    </div>
+                                    {{end}}
+                                    <div class="nk-gap-4"></div>
+                                    <center>
+                                    <aside class="nk-sidebar ">
+                                        <div class="nk-gap d-lg-none"></div>
                                             <table>
                                                 <tbody>
                                                     <tr>
@@ -353,7 +351,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>{{.Lenguaje.view}}:</strong> &nbsp;&nbsp;&nbsp;</td>
-                                                        <td>589</td>
+                                                        <td>{{.Todays.Views}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>{{.Lenguaje.comments}}:</strong> &nbsp;&nbsp;&nbsp;</td>
@@ -371,92 +369,91 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            </aside>
-                                            {{if ge .Access 3}}
-                                                {{if .Todays.Status}}
-                                                <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
-                                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.deletepost}}</button>
-                                                </form>
-                                                {{else}}
-                                                <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
-                                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.deletepost}}</button>
-                                                </form>
-                                                <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
-                                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.authorizepost}}</button>
-                                                </form>
-                                                {{end}}
+                                        </aside>
+                                        {{if ge .Access 3}}
+                                            {{if .Todays.Status}}
+                                            <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
+                                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.deletepost}}</button>
+                                            </form>
+                                            {{else}}
+                                            <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
+                                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.deletepost}}</button>
+                                            </form>
+                                            <form method="post" action="/auth/todays_aproved/{{.Todays.ID}}">
+                                            <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.authorizepost}}</button>
+                                            </form>
                                             {{end}}
-                                        </center>
-                                    </div>
+                                        {{end}}
+                                    </center>
                                 </div>
                             </div>
-                            
-
-
-                            <!-- START: Post Text -->
-                            <div class="nk-post-text mt-1">
-                                
-                                <blockquote class="nk-blockquote">
-                                    <div class="nk-blockquote-icon">“</div>
-                                    <em>{{.Todays.Description}}</em>
-                                    <div class="nk-blockquote-author">{{.Todays.Account.Name}}</div>
-                                </blockquote>
-                            </div>
-                            <!-- END: Post Author -->
-                            <!-- START: Comments -->
-                            <div class="nk-comments" id="comments">
-                                <h3 class="nk-title h4 text-center">{{len .Todays.Comments}} {{.Lenguaje.comments}}</h3>
-                                <div class="nk-gap-2"></div>
-                                <!-- START: Comment -->
-                                {{ range .Todays.Comments}}
-                                <div class="nk-comment">
-                                    <div class="nk-comment-avatar">
-                                        <a href="#"><img src="/static/assets/images/avatar-2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="nk-comment-meta">
-                                        <div class="nk-comment-name h5"><a href="#">{{.Account.Name}}</a></div>
-                                        <div class="nk-comment-date">{{.CreatedAt.Format "2006-01-02 15:04:05"}}</div>
-                                    </div>
-                                    <p>
-                                        {{.Comment}}
-                                    </p>
-                                    <div class="text-right">
-                                        <span class="nk-action-heart">
-                                            <span class="like-icon ion-android-favorite-outline"></span>
-                                            <span class="liked-icon ion-android-favorite"></span>
-                                            <span class="num">0</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                {{end}}
-                                <!-- END: Comment -->
-                                <!-- START: Reply -->
-                                <div class="nk-reply">
-                                {{if eq .UserName ""}}
-                                <h3 class="nk-title h4 text-center">{{.Lenguaje.tocommentyouneedtoberegistered}}</h3>
-                                {{else}}
-                                
-                                    <h3 class="nk-title h4 text-center">{{.Lenguaje.postyourcomment}}</h3>
-                                    <div class="nk-gap-2"></div>
-                                    <form action="/auth/add_comment" method="POST" class="nk-form nk-form-style-1" novalidate="novalidate">
-                                        <div class="nk-gap-1"></div>
-                                        <input type="hidden" name="id" id="id" value="{{.Todays.ID}}">
-                                        <textarea class="form-control required" name="comments" id="comments" rows="5" placeholder="{{.Lenguaje.message}} *" aria-required="true"></textarea>
-                                        <div class="nk-gap-1"></div>
-                                        <div class="nk-form-response-success"></div>
-                                        <div class="nk-form-response-error"></div>
-                                        <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.postcomment}}</button>
-                                    </form>
-                                
-                                {{end}}
-                                </div>
-                                <!-- END: Reply -->
-                            </div>
-                            <!-- END: Comments -->
                         </div>
-                        <!-- END: Post -->
-                        <div class="nk-gap-4"></div>
+                        
+
+
+                        <!-- START: Post Text -->
+                        <div class="nk-post-text mt-1">
+                            
+                            <blockquote class="nk-blockquote">
+                                <div class="nk-blockquote-icon">“</div>
+                                <em>{{.Todays.Description}}</em>
+                                <div class="nk-blockquote-author">{{.Todays.Account.Name}}</div>
+                            </blockquote>
+                        </div>
+                        <!-- END: Post Author -->
+                        <!-- START: Comments -->
+                        <div class="nk-comments" id="comments">
+                            <h3 class="nk-title h4 text-center">{{len .Todays.Comments}} {{.Lenguaje.comments}}</h3>
+                            <div class="nk-gap-2"></div>
+                            <!-- START: Comment -->
+                            {{ range .Todays.Comments}}
+                            <div class="nk-comment">
+                                <div class="nk-comment-avatar">
+                                    <a href="#"><img src="/static/assets/images/avatar-2.jpg" alt=""></a>
+                                </div>
+                                <div class="nk-comment-meta">
+                                    <div class="nk-comment-name h5"><a href="#">{{.Account.Name}}</a></div>
+                                    <div class="nk-comment-date">{{.CreatedAt.Format "2006-01-02 15:04:05"}}</div>
+                                </div>
+                                <p>
+                                    {{.Comment}}
+                                </p>
+                                <div class="text-right">
+                                    <span class="nk-action-heart">
+                                        <span class="like-icon ion-android-favorite-outline"></span>
+                                        <span class="liked-icon ion-android-favorite"></span>
+                                        <span class="num">0</span>
+                                    </span>
+                                </div>
+                            </div>
+                            {{end}}
+                            <!-- END: Comment -->
+                            <!-- START: Reply -->
+                            <div class="nk-reply">
+                            {{if eq .UserName ""}}
+                            <h3 class="nk-title h4 text-center">{{.Lenguaje.tocommentyouneedtoberegistered}}</h3>
+                            {{else}}
+                            
+                                <h3 class="nk-title h4 text-center">{{.Lenguaje.postyourcomment}}</h3>
+                                <div class="nk-gap-2"></div>
+                                <form action="/auth/add_comment" method="POST" class="nk-form nk-form-style-1" novalidate="novalidate">
+                                    <div class="nk-gap-1"></div>
+                                    <input type="hidden" name="id" id="id" value="{{.Todays.ID}}">
+                                    <textarea class="form-control required" name="comments" id="comments" rows="5" placeholder="{{.Lenguaje.message}} *" aria-required="true"></textarea>
+                                    <div class="nk-gap-1"></div>
+                                    <div class="nk-form-response-success"></div>
+                                    <div class="nk-form-response-error"></div>
+                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.postcomment}}</button>
+                                </form>
+                            
+                            {{end}}
+                            </div>
+                            <!-- END: Reply -->
+                        </div>
+                        <!-- END: Comments -->
                     </div>
+                    <!-- END: Post -->
+                    <div class="nk-gap-4"></div>
                 </div>
                 <div class="nk-gap-4"></div>
                 <div class="nk-gap-3"></div>

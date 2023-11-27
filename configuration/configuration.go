@@ -14,6 +14,7 @@ var Security string
 var Store *sessions.CookieStore
 var Config *Configuration
 var SharedLootHightNow models.SharedLoot
+var Rashid string
 
 type DataBase struct {
 	Host       string `yaml:"Host"`
@@ -30,6 +31,7 @@ type Server struct {
 	Port           uint   `yaml:"Port"`
 	Debug          bool   `yaml:"Debug"`
 	LengthSecurity uint   `yaml:"LengthSecurity"`
+	ServerSave     int    `yaml:"ServerSabe"`
 }
 
 type Email struct {

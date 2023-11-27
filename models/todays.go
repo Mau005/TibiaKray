@@ -7,6 +7,7 @@ type Todays struct {
 	Title       string
 	Description string
 	AccountID   uint
+	Views       uint       `gorm:"not null;default:0"`
 	Status      bool       `gorm:"default:false"`
 	Account     Account    `gorm:"foreignKey:AccountID"`
 	Comments    []Comments `gorm:"foreignKey:TodaysID"`

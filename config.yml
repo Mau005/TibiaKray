@@ -10,6 +10,7 @@ Server:
   Ip: 127.0.0.1
   Port: 8000
   Debug: true
+  ServerSave: 6
   LengthSecurity: 128
 Access:
   AprovedTodays: 3
