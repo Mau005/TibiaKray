@@ -9,7 +9,7 @@ import (
 type TodaysController struct{}
 
 func (tc *TodaysController) GetToday(id uint) (today models.Todays, err error) {
-	if err := database.DB.Preload("Files").Preload("Voted").Preload("Comments.Account", func(db *gorm.DB) *gorm.DB {
+	if err := database.DB.Preload("Files").Preload("Voted", "status = ?", 1).Preload("Comments.Account", func(db *gorm.DB) *gorm.DB {
 		return db.Select("id, name, email, access")
 	}).Preload("Account", func(db *gorm.DB) *gorm.DB {
 		return db.Select("id, name, email, access")

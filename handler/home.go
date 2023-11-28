@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -79,11 +80,7 @@ func (hh *HomeHandler) TodaysPost(w http.ResponseWriter, r *http.Request) {
 
 	idTodays, err := strconv.ParseUint(arg["id"], 10, 64)
 	if err != nil {
-		sc.NameButtonError = "Volver"
-		sc.MSGError = "No se puede procesar un ID tan grande"
-		sc.TitleError = "Error inesperado"
-		sc.RouterError = configuration.ROUTER_INDEX
-		ErrorHandler.PageErrorStructModel(w, r, sc)
+		ErrorHandler.PageErrorMSG(http.StatusNotAcceptable, configuration.ErrorInternal, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, idTodays), w, r, sc)
 		return
 	}
 
@@ -91,21 +88,34 @@ func (hh *HomeHandler) TodaysPost(w http.ResponseWriter, r *http.Request) {
 
 	todays, err := todaysController.GetToday(uint(idTodays))
 	if err != nil {
-		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusNotFound, configuration.ErrorDefault, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, idTodays), w, r, sc)
 		return
 	}
 
 	templ, err := template.ParseFiles("static/todays_post.html")
 	if err != nil {
+		ErrorHandler.PageErrorMSG(http.StatusNotFound, configuration.ErrorDefault, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, idTodays), w, r, sc)
 		return
+	}
+
+	var accManager controller.AccountController
+	var votedManager controller.VotedController
+
+	var voted models.Voted
+	account, err := accManager.GetAccount(sc.Email)
+	//Iniciamos el proceso de buscar si el usuario tiene un voto en la web
+	if err == nil {
+		voted, _ = votedManager.GetVotedAccountTodays(todays.ID, account.ID) //inicio el voto si existe en la cuenta
 	}
 
 	todaysWeb := struct {
 		models.StructModel
 		Todays models.Todays
+		Voted  models.Voted
 	}{
 		StructModel: sc,
 		Todays:      todays,
+		Voted:       voted,
 	}
 	templ.Execute(w, todaysWeb)
 }

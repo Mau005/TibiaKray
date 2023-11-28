@@ -345,11 +345,20 @@
                                                             {{if eq .UserName ""}}
                                                                 <span class="num">{{len .Todays.Voted}} Para votar necesitas registrarte</span>
                                                             {{else}}
-                                                            <span class="nk-action-heart" id="likeSection">
-                                                                <span class="num">{{len .Todays.Voted}}</span>
-                                                                <span class="like-icon ion-android-favorite-outline"  onclick="likePhoto()"></span>
-                                                                <span class="liked-icon ion-android-favorite"  onclick="likePhoto()"></span>
-                                                            </span>
+                                                                {{if .Voted.Status}}
+                                                                <span class="nk-action-heart liked" id="likeSection">
+                                                                    <span class="num">{{len .Todays.Voted}}</span>
+                                                                    <span class="like-icon ion-android-favorite-outline"onclick="likePhoto()"></span>
+                                                                    <span class="liked-icon ion-android-favorite"onclick="likePhoto()"></span>
+                                                                    
+                                                                </span>
+                                                                {{else}}
+                                                                <span class="nk-action-heart" id="likeSection">
+                                                                    <span class="num">{{len .Todays.Voted}}</span>
+                                                                    <span class="like-icon ion-android-favorite-outline"  onclick="likePhoto()"></span>
+                                                                    <span class="liked-icon ion-android-favorite"  onclick="likePhoto()"></span>
+                                                                </span>
+                                                                {{end}}
                                                             {{end}}
                                                         </td>
                                                     </tr>
@@ -596,12 +605,7 @@
                     method: 'POST',
                     // Puedes incluir más configuraciones de la solicitud aquí según tus necesidades
                 })
-                .then(response => response.json())
-                .then(data => {
-                    // Actualizar el número de likes en la interfaz de usuario
-                    
-                })
-                .catch(error => console.error('Error:', error));
+    
             }
         
             function unlikePhoto() {
