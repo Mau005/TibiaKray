@@ -68,6 +68,9 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/change_password", AccountHandler.MyProfileChangePasswordHandler).Methods("POST")
 	security.HandleFunc("/add_comment", AccountHandler.AddCommentTodays).Methods("POST")
 
+	var votedHanlder handler.VotedHandler
+	security.HandleFunc("/voted_todays/{id}", votedHanlder.AddVotedTodays).Methods("POST")
+
 	var adminHandler handler.AdminHandler
 	security.HandleFunc("/admin", adminHandler.Lobby).Methods("GET")
 	security.HandleFunc("/todays_aproved", adminHandler.TodaysAproved).Methods("GET")

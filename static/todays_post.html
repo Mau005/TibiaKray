@@ -79,24 +79,6 @@
         .nk-header-opaque
 -->
         <header class="nk-header nk-header-opaque">
-            <!--
-    START: Top Contacts
-
-    Additional Classes:
-        .nk-contacts-top-light
--->
-            <!-- END: Top Contacts -->
-            <!--
-        START: Navbar
-
-        Additional Classes:
-            .nk-navbar-sticky
-            .nk-navbar-transparent
-            .nk-navbar-autohide
-            .nk-navbar-light
-            .nk-navbar-no-link-effect
-    -->
-            
             <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
                 <div class="container">
                     <div class="nk-nav-table">
@@ -360,11 +342,15 @@
                                                     <tr>
                                                         <td><strong>{{.Lenguaje.voted}}:</strong> &nbsp;&nbsp;</td>
                                                         <td>
-                                                            <span class="nk-action-heart">
-                                                                <span class="num">17</span>
-                                                                <span class="like-icon ion-android-favorite-outline"></span>
-                                                                <span class="liked-icon ion-android-favorite"></span>
+                                                            {{if eq .UserName ""}}
+                                                                <span class="num">{{len .Todays.Voted}} Para votar necesitas registrarte</span>
+                                                            {{else}}
+                                                            <span class="nk-action-heart" id="likeSection">
+                                                                <span class="num">{{len .Todays.Voted}}</span>
+                                                                <span class="like-icon ion-android-favorite-outline"  onclick="likePhoto()"></span>
+                                                                <span class="liked-icon ion-android-favorite"  onclick="likePhoto()"></span>
                                                             </span>
+                                                            {{end}}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -601,6 +587,27 @@
         <!-- GODLIKE -->
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
+        <script>
+            function likePhoto() {
+                // Obtener el ID de la foto (puedes obtenerlo de algún atributo, por ejemplo, data-photo-id)
+        
+                // Enviar una solicitud al servidor para incrementar el contador de likes
+                fetch('/auth/voted_todays/{{.Todays.ID}}', {
+                    method: 'POST',
+                    // Puedes incluir más configuraciones de la solicitud aquí según tus necesidades
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar el número de likes en la interfaz de usuario
+                    
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        
+            function unlikePhoto() {
+                // Lógica similar a likePhoto(), pero para quitar el like
+            }
+        </script>
         <!-- END: Scripts -->
     </body>
 </html>

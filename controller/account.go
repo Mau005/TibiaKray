@@ -20,7 +20,6 @@ func (ac *AccountController) IsUserName(user string) bool {
 	if acc.ID == 0 {
 		return false
 	}
-
 	return true
 }
 func (ac *AccountController) GetAccountUser(user string) (*models.Account, error) {

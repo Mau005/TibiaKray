@@ -12,4 +12,5 @@ type Todays struct {
 	Account     Account    `gorm:"foreignKey:AccountID"`
 	Comments    []Comments `gorm:"foreignKey:TodaysID"`
 	Files       []Files    `gorm:"foreignKey:TodaysID"`
+	Voted       []Voted    `gorm:"foreignKey:TodaysID"`
 }
