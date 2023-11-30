@@ -217,3 +217,29 @@ func (ac *AccountHandler) AddCommentTodays(w http.ResponseWriter, r *http.Reques
 
 	http.Redirect(w, r, fmt.Sprintf(configuration.ROUTER_TODAYS_POST, *comn.TodaysID), http.StatusSeeOther)
 }
+
+func (ac *AccountHandler) MyProfilePictureHandler(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	cm := api.GetBaseWeb(r)
+
+	var votedManager controller.VotedController
+	voteds, err := votedManager.MyVotedImage(cm.Email)
+	if err != nil {
+		fmt.Println("entra en error voted?")
+		return
+	}
+
+	strucNew := struct {
+		models.StructModel
+		Voteds []models.Voted
+	}{
+		StructModel: cm,
+		Voteds:      voteds,
+	}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_MY_FAVO_PIC)
+	if err != nil {
+		return
+	}
+	template.Execute(w, strucNew)
+}

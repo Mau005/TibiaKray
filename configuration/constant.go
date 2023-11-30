@@ -40,6 +40,7 @@ const (
 	PATH_WEB_SHARED_LOOT  = "static/shared_loot.html"
 	PATH_WEB_TOOLS        = "static/tools.html"
 	PATH_WEB_SHARED_EXP   = "static/shared_exp.html"
+	PATH_WEB_MY_FAVO_PIC  = "static/my_favorite_pictures.html"
 )
 
 const (

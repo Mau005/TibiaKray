@@ -289,17 +289,7 @@
             <div class="container">
                 <div class="nk-social-profile nk-social-profile-container-offset">
                     <div class="row">
-                        <div class="col-md-5 col-lg-3">
-                            <div class="nk-social-profile-avatar">
-                                <form action="/guardar_avatar" method="post" enctype="multipart/form-data">
-                                    <label for="avatar-upload" style="cursor: pointer;">
-                                        <img id="avatar-preview" src="/static/assets/images/avatar-1.jpg" alt="nK">
-                                    </label>
-                                    <input type="file" id="avatar-upload" name="avatar" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
-                                    <center><button class="nk-btn link-effect-4">{{.Lenguaje.uploadimage}}</button></center>
-                                </form>
-                            </div>
-                        </div>
+                        
                         <div class="col-md-7 col-lg-9">
                             <div class="nk-social-profile-info">
                                 <div class="nk-gap-2"></div>
@@ -334,10 +324,7 @@
                                             <a href="social-user-activity.html"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
                                         </li>
                                         <li class="">
-                                            <a href="social-user-notifications.html"> {{.Lenguaje.messages}}<span class="nk-badge">999+</span></a>
-                                        </li>
-                                        <li class="">
-                                            <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}<span class="nk-badge">999+</span></a>
+                                            <a href="/auth/my_favorite_picture">{{.Lenguaje.favoriteimages}}</a>
                                         </li>
                                         <li class="">
                                             <a href="social-user-friends.html"> {{.Lenguaje.friends}}</a>
@@ -360,10 +347,7 @@
                                                     <a href="social-user-activity.html"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
                                                 </li>
                                                 <li class="">
-                                                    <a href="social-user-notifications.html"> {{.Lenguaje.messages}}<span class="nk-badge">999+</span></a>
-                                                </li>
-                                                <li class="">
-                                                    <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}<span class="nk-badge">999+</span></a>
+                                                    <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}</a>
                                                 </li>
                                                 <li class="">
                                                     <a href="social-user-friends.html"> {{.Lenguaje.friends}}</a>

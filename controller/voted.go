@@ -62,3 +62,25 @@ func (vc *VotedController) TodaysVoted(idTodays uint, sm models.StructModel) (mo
 	}
 	return voted, nil
 }
+func (vc *VotedController) GetVotedAccount(AccountID uint) (voteds []models.Voted, err error) {
+
+	if err := database.DB.Preload("Todays.Files").Where("account_id = ? AND status=1", AccountID).Find(&voteds).Error; err != nil {
+		return voteds, err
+	}
+	return voteds, err
+
+}
+
+func (vc *VotedController) MyVotedImage(email string) (voteds []models.Voted, err error) {
+
+	var accManager AccountController
+	account, err := accManager.GetAccount(email)
+	if err != nil {
+		return voteds, err
+	}
+	voteds, err = vc.GetVotedAccount(account.ID)
+	if err != nil {
+		return voteds, err
+	}
+	return voteds, err
+}
