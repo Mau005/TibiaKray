@@ -69,6 +69,8 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/add_comment", AccountHandler.AddCommentTodays).Methods("POST")
 
 	security.HandleFunc("/my_favorite_picture", AccountHandler.MyProfilePictureHandler).Methods("GET")
+	security.HandleFunc("/my_players", AccountHandler.MyProfilePLayers).Methods("GET")
+	security.HandleFunc("/search_player", AccountHandler.SearchMyPlayer).Methods("POST")
 
 	var votedHanlder handler.VotedHandler
 	security.HandleFunc("/voted_todays/{id}", votedHanlder.AddVotedTodays).Methods("POST")

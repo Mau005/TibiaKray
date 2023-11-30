@@ -243,3 +243,38 @@ func (ac *AccountHandler) MyProfilePictureHandler(w http.ResponseWriter, r *http
 	}
 	template.Execute(w, strucNew)
 }
+
+func (ac *AccountHandler) MyProfilePLayers(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	cm := api.GetBaseWeb(r)
+
+	strucNew := struct {
+		models.StructModel
+		Voteds []models.Voted
+	}{
+		StructModel: cm,
+	}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_MY_PLAYERS)
+	if err != nil {
+		return
+	}
+	template.Execute(w, strucNew)
+}
+
+func (ac *AccountHandler) SearchMyPlayer(w http.ResponseWriter, r *http.Request) {
+
+	character := r.FormValue("name")
+	if character == "" {
+		log.Println("Error len = 0")
+		return
+	}
+
+	var collectorAPI controller.CollectorController
+	pl, err := collectorAPI.GetPlayer(character)
+	if err != nil {
+		log.Println("Error collector")
+		return
+	}
+	fmt.Println(pl)
+}

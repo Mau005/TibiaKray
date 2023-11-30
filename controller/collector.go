@@ -2,7 +2,9 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"log"
+	"regexp"
 	"strings"
 
 	"github.com/Mau005/KraynoSerer/configuration"
@@ -189,48 +191,36 @@ func (cc *CollectorController) getColletor(keyXML, site string) (dat []string) {
 	return words
 }
 
-func (cc *CollectorController) GetPlayer() (pl models.Player, err error) {
-	words := cc.getColletor("table", configuration.TIBIA_CHARS)
+func (cc *CollectorController) GetPlayer(name_character string) (pl models.Player, err error) {
+	name_character = strings.Trim(name_character, " ")
+	name_character = strings.ReplaceAll(name_character, " ", "+")
+	words := cc.getColletor("table", fmt.Sprintf(configuration.TIBIA_CHARS, name_character))
+
 	pl, err = cc.procesingPlayers(words[0])
-	if err != nil {
-		return pl, err
-	}
+
 	return pl, nil
 }
 
 func (cc *CollectorController) procesingPlayers(content string) (pl models.Player, err error) {
-	keys := []string{"Name:", "Title:", "Level:", "Achievement", "Sex:", "Vocation:", "Points:", "World:", "Residence:", "Guild\u00a0Membership:", "Guild Membership:", "Login:", "CETComment:", "Account Status:", "Account\u00a0Status:"}
-	if content == "" {
-		return pl, errors.New(configuration.COLLECTOR_EMPTY)
-	}
-	for _, value := range keys {
-		content = strings.ReplaceAll(content, value, "&&")
-	}
-	formated := strings.Split(content, "&&")
-	normalize := []string{}
 
-	if !(len(formated) > 10) {
-		return pl, errors.New(configuration.COLLECTOR_NOT_COMPLETED)
-	}
+	// Lista de claves
+	//keys := []string{"Name:", "Title:", "Level:", "Achievement", "Sex:", "Vocation:", "Points:", "World:", "Residence:", "Guild\u00a0Membership:", "Guild Membership:", "Login:", "CETComment:", "Account Status:", "Account\u00a0Status:"}
 
-	for _, value := range formated {
-		if value[0] == 32 || string(value[0]) == " " {
-			continue
-		}
-		normalize = append(normalize, value)
+	// Crear la expresión regular
+	/*
+		re := regexp.MustCompile(`(?i)` + // Ignorar mayúsculas y minúsculas
+			`(` +                       // Inicio de la captura
+			`Name:|Title:|Level:|Achievement|Sex:|Vocation:|Points:|World:|Residence:|Guild\s?Membership:|Login:|CETComment:|Account\s?Status:|Account\u00a0Status:` + // Alternancia de claves
+			`)` + // Fin de la captura
+			`([^A-Z]+)` // Captura de cualquier cosa que no sea letras mayúsculas
+	*/
+	fmt.Printf("%q", content)
+	re := regexp.MustCompile(`Name:(.*?)Title:(.*?)Sex:(.*?)Vocation:(.*?)Level:(.*?)Achievement Points:(.*?)World:(.*?)Residence:(.*?)Guild\s?Membership:(.*?)Last Login:(.*?)CETComment:(.*?)Account\s?Status:(.*?)`)
+	// Encontrar subpartes en la cadena de datos
+	match := re.FindAllStringSubmatch(content, -1)
+	// Imprimir los resultados
+	for _, value := range match {
+		fmt.Printf("%s\n", value[0])
 	}
-
-	pl.Name = normalize[0]
-	pl.Title = normalize[1]
-	pl.Sex = normalize[2]
-	pl.Vocation = normalize[3]
-	pl.Level = normalize[4]
-	pl.Achievement = normalize[5]
-	pl.World = normalize[6]
-	pl.Residence = normalize[7]
-	pl.Guild = normalize[8]
-	pl.Login = normalize[9]
-	pl.CETComment = normalize[10]
-	pl.AccountStatus = normalize[11]
-	return pl, nil
+	return models.Player{}, nil
 }

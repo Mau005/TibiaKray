@@ -299,8 +299,6 @@
                                 {{else}}
                                 <div class="nk-social-profile-info-username">@{{.Lenguaje.systemstreamen}}</div>
                                 {{end}}
-                                
-
                             </div>
                         </div>
                     </div>
@@ -361,26 +359,10 @@
                         <div class="nk-social-container">
                             <!-- START: Settings -->
                             <div class="nk-tabs">
-                                <div class="nk-popup-gallery nk-popup-gallery-2-col nk-isotope">
-                                    {{range .Voteds}}
-                                        {{with $today := .Todays}}
-                                            {{with index $today.Files 0}}
-                                                <div class="nk-gallery-item-box nk-isotope-item" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
-                                                    <a href="/image/{{.PathConsume}}" class="nk-gallery-item" data-size="800x600">
-                                                        <img src="/image/{{.PathConsume}}" alt="">
-                                                    </a>
-                                                    
-                                                    <div class="photoswipe-description">
-                                                        <h4>{{$today.Title}}</h4>{{$today.Description}}
-                                                    <a href="/todays_post/{{$today.ID}}">{{$.Lenguaje.getin}}</a>
-                                                    </div>
-                                                    <h4>{{$today.Title}}</h4>
-                                                </div>
-                                                
-                                            {{end}}
-                                        {{end}}
-                                    {{end}}
-                                </div>
+                                <form action="/auth/search_player" method="POST">
+                                <input type="text" name="name" id="name" placeholder="Ingrese el Nombre del Char">
+                                <button>Buscar</button>
+                                </form>
                             </div>
                             <!-- END: Settings -->
                         </div>
