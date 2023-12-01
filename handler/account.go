@@ -264,7 +264,7 @@ func (ac *AccountHandler) MyProfilePLayers(w http.ResponseWriter, r *http.Reques
 
 func (ac *AccountHandler) SearchMyPlayer(w http.ResponseWriter, r *http.Request) {
 
-	character := r.FormValue("name")
+	character := r.FormValue("nameplayer")
 	if character == "" {
 		log.Println("Error len = 0")
 		return
@@ -276,5 +276,5 @@ func (ac *AccountHandler) SearchMyPlayer(w http.ResponseWriter, r *http.Request)
 		log.Println("Error collector")
 		return
 	}
-	fmt.Println(pl)
+	json.NewEncoder(w).Encode(pl)
 }

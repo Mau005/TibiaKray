@@ -4,8 +4,8 @@ import "gorm.io/gorm"
 
 type Player struct {
 	gorm.Model
-	AccountId     uint
 	Name          string
+	FormerNames   string
 	Title         string
 	Sex           string
 	Vocation      string
@@ -13,9 +13,11 @@ type Player struct {
 	Achievement   string
 	Points        string
 	World         string
+	FormerWorld   string
 	Residence     string
+	Comment       string
+	House         string
 	Guild         string
-	Login         string
-	CETComment    string
+	LastLogin     string
 	AccountStatus string
 }

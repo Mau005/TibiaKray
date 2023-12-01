@@ -359,13 +359,15 @@
                         <div class="nk-social-container">
                             <!-- START: Settings -->
                             <div class="nk-tabs">
-                                <form action="/auth/search_player" method="POST">
-                                <input type="text" name="name" id="name" placeholder="Ingrese el Nombre del Char">
-                                <button>Buscar</button>
+                                <form id="myForm">
+                                <label for="nameplayer">Ingrese un Nombre:</label>
+                                <input type="text" name="nameplayer" id="nameplayer" placeholder="Ingrese el Nombre del Char">
+                                <button type="button" onclick="submitForm()">Enviar</button>
                                 </form>
                             </div>
                             <!-- END: Settings -->
                         </div>
+                        <div id="tableContainer"></div>
                         <div class="nk-gap-4"></div>
                     </div>
                 </div>
@@ -514,6 +516,60 @@
         <!-- GODLIKE -->
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
+        <script>
+            async function submitForm() {
+              // Obtener el valor del nombre desde el formulario
+              const name = document.getElementById('nameplayer').value;
+                console.log(name);
+              // Datos a enviar en el cuerpo de la solicitud POST
+              const data = { nameplayer: name };
+        
+              // Configurar opciones para la solicitud POST
+              const requestOptions = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+              };
+        
+              try {
+                // Hacer una solicitud POST a la API
+                const response = await fetch('/auth/search_player', requestOptions);
+        
+                if (response.ok) {
+                  const responseData = await response.json();
+        
+                  // Crear una tabla vertical con atributos relacionados
+                  const tableHTML = `
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Nombre:</td>
+                          <td>${name}</td>
+                        </tr>
+                        <tr>
+                          <td>Atributo1:</td>
+                          <td>${responseData.atributo1}</td>
+                        </tr>
+                        <tr>
+                          <td>Atributo2:</td>
+                          <td>${responseData.atributo2}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  `;
+        
+                  // Insertar la tabla en el contenedor
+                  document.getElementById('tableContainer').innerHTML = tableHTML;
+                } else {
+                  console.error('Error al obtener datos desde la API');
+                }
+              } catch (error) {
+                console.error('Error en la solicitud POST:', error);
+              }
+            }
+          </script>
         <!-- END: Scripts -->
     </body>
 </html>

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"regexp"
 	"strings"
 
 	"github.com/Mau005/KraynoSerer/configuration"
@@ -194,14 +193,14 @@ func (cc *CollectorController) getColletor(keyXML, site string) (dat []string) {
 func (cc *CollectorController) GetPlayer(name_character string) (pl models.Player, err error) {
 	name_character = strings.Trim(name_character, " ")
 	name_character = strings.ReplaceAll(name_character, " ", "+")
-	words := cc.getColletor("table", fmt.Sprintf(configuration.TIBIA_CHARS, name_character))
+	words := cc.getColletor("table.TableContent", fmt.Sprintf(configuration.TIBIA_CHARS, name_character))
 
 	pl, err = cc.procesingPlayers(words[0])
 
 	return pl, nil
 }
 
-func (cc *CollectorController) procesingPlayers(content string) (pl models.Player, err error) {
+func (cc *CollectorController) procesingPlayers(response string) (pl models.Player, err error) {
 
 	// Lista de claves
 	//keys := []string{"Name:", "Title:", "Level:", "Achievement", "Sex:", "Vocation:", "Points:", "World:", "Residence:", "Guild\u00a0Membership:", "Guild Membership:", "Login:", "CETComment:", "Account Status:", "Account\u00a0Status:"}
@@ -214,13 +213,79 @@ func (cc *CollectorController) procesingPlayers(content string) (pl models.Playe
 			`)` + // Fin de la captura
 			`([^A-Z]+)` // Captura de cualquier cosa que no sea letras mayúsculas
 	*/
-	fmt.Printf("%q", content)
-	re := regexp.MustCompile(`Name:(.*?)Title:(.*?)Sex:(.*?)Vocation:(.*?)Level:(.*?)Achievement Points:(.*?)World:(.*?)Residence:(.*?)Guild\s?Membership:(.*?)Last Login:(.*?)CETComment:(.*?)Account\s?Status:(.*?)`)
-	// Encontrar subpartes en la cadena de datos
-	match := re.FindAllStringSubmatch(content, -1)
-	// Imprimir los resultados
-	for _, value := range match {
-		fmt.Printf("%s\n", value[0])
+	fmt.Printf("%q", response)
+	response = strings.ReplaceAll(response, "\u00a0", " ")
+	fmt.Printf("%q", response)
+
+	keys := []string{"", //name por referencia mas abajo
+		"Former Names",
+		"Title",
+		"Sex",
+		"Vocation",
+		"Level",
+		"Achievement Points",
+		"World",
+		"Former World",
+		"Residence",
+		"Comment",
+		"House",
+		"Guild Membership",
+		"Last Login",
+		"Account Status",
 	}
-	return models.Player{}, nil
+	playerData := make(map[string]string, len(keys))
+	for _, keysData := range keys {
+		playerData[keysData] = ""
+	}
+
+	subProcesing := strings.Split(response, ":")
+	KeyOld := "Name"
+	for i, value := range subProcesing {
+		if i == 0 {
+			continue
+		}
+
+		for iKeys, keysValues := range keys {
+			if len(value) >= len(keysValues) {
+				if keysValues == "" {
+					continue
+				}
+				contentAttrResult := value[:len(value)-len(keysValues)]
+				keyAttrResult := value[len(value)-len(keysValues):]
+				//fmt.Println(value[:len(value)-len(keysValues)]) asi saco el valor
+				//value[len(value)-len(keysValues):] saco el contenido
+
+				if keyAttrResult == keysValues {
+					//fmt.Printf("Check: K:%s V:%s\n", keyAttrResult, keysValues)
+					//fmt.Printf("Asign: K:%s V:%s\n", KeyOld, contentAttrResult)
+					playerData[KeyOld] = contentAttrResult
+					KeyOld = keyAttrResult
+					keys[iKeys] = ""
+					break
+				}
+			}
+		}
+		if len(subProcesing)-1 == i {
+			playerData[KeyOld] = value
+		}
+
+	}
+
+	return models.Player{
+		Name:          playerData["Name"],
+		FormerNames:   playerData["Former Names"],
+		Title:         playerData["Title"],
+		Sex:           playerData["Sex"],
+		Vocation:      playerData["Vocation"],
+		Level:         playerData["Level"],
+		Achievement:   playerData["Achievement Points"],
+		World:         playerData["World"],
+		FormerWorld:   playerData["Former World"],
+		Residence:     playerData["Residence"],
+		Comment:       playerData["Comment"],
+		House:         playerData["House"],
+		Guild:         playerData["Guild Membership"],
+		LastLogin:     playerData["Last Login"],
+		AccountStatus: playerData["Account Status"],
+	}, nil
 }
