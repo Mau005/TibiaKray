@@ -6,6 +6,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/gocolly/colly/v2 v2.1.0
+	github.com/google/uuid v1.4.0
 	github.com/gorilla/mux v1.8.1
 	github.com/gorilla/sessions v1.2.2
 	golang.org/x/crypto v0.15.0

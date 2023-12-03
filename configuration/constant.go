@@ -30,6 +30,9 @@ const (
 )
 
 const (
+	PATH_CONFIG           = "config.yml"
+	PATH_LENGUAJE_CLIENT  = "data/lenguaje.csv"
+	PATH_LENGUAJE_SERVER  = "data/errorServer.csv"
 	PATH_WEB_ERROR        = "static/error404.html"
 	PATH_WEB_ADMIN        = "static/admin.html"
 	PATH_WEB_INDEX        = "static/index.html"
@@ -49,6 +52,7 @@ const (
 	ROUTER_INDEX               = "/"
 	ROUTER_TODAYS_POST         = "/todays_post/%d"
 	ROUTER_TODAYS_POST_APROVED = "/auth/todays_aproved/%d"
+	ROUTER_MY_PLAYERS          = "/auth/my_players"
 )
 
 const (

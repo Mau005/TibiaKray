@@ -16,13 +16,16 @@ import (
 	"time"
 
 	"github.com/Mau005/KraynoSerer/configuration"
+	"github.com/Mau005/KraynoSerer/database"
 	"github.com/Mau005/KraynoSerer/models"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
 var Lenguaje map[string]map[string]string = make(map[string]map[string]string)   //load data
 var LenguajeInternal map[string]map[int]string = make(map[string]map[int]string) //load data
+var Manager *ManagerController
 
 var ExtencionImage = map[string]bool{
 	"jpg":  true,
@@ -33,6 +36,62 @@ var ExtencionImage = map[string]bool{
 }
 
 type ApiController struct{}
+
+func (ac *ApiController) InitServices() error {
+	//Load COnfig
+	err := configuration.LoadConfiguration(configuration.PATH_CONFIG)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	//End Load Config
+	//Load Database
+	err = database.ConnectionDataBase()
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	//End Load DataBase
+	//Init Lenguaje
+	err = ac.InitLenguaje(configuration.PATH_LENGUAJE_CLIENT)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	err = ac.InitLenguajeServer(configuration.PATH_LENGUAJE_SERVER)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	//End Lenguaje
+
+	//init News for tibia.com
+	var cc CollectorController
+	err = cc.GenerateNewsTibia()
+	if err != nil {
+		log.Println(fmt.Sprintf("[NEWS][ERROR] %s", err.Error()))
+	}
+	log.Println("[NEWS] Load for Tibia.com")
+	//End News for tibia.com
+
+	//init rashid
+	var toolsManager ToolsController
+	toolsManager.InitRashid()
+	//end rashid
+
+	//init default reset web for server tibia
+	go ac.ResetDefaultWeb() //Iniciamos los servicios cada 24 hrs
+	//end init
+	Manager, err = NewManagerController()
+	if err != nil {
+		log.Println("Error al cargar Manager Controller" + err.Error())
+		return err
+	}
+	go Manager.Update()
+
+	return nil
+
+}
 
 func (ac *ApiController) GenerateCryptPassword(password string) string {
 	hasedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -288,4 +347,46 @@ func (ac *ApiController) NormalizeString(count int, content string) (result stri
 	}
 
 	return result
+}
+
+func (ac *ApiController) GenerateUUid() string {
+	//Se generan los UUID para los personajes registrados
+	id := uuid.New()
+
+	return id.String()
+}
+
+func (ac *ApiController) ResetDefaultWeb() {
+	for {
+		now := time.Now()
+		// Calcula la duración hasta la próxima 6 de la mañana
+		nextSixAM := time.Date(now.Year(), now.Month(), now.Day(), configuration.Config.Server.ServerSave, 0, 0, 0, now.Location())
+		if now.After(nextSixAM) {
+			// Si ya es después de las 6 de la mañana hoy, programa para mañana
+			nextSixAM = nextSixAM.Add(24 * time.Hour)
+		}
+
+		durationUntilSixAM := nextSixAM.Sub(now)
+
+		// Configura un temporizador para ejecutar la función a las 6 de la mañana
+		timer := time.NewTimer(durationUntilSixAM)
+		<-timer.C // Espera hasta que el temporizador alcance su límite
+
+		// Ejecuta tu función aquí
+		log.Println("Reset Data: ", nextSixAM)
+		var cc CollectorController
+		err := cc.GenerateNewsTibia()
+		if err != nil {
+			log.Println(fmt.Sprintf("[NEWS][ERROR] %s", err.Error()))
+		}
+		log.Println("[NEWS] Load for Tibia.com")
+
+		var toolsManager ToolsController
+		toolsManager.InitRashid()
+
+		//reset sharedloot
+		configuration.SharedLootHightNow = models.SharedLoot{}
+
+	}
+
 }

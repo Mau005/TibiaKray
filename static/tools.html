@@ -281,59 +281,54 @@
 
         <div class="nk-main">
             <div class="text-center">
-                <h2 class="nk-title display-3">{{.Lenguaje.plusvoted}}</h2>
+                <h2 class="nk-title display-3">{{.Lenguaje.tools}}</h2>
             </div>
             <div class="container">
                 <div class="nk-gap-4"></div>
-                <div class="nk-store">
-                    <!-- START: Products List -->
-                    <div class="row no-gutters">
-                        <div class="col-sm-6 col-lg-4">
-                            <!-- START: Product -->
-                            <div class="nk-product" data-mouse-parallax-z="2">
-                                <div>
-                                    <div class="nk-carousel-3" data-size="1" data-mouse-parallax-z="3">
-                                        <div>
-                                            <img class="nk-img-stretch" src="static/assets/images-svg/shared_loot.svg" width="400" height="508" alt="Women Tshirt">
-                                        </div>
-                                    </div>
-                                    <h2 class="nk-product-title h5" data-mouse-parallax-z="1"><a href="/shared_loot">{{.Lenguaje.sharedloot}}</a></h2>
-                                    <a>{{.Lenguaje.descriptionsharedloot}}</a>
-                                    <div class="nk-product-bottom">
-                                        
-                                        <div>
-                                            <a href="/shared_loot">{{.Lenguaje.getin}}</a>
-                                        </div>
-                                    </div>
+                <div class="container">
+                    <div class="nk-gap-4"></div>
+                    <!-- START: Posts List -->
+                    <div class="nk-blog-grid-3">
+                        <!-- START: Post -->
+                        <div class="nk-blog-post">
+                            <div class="nk-post-thumb">
+                                <div class="nk-post-type"><span class="ion-image"></span></div>
+                                <a href="/shared_loot">
+                                    <img src="static/assets/images-svg/shared_loot.svg" alt="" class="nk-img-stretch">
+                                </a>
+                            </div>
+                            <div class="nk-post-content">
+                                <h2 class="nk-post-title h4">
+                                    <a href="/shared_loot">{{.Lenguaje.sharedloot}}</a>
+                                </h2>
+                                <div class="nk-post-text">
+                                    <p>{{.Lenguaje.descriptionsharedloot}}</p>
                                 </div>
                             </div>
-                            <!-- END: Product -->
                         </div>
-                        <div class="col-sm-6 col-lg-4">
-                            <!-- START: Product -->
-                            <div class="nk-product" data-mouse-parallax-z="2">
-                                <div>
-                                    <div class="nk-carousel-3" data-size="1" data-mouse-parallax-z="3">
-                                        <div>
-                                            <img class="nk-img-stretch" src="static/assets/images-svg/shared_exp.jpg" width="400" height="508" alt="Women Tshirt">
-                                        </div>
-                                    </div>
-                                    <h2 class="nk-product-title h5" data-mouse-parallax-z="1"><a href="/sharedexp">{{.Lenguaje.sharedexp}}</a></h2>
-                                    <a>{{.Lenguaje.descriptionsharedexp}}</a>
-                                    <div class="nk-product-bottom">
-                                        <div>
-                                            <a href="/sharedexp">{{.Lenguaje.getin}}</a>
-                                        </div>
-                                    </div>
+                        <!-- END: Post -->
+                        <!-- START: Post -->
+                        <div class="nk-blog-post">
+                            <div class="nk-post-thumb">
+                                <div class="nk-post-type"><span class="ion-image"></span></div>
+                                <a href="/sharedexp">
+                                    <img src="static/assets/images-svg/shared_exp.jpg" alt="" class="nk-img-stretch">
+                                </a>
+                            </div>
+                            <div class="nk-post-content">
+                                <h2 class="nk-post-title h4">
+                                    <a href="/sharedexp">{{.Lenguaje.sharedexp}}</a>
+                                </h2>
+                                <div class="nk-post-text">
+                                    <p>{{.Lenguaje.descriptionsharedexp}}</p>
                                 </div>
                             </div>
-                            <!-- END: Product -->
                         </div>
                     </div>
-                    <!-- END: Products List -->
-                    <div class="nk-gap-5"></div>
-                    <!-- START: Pagination -->
                     <!-- END: Pagination -->
+                    <!-- END: Posts List -->
+                    <div class="nk-gap-4"></div>
+                    <div class="nk-gap-3"></div>
                 </div>
                 <div class="nk-gap-4"></div>
                 <div class="nk-gap-3"></div>

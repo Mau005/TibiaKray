@@ -310,10 +310,10 @@
                             <div class="nk-social-menu d-none d-lg-block">
                                 <div class="nk-social-menu">
                                     <ul>
-                                        <li class="">
-                                            <a href="/auth/my_players"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
-                                        </li>
                                         <li class="active">
+                                            <a href="/auth/my_players"> {{.Lenguaje.characters}}</a>
+                                        </li>
+                                        <li class="">
                                             <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}</a>
                                         </li>
                                         <li class="">
@@ -333,8 +333,8 @@
                                     <div id="nk-social-menu-mobile-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="nk-social-menu-mobile-1-heading">
                                         <div class="nk-social-menu">
                                             <ul>
-                                                <li class="">
-                                                    <a href="/auth/my_players"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
+                                                <li class="active">
+                                                    <a href="/auth/my_players"> {{.Lenguaje.characters}}</a>
                                                 </li>
                                                 <li class="">
                                                     <a href="social-user-messages.html">{{.Lenguaje.favoriteimages}}</a>
@@ -358,13 +358,120 @@
                         <div class="nk-gap-2 d-none d-lg-block"></div>
                         <div class="nk-social-container">
                             <!-- START: Settings -->
-                            <div class="nk-tabs">
-                                <form id="myForm">
-                                <label for="nameplayer">Ingrese un Nombre:</label>
-                                <input type="text" name="nameplayer" id="nameplayer" placeholder="Ingrese el Nombre del Char">
-                                <button type="button" onclick="submitForm()">Enviar</button>
-                                </form>
+                                
+                            {{if eq .Player.Name ""}}
+                            <div class="container">
+                                <h2 class="nk-title h3 text-center">{{.Lenguaje.registercharacter}}</h2>
+                                <div class="nk-gap-2"></div>
+                                <form action="/auth/search_player" method="POST">
+                                <input type="text" class="form-control required" name="name" id="name" placeholder="{{.Lenguaje.player}}">
+                                <div class="nk-gap-1"></div>
+                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.send}}</button>
+                            </form>
                             </div>
+                            <div class="nk-gap"></div>
+                            <h2 class="nk-title h3 text-center">{{.Lenguaje.mycharacter}}</h2>
+                            <ul class="nk-social-friends">
+                                {{range .Players}}
+                                <li>
+                                    <div class="nk-social-friends-avatar">
+                                        <a href="#"><img src="/static/assets/images/avatar-3-sm.jpg" alt="{{.Name}}"></a>
+                                    </div>
+                                    <div class="nk-social-friends-content">
+                                        <div class="nk-social-friends-info">
+                                            <div class="nk-social-friends-name">
+                                                <a href="#">{{.Name}}</a>
+                                            </div>
+                                            <div class="nk-social-friends-meta">{{$.Lenguaje.lvl}}: {{.Level}} </div>
+                                            <div class="nk-social-friends-meta">{{$.Lenguaje.voc}}: {{.Vocation}} </div>
+                                            <div class="nk-social-friends-meta">{{$.Lenguaje.world}}: {{.World}} </div>
+                                        </div>
+                                        <div class="nk-social-friends-actions">
+                                            <a href="/auth/delete_player/{{.ID}}" class="nk-btn nk-btn-xs link-effect-4">{{$.Lenguaje.seeCharacter}}</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                {{end}}
+                            </ul>
+                            <div class="nk-gap"></div>
+                            {{else}}
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <form>
+                                        <input type="text" class="form-control required" value="{{.Player.Name}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.FormerNames}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Title}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Sex}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Vocation}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Level}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Achievement}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.World}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.FormerWorld}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Residence}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Comment}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.House}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.Guild}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.LastLogin}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                        <input type="text" class="form-control required" value="{{.Player.AccountStatus}}" disabled>
+                                        <div class="nk-gap-1"></div>
+
+                                    </form>
+                                </div>
+                                
+                                <div class="col-lg-5">
+                                    <a>{{.Lenguaje.inforegistercharacter}}</a>
+                                        <div class="nk-gap-2"></div>
+                                        <ul class="nk-widget-categories">
+                                            <a>{{.Lenguaje.info}}:</a>
+                                            
+                                            <a>{{.Lenguaje.characterprocessing}}</a>
+                                            
+                                        </ul>
+                                        <div class="nk-gap-2"></div>
+                                        <ul class="nk-widget-categories">
+                                            <a>{{.Lenguaje.code}}:</a>
+                                            <li>
+                                                <a class="copyable" onclick="copyToClipboard(this)">|TibiaKray={{.Player.Uuid}}|</a>
+                                            </li>
+                                        </ul>
+                                        
+                                        <div class="nk-gap-2"></div>
+                                    
+                                        {{.Lenguaje.infoprocesingcharacter}}
+                                    </a>
+                                </div>
+                            </div>
+                            {{end}}
+
+                            
                             <!-- END: Settings -->
                         </div>
                         <div id="tableContainer"></div>
@@ -517,59 +624,26 @@
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
         <script>
-            async function submitForm() {
-              // Obtener el valor del nombre desde el formulario
-              const name = document.getElementById('nameplayer').value;
-                console.log(name);
-              // Datos a enviar en el cuerpo de la solicitud POST
-              const data = { nameplayer: name };
-        
-              // Configurar opciones para la solicitud POST
-              const requestOptions = {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-              };
-        
-              try {
-                // Hacer una solicitud POST a la API
-                const response = await fetch('/auth/search_player', requestOptions);
-        
-                if (response.ok) {
-                  const responseData = await response.json();
-        
-                  // Crear una tabla vertical con atributos relacionados
-                  const tableHTML = `
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Nombre:</td>
-                          <td>${name}</td>
-                        </tr>
-                        <tr>
-                          <td>Atributo1:</td>
-                          <td>${responseData.atributo1}</td>
-                        </tr>
-                        <tr>
-                          <td>Atributo2:</td>
-                          <td>${responseData.atributo2}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  `;
-        
-                  // Insertar la tabla en el contenedor
-                  document.getElementById('tableContainer').innerHTML = tableHTML;
-                } else {
-                  console.error('Error al obtener datos desde la API');
-                }
-              } catch (error) {
-                console.error('Error en la solicitud POST:', error);
-              }
+            // Función para copiar el contenido de un elemento al portapapeles
+            function copyToClipboard(element) {
+                // Crear un elemento de texto temporal
+                const tempElement = document.createElement('textarea');
+                tempElement.value = element.textContent;
+    
+                // Añadir el elemento temporal al DOM
+                document.body.appendChild(tempElement);
+    
+                // Seleccionar y copiar el texto
+                tempElement.select();
+                document.execCommand('copy');
+    
+                // Eliminar el elemento temporal
+                document.body.removeChild(tempElement);
+    
+                // Puedes agregar alguna acción adicional después de copiar, si es necesario
+                alert('Copiado al portapapeles: ' + element.textContent);
             }
-          </script>
+        </script>
         <!-- END: Scripts -->
     </body>
 </html>

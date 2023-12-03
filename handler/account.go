@@ -248,33 +248,64 @@ func (ac *AccountHandler) MyProfilePLayers(w http.ResponseWriter, r *http.Reques
 	var api controller.ApiController
 	cm := api.GetBaseWeb(r)
 
+	var playerManager controller.PlayerController
+	var accountManager controller.AccountController
+	acc, _ := accountManager.GetAccount(cm.Email)
+	players, err := playerManager.GetMyPlayer(acc.ID)
 	strucNew := struct {
 		models.StructModel
-		Voteds []models.Voted
+		Player  models.Player
+		Players []models.Player
 	}{
 		StructModel: cm,
+		Players:     players,
 	}
-
 	template, err := template.ParseFiles(configuration.PATH_WEB_MY_PLAYERS)
+
 	if err != nil {
 		return
 	}
+
 	template.Execute(w, strucNew)
 }
 
 func (ac *AccountHandler) SearchMyPlayer(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
 
-	character := r.FormValue("nameplayer")
+	var ErrorHandler ErrorHandler
+
+	character := r.FormValue("name")
 	if character == "" {
-		log.Println("Error len = 0")
+		ErrorHandler.PageErrorMSG(http.StatusNotAcceptable, configuration.ErrorEmptyField, configuration.ROUTER_MY_PLAYERS, w, r, sm)
 		return
 	}
+
+	var accManager controller.AccountController
+	acc, err := accManager.GetAccount(sm.Email)
 
 	var collectorAPI controller.CollectorController
 	pl, err := collectorAPI.GetPlayer(character)
 	if err != nil {
 		log.Println("Error collector")
+		ErrorHandler.PageErrorMSG(http.StatusInternalServerError, configuration.ErrorInternal, configuration.ROUTER_MY_PLAYERS, w, r, sm)
 		return
 	}
-	json.NewEncoder(w).Encode(pl)
+	pl.AccountID = &acc.ID //Asociamos el ID a el account
+	//pl.Account = *acc instanciamos la cuenta al personaje
+	pl = controller.Manager.AddPlayer(pl)
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_MY_PLAYERS)
+	if err != nil {
+		log.Println("Error en cargar template")
+		return
+	}
+	structNew := struct {
+		models.StructModel
+		Player models.Player
+	}{
+		StructModel: sm,
+		Player:      pl,
+	}
+	template.Execute(w, structNew)
 }

@@ -213,9 +213,9 @@ func (cc *CollectorController) procesingPlayers(response string) (pl models.Play
 			`)` + // Fin de la captura
 			`([^A-Z]+)` // Captura de cualquier cosa que no sea letras mayúsculas
 	*/
-	fmt.Printf("%q", response)
+	//fmt.Printf("%q", response)
 	response = strings.ReplaceAll(response, "\u00a0", " ")
-	fmt.Printf("%q", response)
+	//fmt.Printf("%q", response)
 
 	keys := []string{"", //name por referencia mas abajo
 		"Former Names",
