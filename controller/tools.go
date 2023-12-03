@@ -188,7 +188,7 @@ func (tc *ToolsController) InitRashid() string {
 	date := time.Now()
 	day := int(date.Weekday())
 
-	if date.Hour() <= 6 {
+	if date.Hour() <= configuration.Config.Server.ServerSave {
 		day -= 1
 	}
 	if day == 0 {
