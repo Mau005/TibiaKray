@@ -189,13 +189,12 @@ func (tc *ToolsController) InitRashid() string {
 	day := int(date.Weekday())
 
 	if date.Hour() <= 6 {
-		if day == 0 {
-			day = 7
-		} else {
-			day -= 1
-		}
-
+		day -= 1
 	}
+	if day == 0 {
+		day = 7
+	}
+	fmt.Println(day)
 	switch day {
 	case configuration.MONDAY:
 		configuration.Rashid = "RashidMonday"
