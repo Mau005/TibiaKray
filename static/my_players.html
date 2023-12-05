@@ -375,7 +375,19 @@
                                 {{range .Players}}
                                 <li>
                                     <div class="nk-social-friends-avatar">
-                                        <a href="#"><img src="/static/assets/images/avatar-3-sm.jpg" alt="{{.Name}}"></a>
+                                        {{if or (eq .Vocation "Elite Knight") (eq .Vocation "Knight")}}
+                                            <a href="#"><img src="/static/assets/images-svg/knight.jpg" alt="{{.Name}}"></a>
+                                        {{else if or (eq .Vocation "Paladin") (eq .Vocation "Royal Paladin")}}
+                                            <a href="#"><img src="/static/assets/images-svg/paladin.jpg" alt="{{.Name}}"></a>
+                                        {{else if or (eq .Vocation "Sorcerer") (eq .Vocation "Master Sorcerer")}}
+                                            <a href="#"><img src="/static/assets/images-svg/sorcerer.jpg" alt="{{.Name}}"></a>
+                                        {{else if or (eq .Vocation "Druid") (eq .Vocation "Elder Druid")}}
+                                            <a href="#"><img src="/static/assets/images-svg/druid.jpg" alt="{{.Name}}"></a>
+                                        {{else}}
+                                            <a href="#"><img src="/static/assets/images-svg/no_vocation.jpg" alt="{{.Name}}"></a>
+                                        {{end}}
+
+
                                     </div>
                                     <div class="nk-social-friends-content">
                                         <div class="nk-social-friends-info">

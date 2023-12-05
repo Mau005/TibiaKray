@@ -194,7 +194,6 @@ func (tc *ToolsController) InitRashid() string {
 	if day <= 0 {
 		day = 7
 	}
-	fmt.Println("day es: ", day)
 	switch day {
 	case configuration.MONDAY:
 		configuration.Rashid = "RashidMonday"
@@ -211,6 +210,5 @@ func (tc *ToolsController) InitRashid() string {
 	case configuration.SUNDAY:
 		configuration.Rashid = "RashidSunday"
 	}
-	fmt.Println(Lenguaje["es"][configuration.Rashid])
 	return configuration.Rashid
 }
