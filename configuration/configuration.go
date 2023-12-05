@@ -31,7 +31,7 @@ type Server struct {
 	Port           uint   `yaml:"Port"`
 	Debug          bool   `yaml:"Debug"`
 	LengthSecurity uint   `yaml:"LengthSecurity"`
-	ServerSave     int    `yaml:"ServerSabe"`
+	ServerSave     int    `yaml:"ServerSave"`
 }
 
 type Email struct {

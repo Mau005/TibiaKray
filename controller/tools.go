@@ -186,15 +186,15 @@ func (tc *ToolsController) SharedExp(level string, sm models.StructModel) (strin
 func (tc *ToolsController) InitRashid() string {
 
 	date := time.Now()
+	//1 es lunes tiene que ser lunes
 	day := int(date.Weekday())
-
-	if date.Hour() <= configuration.Config.Server.ServerSave {
+	if !(configuration.Config.Server.ServerSave <= date.Hour()) {
 		day -= 1
 	}
-	if day == 0 {
+	if day <= 0 {
 		day = 7
 	}
-	fmt.Println(day)
+	fmt.Println("day es: ", day)
 	switch day {
 	case configuration.MONDAY:
 		configuration.Rashid = "RashidMonday"
@@ -211,5 +211,6 @@ func (tc *ToolsController) InitRashid() string {
 	case configuration.SUNDAY:
 		configuration.Rashid = "RashidSunday"
 	}
+	fmt.Println(Lenguaje["es"][configuration.Rashid])
 	return configuration.Rashid
 }
