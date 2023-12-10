@@ -94,7 +94,7 @@ func (tc *TodaysController) GetTodaysLobby() (todays []models.Todays, err error)
 		}).Preload("Files").
 		Order("views  desc").
 		Where("created_at BETWEEN ? AND ?", startOfWeek, endOfWeek).
-		Where("status = 1 ").
+		Where("status = ?", 1).
 		Limit(3).
 		Find(&todays).Error; err != nil {
 		return todays, err

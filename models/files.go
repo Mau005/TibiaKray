@@ -10,4 +10,5 @@ type Files struct {
 	NewsID      *uint
 	TodaysID    *uint
 	Todays      *Todays `gorm:"foreignKey:TodaysID"`
+	TypeFile    string
 }

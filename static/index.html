@@ -286,14 +286,23 @@
                         {{range $index, $today := .Todays}}
                             {{range $today.Files}}
                             <div>
-                                <div>
-                                    <img src="/image/{{.PathConsume}}" alt="" class="nk-img-fit-md-up">
-                                </div>
                                 <div class="container">
                                     <h4 class="nk-sub-title text-center"> {{$.Lenguaje.getin}}: <span class="nk-typed" data-loop="true">
                                         <span><a href="/todays_post/{{$today.ID}}">{{$today.Title}}</a></span></span>
                                     </h4>
                                 </div>
+                                {{if eq .TypeFile "mp4"}}
+                                <div>
+                                    <center>
+                                        <video style="width: 100%; height: 100%;" src="/image/{{.PathConsume}}" muted autoplay controls></video>
+                                        </center>
+                                </div>
+                                {{else}}
+                                    <a href="/image/{{.PathConsume}}">
+                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
+                                    </a>
+                                {{end}}
+                                
                             </div>
                             {{end}}
                         {{end}}

@@ -34,6 +34,7 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 
 	var api controller.ApiController
 	//var accCont controller.AccountController
+	var ErrorHandler ErrorHandler
 
 	acc, err := api.GetSessionAccount(r)
 	if err != nil {
@@ -49,22 +50,36 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 		"png":  true,
 		"gif":  true,
 		"bmp":  true,
+		"mp4":  true,
 	}
 
 	title := r.FormValue("title")
 	description := r.FormValue("description")
-	file, handler, err := r.FormFile("documents")
 
+	file, handler, err := r.FormFile("documents")
 	if err != nil {
-		log.Println("No se pudo cargar el file")
+		base := api.GetBaseWeb(r)
+		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusConflict, configuration.ErrorInternal, configuration.ROUTER_UPLOAD_IMAGES, w, r, base)
 		return
 	}
 	defer file.Close()
 
-	verify := strings.Split(handler.Filename, ".")
+	filesize := handler.Size
+	if filesize >= configuration.MAX_FILE_SIZE {
+		base := api.GetBaseWeb(r)
+		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusNotAcceptable, configuration.ErrorMaxFileSize, configuration.ROUTER_UPLOAD_IMAGES, w, r, base)
+		return
+	}
 
-	if !(extencion[verify[len(verify)-1]]) {
-		log.Println("La extencion indicada no es correcta")
+	verify := strings.Split(handler.Filename, ".")
+	extencionFile := verify[len(verify)-1]
+
+	if !(extencion[extencionFile]) {
+		base := api.GetBaseWeb(r)
+		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusConflict, configuration.ErrorPolicies, configuration.ROUTER_UPLOAD_IMAGES, w, r, base)
 		return
 	}
 
@@ -79,12 +94,14 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if todays.ID == 0 {
-		log.Println("No se creo el todays correctamente")
+		base := api.GetBaseWeb(r)
+		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusConflict, configuration.ErrorInternal, configuration.ROUTER_UPLOAD_IMAGES, w, r, base)
 		return
 	}
 
 	newName := api.GenerateHash(fmt.Sprintf("%d", todays.ID)) //Genero un sha256, proceso el id para ese hash, luego sumo la extencon del file
-	fileExtencion := newName + "." + verify[len(verify)-1]
+	fileExtencion := newName + "." + extencionFile
 	pathSave := fmt.Sprintf("%s/%s/", configuration.IMAGEN_PATH, api.GenerateHash(acc.Name))
 	pathConsume := fmt.Sprintf("%s/%s/%s", "todays", api.GenerateHash(acc.Name), fileExtencion)
 
@@ -104,7 +121,9 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 
 	_, err = io.Copy(fileCopy, file)
 	if err != nil {
-		//En esta parte debo eliminar el todays generado
+		base := api.GetBaseWeb(r)
+		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusConflict, configuration.ErrorInternal, configuration.ROUTER_UPLOAD_IMAGES, w, r, base)
 		return
 	}
 
@@ -114,11 +133,17 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	encr.PathEncrypt = fileExtencion
 	encr.PathOrigin = pathSave + fileExtencion
 	encr.Todays = &todays
+	if extencionFile == "mp4" {
+		encr.TypeFile = "mp4"
+	}
 
 	var encrController controller.FileEncryptsController
 
 	enc, err := encrController.CreateEncrypFile(encr)
 	if err != nil {
+		base := api.GetBaseWeb(r)
+		log.Println(err)
+		ErrorHandler.PageErrorMSG(http.StatusConflict, configuration.ErrorInternal, configuration.ROUTER_UPLOAD_IMAGES, w, r, base)
 		return
 	}
 

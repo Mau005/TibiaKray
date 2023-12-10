@@ -468,14 +468,26 @@
                         photoHTML += `
                             <div class="nk-blog-post" data-mouse-parallax-z="5" data-mouse-parallax-speed="1">
                                 <div class="nk-post-thumb">
-                                    <a href="/todays_post/${today.ID}">
+                        `
+                        if (today.Files[0].TypeFile == "mp4"){
+                            photoHTML += `
+                                        <div>
+                                            <center>
+                                                <video style="width: 100%; height: 100%;" src="/image/${today.Files[0].PathConsume}"  muted autoplay controls></video>
+                                              </center>
+                                        </div>
+                            `
+                        }else{
+                            photoHTML +=`<a href="/todays_post/${today.ID}">
                                         <img src="/image/${today.Files[0].PathConsume}" alt="" class="nk-img-stretch">
-                                    </a>
-                                </div>  
+                                    </a>`
+                        }
+                        photoHTML += `
+                            </div>  
                                 <div class="nk-post-content">
                                     <div data-mouse-parallax-z="2">
                                         <h2 class="nk-post-title h1">
-                                            <a>${today.Title}</a>
+                                            <a href="/todays_post/${today.ID}" >${today.Title}</a>
                                         </h2>
                                         <div class="nk-post-date">${today.Description}</div>
                                     </div>
@@ -540,4 +552,5 @@
             </script>
         <!-- END: Scripts -->
     </body>
+    <div class="nk-gap-2"></div>
 </html>

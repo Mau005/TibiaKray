@@ -284,9 +284,17 @@
                             <div class="nk-post-thumb">
                                 {{ if eq (len .Todays.Files) 1 }}
                                     {{range .Todays.Files}}
-                                    <a href="/image/{{.PathConsume}}">
-                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                    </a>
+                                        {{if eq .TypeFile "mp4"}}
+                                        <div >
+                                            <center>
+                                                <video style="width: 100%; height: 100%;" src="/image/{{.PathConsume}}" muted autoplay controls></video>
+                                              </center>
+                                        </div>
+                                        {{else}}
+                                            <a href="/image/{{.PathConsume}}">
+                                                <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
+                                            </a>
+                                        {{end}}
                                     {{end}}
                                 {{ else }}
                                     {{/* Recorrer cada elemento en caso de que la longitud no sea igual a 1 */}}

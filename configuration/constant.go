@@ -6,7 +6,8 @@ const (
 
 const (
 	ACCES_ADMIN            = 3
-	EXPIRATION_TOKEN       = 24 //HOURS
+	MAX_FILE_SIZE          = 5 << 20 //3 mgbyttes
+	EXPIRATION_TOKEN       = 24      //HOURS
 	NAME_SESSION           = "Authorization"
 	ERROR_SERVICE_SECURITY = "Service error in Security"
 	ERROR_PRIVILEGES_GEN   = "No Tienes los privilegios para acceder"
@@ -62,6 +63,7 @@ const (
 	ROUTER_TODAYS_POST         = "/todays_post/%d"
 	ROUTER_TODAYS_POST_APROVED = "/auth/todays_aproved/%d"
 	ROUTER_MY_PLAYERS          = "/auth/my_players"
+	ROUTER_UPLOAD_IMAGES       = "/auth/upload_image"
 )
 
 const (
@@ -75,6 +77,7 @@ const (
 	ErrorCode
 	ErrorPolicies
 	NotAuthorized
+	ErrorMaxFileSize
 )
 const (
 	MONDAY = iota + 1
