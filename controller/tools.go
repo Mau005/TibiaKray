@@ -188,26 +188,30 @@ func (tc *ToolsController) InitRashid() string {
 	date := time.Now()
 	//1 es lunes tiene que ser lunes
 	day := int(date.Weekday())
-	if !(configuration.Config.Server.ServerSave <= date.Hour()) {
+
+	if configuration.Config.Server.ServerSave >= date.Hour() {
+
+	} else {
 		day -= 1
 	}
-	if day <= 0 {
-		day = 7
+	if day == 0 {
+		day = 6
 	}
+
 	switch day {
-	case configuration.MONDAY:
-		configuration.Rashid = "RashidMonday"
-	case configuration.TUESDAY:
+	case configuration.Monday:
+		configuration.Rashid = "RashidSunday"
+	case configuration.Tuesday:
 		configuration.Rashid = "RashidTuesday"
-	case configuration.WEDNESDAY:
+	case configuration.Wednesday:
 		configuration.Rashid = "RashidWednesday"
-	case configuration.THURSDAY:
+	case configuration.Thursday:
 		configuration.Rashid = "RashidThursday"
-	case configuration.FRIDAY:
+	case configuration.Friday:
 		configuration.Rashid = "RashidFriday"
-	case configuration.SATURDAY:
+	case configuration.Saturday:
 		configuration.Rashid = "RashidSaturday"
-	case configuration.SUNDAY:
+	case configuration.Sunday:
 		configuration.Rashid = "RashidSunday"
 	}
 	return configuration.Rashid

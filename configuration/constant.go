@@ -80,11 +80,11 @@ const (
 	ErrorMaxFileSize
 )
 const (
-	MONDAY = iota + 1
-	TUESDAY
-	WEDNESDAY
-	THURSDAY
-	FRIDAY
-	SATURDAY
-	SUNDAY
+	Sunday = iota
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Saturday
 )
