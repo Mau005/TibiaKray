@@ -12,6 +12,15 @@ import (
 
 type AccountController struct{}
 
+func (ac *AccountController) GetCountAccount() (int64, error) {
+	var result int64
+
+	if err := database.DB.Find(&models.Account{}).Count(&result).Error; err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
 func (ac *AccountController) IsUserName(user string) bool {
 	var acc models.Account
 	if err := database.DB.Where("name = ?", user).First(&acc).Error; err != nil {
@@ -151,4 +160,11 @@ func (ac *AccountController) AddCommentTodays(id, commentText string, account *m
 	}
 
 	return com, nil
+}
+
+func (ac *AccountController) GetAccountAll() (accounts []models.Account, err error) {
+	if err = database.DB.Find(&accounts).Error; err != nil {
+		return
+	}
+	return
 }

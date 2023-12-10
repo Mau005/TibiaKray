@@ -2,7 +2,6 @@ package router
 
 import (
 	"net/http"
-	"text/template"
 
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/handler"
@@ -31,13 +30,8 @@ func NewRouter() *mux.Router {
 
 	router.HandleFunc("/404", handler.Page404).Methods("GET")
 	router.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		template, err := template.ParseFiles("static/test.html")
-		if err != nil {
-			return
-		}
-		var api controller.ApiController
-		sc := api.GetBaseWeb(r)
-		template.Execute(w, sc)
+		var monsterContr controller.EntitysCreatures
+		monsterContr.CollectorCreature()
 	})
 
 	var AccountHandler handler.AccountHandler
@@ -79,6 +73,7 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/admin", adminHandler.Lobby).Methods("GET")
 	security.HandleFunc("/todays_aproved", adminHandler.TodaysAproved).Methods("GET")
 	security.HandleFunc("/todays_aproved/{id}", adminHandler.TodaysAprovedPOST).Methods("POST")
+	security.HandleFunc("/user_register", adminHandler.UserRegisterHandler).Methods("GET")
 
 	return router
 }

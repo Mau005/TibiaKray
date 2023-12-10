@@ -4,6 +4,18 @@ import "fmt"
 
 type Components struct{}
 
+func (c *Components) CreateLabelADiv(content string) string {
+	return c.CreateDiv(fmt.Sprintf("<a>%s</a>", content))
+}
+
+func (c *Components) CreateLabelA(content string) string {
+	return fmt.Sprintf("<a>%s</a>", content)
+}
+
+func (c *Components) CreateDiv(content string) string {
+	return fmt.Sprintf("<div>%s</div>", content)
+}
+
 func (c *Components) CreateButtonForm(method, url, nameButton string) string {
 
 	book := `

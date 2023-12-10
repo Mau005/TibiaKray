@@ -1,12 +1,21 @@
 package controller
 
 import (
+	"time"
+
 	"github.com/Mau005/KraynoSerer/database"
 	"github.com/Mau005/KraynoSerer/models"
 	"gorm.io/gorm"
 )
 
 type TodaysController struct{}
+
+func (tc *TodaysController) GetCountTodays(conditional int) (result int64, err error) {
+	if err = database.DB.Where("status = ?", conditional).Find(&models.Todays{}).Count(&result).Error; err != nil {
+		return
+	}
+	return
+}
 
 func (tc *TodaysController) GetToday(id uint) (today models.Todays, err error) {
 	tx := database.DB.Begin()
@@ -74,20 +83,21 @@ func (tc *TodaysController) GetAllTodaysStatus(status int) (todays []models.Toda
 
 func (tc *TodaysController) GetTodaysLobby() (todays []models.Todays, err error) {
 
-	if err := database.DB.Preload("Account", func(db *gorm.DB) *gorm.DB {
-		return db.Select("id", "name")
-	}).Preload("Files").Order("created_at  desc").Limit(3).Where("status = 1").Find(&todays).Error; err != nil {
+	startOfWeek := time.Now().AddDate(0, 0, -int(time.Now().Weekday())).
+		Truncate(24 * time.Hour)
+
+	endOfWeek := startOfWeek.AddDate(0, 0, 6)
+
+	if err := database.DB.
+		Preload("Account", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "name")
+		}).Preload("Files").
+		Order("views  desc").
+		Where("created_at BETWEEN ? AND ?", startOfWeek, endOfWeek).
+		Where("status = 1 ").
+		Limit(3).
+		Find(&todays).Error; err != nil {
 		return todays, err
-	}
-
-	if len(todays) > 0 {
-		// Suponemos que el primer elemento de la respuesta contiene los datos deseados
-		firstPhoto := todays[0]
-
-		// Incrementar el contador
-		if err := database.DB.Model(&firstPhoto).UpdateColumn("views", gorm.Expr("views + ?", 1)).Error; err != nil {
-			return todays, err
-		}
 	}
 
 	return todays, nil

@@ -26,6 +26,7 @@ import (
 var Lenguaje map[string]map[string]string = make(map[string]map[string]string)   //load data
 var LenguajeInternal map[string]map[int]string = make(map[string]map[int]string) //load data
 var Manager *ManagerController
+var CountVisit uint
 
 var ExtencionImage = map[string]bool{
 	"jpg":  true,
@@ -38,6 +39,7 @@ var ExtencionImage = map[string]bool{
 type ApiController struct{}
 
 func (ac *ApiController) InitServices() error {
+	CountVisit = 0
 	//Load COnfig
 	err := configuration.LoadConfiguration(configuration.PATH_CONFIG)
 	if err != nil {
@@ -257,13 +259,13 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 	sc.StreamMode = claims.StreamMode
 
 	if claims.Lenguaje == "" {
-		sc.LenguajeDefault = "en"
+		sc.LenguajeDefault = configuration.DEFAULT_LENGUAJE
 	} else {
 		sc.LenguajeDefault = claims.Lenguaje
 	}
 
 	//Configuration User Session
-	sc.Lenguaje = Lenguaje["en"] //posibilidad de usar las ips para identificar el pais para el idioma!
+	sc.Lenguaje = Lenguaje[configuration.DEFAULT_LENGUAJE] //posibilidad de usar las ips para identificar el pais para el idioma!
 	var accController AccountController
 	account, err := accController.GetAccount(sc.Email)
 	if err == nil {
@@ -389,4 +391,29 @@ func (ac *ApiController) ResetDefaultWeb() {
 
 	}
 
+}
+
+func (ac *ApiController) DownloadImage(url, filePath string) error {
+	// Realiza una solicitud HTTP para obtener la imagen
+	response, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	// Crea el archivo en el sistema de archivos
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Copia el cuerpo de la respuesta HTTP al archivo local
+	_, err = io.Copy(file, response.Body)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Imagen descargada con éxito: %s\n", filePath)
+	return nil
 }

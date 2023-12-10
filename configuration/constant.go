@@ -1,6 +1,11 @@
 package configuration
 
 const (
+	DEFAULT_LENGUAJE = "es"
+)
+
+const (
+	ACCES_ADMIN            = 3
 	EXPIRATION_TOKEN       = 24 //HOURS
 	NAME_SESSION           = "Authorization"
 	ERROR_SERVICE_SECURITY = "Service error in Security"
@@ -16,6 +21,8 @@ const (
 	TIBIA_WORDS      = "https://www.tibia.com/community/?subtopic=worlds"
 	TIBIA_HIGHSCORES = "https://www.tibia.com/community/?subtopic=highscores"
 	TIBIA_GUILD      = "https://www.tibia.com/community/?subtopic=guilds&page=view&GuildName=%s"
+	TIBIA_MONSTER    = "https://www.tibia.com/library/?subtopic=creatures"
+	TIBIA_BOSSES     = "https://www.tibia.com/library/?subtopic=boostablebosses"
 )
 
 // PRocesing ERROR WEBSCRAPING
@@ -45,6 +52,8 @@ const (
 	PATH_WEB_SHARED_EXP   = "static/shared_exp.html"
 	PATH_WEB_MY_FAVO_PIC  = "static/my_favorite_pictures.html"
 	PATH_WEB_MY_PLAYERS   = "static/my_players.html"
+	PATH_STATIC_CREATURES = "data/image/creatures/%s"
+	PATH_STATIC_BOSSES    = "data/image/bosses/%s"
 )
 
 const (

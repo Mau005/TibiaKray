@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"text/template"
@@ -21,7 +22,10 @@ func (a *AdminHandler) Lobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	template, err := template.ParseFiles("static/admin.html")
+	var adminCTL controller.AdminController
+	contentAdmin := adminCTL.LobbyAdmin()
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ADMIN)
 	if err != nil {
 		return
 	}
@@ -32,8 +36,8 @@ func (a *AdminHandler) Lobby(w http.ResponseWriter, r *http.Request) {
 		Content string
 	}{
 		StructModel: sm,
-		Title:       "Admin panel",
-		Content:     "Tu Hermana panel",
+		Title:       "Información de la Aplicación",
+		Content:     contentAdmin,
 	}
 
 	template.Execute(w, content)
@@ -125,4 +129,32 @@ func (a *AdminHandler) TodaysAprovedPOST(w http.ResponseWriter, r *http.Request)
 
 	template.Execute(w, content)
 
+}
+
+func (a *AdminHandler) UserRegisterHandler(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	var adminCtl controller.AdminController
+
+	strucNew := struct {
+		models.StructModel
+		Title   string
+		Content string
+	}{
+		StructModel: sm,
+		Title:       "Usuarios Registrados",
+		Content:     adminCtl.UserRegister()}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ADMIN)
+	if err != nil {
+		log.Println(err)
+	}
+	template.Execute(w, strucNew)
 }

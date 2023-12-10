@@ -16,6 +16,7 @@ import (
 type HomeHandler struct{}
 
 func (hh *HomeHandler) Home(w http.ResponseWriter, r *http.Request) {
+	controller.CountVisit += 1
 
 	var todaysManager controller.TodaysController
 

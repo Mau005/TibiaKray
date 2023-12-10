@@ -42,3 +42,10 @@ func (pc *PlayerController) GetPlayer(name string) (players models.Player, err e
 	}
 	return players, nil
 }
+
+func (pc *PlayerController) GetCountPlayer() (count int64, err error) {
+	if err = database.DB.Find(&models.Player{}).Count(&count).Error; err != nil {
+		return
+	}
+	return
+}
