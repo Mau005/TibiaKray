@@ -280,6 +280,9 @@
             <div class="text-center">
                 <h2 class="nk-title display-3">{{.Lenguaje.plusvoted}}</h2>
             </div>
+            <!--
+            <iframe src="https://clips.twitch.tv/embed?clip=VibrantThankfulCrocodilePicoMause-bgI3kO2OVjbdEK2L&parent=127.0.0.1&autoplay=true" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+            -->
             <div class="container">
                 <div class="nk-carousel-2" data-arrows="true">
                     <div class="nk-carousel-inner">
@@ -297,6 +300,10 @@
                                         <video style="width: 100%; height: 100%;" src="/image/{{.PathConsume}}" muted autoplay controls></video>
                                         </center>
                                 </div>
+                                {{else if eq .TypeFile "Twitch"}}
+                                    <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                        <iframe src="{{.PathConsume}}" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+                                    </div>
                                 {{else}}
                                     <a href="/image/{{.PathConsume}}">
                                         <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">

@@ -287,6 +287,53 @@
             <!-- START: Contact Form -->
             <div class="nk-gap-4"></div>
             <div class="container">
+                {{if eq .StatusWeb "Default"}}
+                    <div class="nk-blog-grid-3">
+                        <!-- START: Post -->
+                        <div class="nk-blog-post">
+                            <form action="/auth/decisions_upload" method="POST">
+                                <input type="hidden"  name="StatusWeb" value="Image">
+                                <div class="nk-post-thumb">
+                                    <img src="/static/assets/images-svg/imagen.png" alt="" class="nk-img-stretch">
+                                </div>
+                                <div class="nk-post-content">
+                                    <h4>{{.Lenguaje.uploadimage}}</h4>
+                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.getin}}</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END: Post -->
+                        <!-- START: Post -->
+                        <div class="nk-blog-post">
+                            <form action="/auth/decisions_upload" method="POST">
+                                <input type="hidden"  name="StatusWeb" value="Mp4">
+                                <div class="nk-post-thumb">
+                                    <img src="/static/assets/images-svg/video.png" alt="" class="nk-img-stretch">
+                                </div>
+                                <div class="nk-post-content">
+                                    <h4>{{.Lenguaje.loadvideo}}</h4>
+                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.getin}}</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END: Post -->
+                        <!-- START: Post -->
+                        <div class="nk-blog-post">
+                            <form action="/auth/decisions_upload" method="POST">
+                                <input type="hidden" name="StatusWeb" value="Twitch">
+                                <div class="nk-post-thumb">
+                                    <img src="/static/assets/images-svg/twitch.webp" alt="" class="nk-img-stretch">
+                                </div>
+                                <div class="nk-post-content">
+                                    <h4>{{.Lenguaje.loadtwitch}}</h4>
+                                    <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.getin}}</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END: Post -->
+                    </div>
+                
+                {{else if eq .StatusWeb "Image"}}
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3">
                         <div class="nk-box-3 bg-dark-1">
@@ -295,7 +342,7 @@
                             <form action="/auth/upload_image" method="POST" enctype="multipart/form-data">
                                 <input type="text" class="form-control required" name="title" id="title" placeholder="{{.Lenguaje.title}}">
                                 <div class="nk-gap-1"></div>
-                                <input type="file" class="form-control required" id="documents" name="documents" accept=".jpg, .jpeg, .png, .gif, .mp4">
+                                <input type="file" class="form-control required" id="documents" name="documents" accept=".jpg, .jpeg, .png, .gif">
                                 <div class="nk-gap-1"></div>
                                 <textarea class="form-control required" name="description" rows="5" placeholder="{{.Lenguaje.description}}"></textarea>
                                 <div class="nk-gap-1"></div>
@@ -304,6 +351,44 @@
                         </div>
                     </div>
                 </div>
+                {{else if eq .StatusWeb "Mp4"}}
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="nk-box-3 bg-dark-1">
+                            <h2 class="nk-title h3 text-center">{{.Lenguaje.loadvideo}}</h2>
+                            <div class="nk-gap-2"></div>
+                            <form action="/auth/upload_image" method="POST" enctype="multipart/form-data">
+                                <input type="text" class="form-control required" name="title" id="title" placeholder="{{.Lenguaje.title}}">
+                                <div class="nk-gap-1"></div>
+                                <input type="file" class="form-control required" id="documents" name="documents" accept=".mp4">
+                                <div class="nk-gap-1"></div>
+                                <textarea class="form-control required" name="description" rows="5" placeholder="{{.Lenguaje.description}}"></textarea>
+                                <div class="nk-gap-1"></div>
+                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.send}}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{else if eq .StatusWeb "Twitch"}}
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="nk-box-3 bg-dark-1">
+                            <h2 class="nk-title h3 text-center">{{.Lenguaje.loadtwitch}}</h2>
+                            <div class="nk-gap-2"></div>
+                            <form action="/auth/upload_url" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" class="form-control required" name="category"  value="Twitch">
+                                <input type="text" class="form-control required" name="title" id="title" placeholder="{{.Lenguaje.title}}">
+                                <div class="nk-gap-1"></div>
+                                <input type="text" class="form-control required" name="urlTwitch" id="urlTwitch" placeholder="Url">
+                                <div class="nk-gap-1"></div>
+                                <textarea class="form-control required" name="description" rows="5" placeholder="{{.Lenguaje.description}}"></textarea>
+                                <div class="nk-gap-1"></div>
+                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.send}}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
             </div>
             <div class="nk-gap-4"></div>
             <div class="nk-gap-4"></div>

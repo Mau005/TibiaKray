@@ -471,11 +471,17 @@
                         `
                         if (today.Files[0].TypeFile == "mp4"){
                             photoHTML += `
-                                        <div>
-                                            <center>
+                                        <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                            
                                                 <video style="width: 100%; height: 100%;" src="/image/${today.Files[0].PathConsume}"  muted autoplay controls></video>
-                                              </center>
+                                              
                                         </div>
+                            `
+                        }else if(today.Files[0].TypeFile == "Twitch"){
+                            photoHTML += `
+                                    <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                        <iframe src="${today.Files[0].PathConsume}" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+                                    </div>
                             `
                         }else{
                             photoHTML +=`<a href="/todays_post/${today.ID}">

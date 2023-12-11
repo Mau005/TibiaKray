@@ -285,10 +285,13 @@
                                 {{ if eq (len .Todays.Files) 1 }}
                                     {{range .Todays.Files}}
                                         {{if eq .TypeFile "mp4"}}
-                                        <div >
-                                            <center>
+                                        <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
                                                 <video style="width: 100%; height: 100%;" src="/image/{{.PathConsume}}" muted autoplay controls></video>
-                                              </center>
+                                              
+                                        </div>
+                                        {{else if eq .TypeFile "Twitch"}}
+                                        <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                            <iframe src="{{.PathConsume}}" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
                                         </div>
                                         {{else}}
                                             <a href="/image/{{.PathConsume}}">

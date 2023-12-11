@@ -5,9 +5,9 @@ import (
 	"github.com/Mau005/KraynoSerer/models"
 )
 
-type FileEncryptsController struct{}
+type FileController struct{}
 
-func (fec *FileEncryptsController) CreateEncrypFile(fileEncr models.Files) (models.Files, error) {
+func (fec *FileController) CreateFile(fileEncr models.Files) (models.Files, error) {
 
 	if err := database.DB.Create(&fileEncr).Error; err != nil {
 		return fileEncr, err
@@ -17,7 +17,7 @@ func (fec *FileEncryptsController) CreateEncrypFile(fileEncr models.Files) (mode
 
 }
 
-func (fec *FileEncryptsController) GetEncrypFile(hash string) (string, error) {
+func (fec *FileController) GetEncrypFile(hash string) (string, error) {
 	var enc models.Files
 	if err := database.DB.Where("path_encrypt = ?", hash).First(&enc).Error; err != nil {
 		return enc.PathOrigin, err

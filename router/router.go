@@ -54,8 +54,10 @@ func NewRouter() *mux.Router {
 	security.Use(middleware.SessionMiddleware)
 
 	var imageHanlder handler.ImageHandler
-	security.HandleFunc("/upload_image", imageHanlder.UploadImageHandler).Methods("GET")
+	security.HandleFunc("/upload_image", imageHanlder.UploadHandlerDefault).Methods("GET")
+	security.HandleFunc("/decisions_upload", imageHandler.UploadDessioningHandler).Methods("POST")
 	security.HandleFunc("/upload_image", imageHanlder.LoadImage).Methods("POST")
+	security.HandleFunc("/upload_url", imageHandler.UploadUrl).Methods("POST")
 
 	security.HandleFunc("/my_profile", AccountHandler.MyProfileHandler).Methods("GET")
 	security.HandleFunc("/my_setting", AccountHandler.MyProfileSettingPOST).Methods("POST")
