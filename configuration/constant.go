@@ -79,6 +79,7 @@ const (
 	ErrorPolicies
 	NotAuthorized
 	ErrorMaxFileSize
+	ErrorExpireSession
 )
 const (
 	Sunday = iota

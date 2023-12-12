@@ -38,8 +38,9 @@ func SessionMiddleware(next http.Handler) http.Handler {
 			if err != nil {
 				var api controller.ApiController
 				sc := api.GetBaseWeb(r)
+				api.SaveSession(nil, w, r) //cerramos la secion
 				var ErrorHandler handler.ErrorHandler
-				ErrorHandler.PageErrorMSG(http.StatusNetworkAuthenticationRequired, configuration.NotAuthorized, configuration.ROUTER_INDEX, w, r, sc)
+				ErrorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorExpireSession, configuration.ROUTER_INDEX, w, r, sc)
 				return
 			}
 

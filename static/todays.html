@@ -444,24 +444,28 @@
         <script src="/static/assets/js/tibiakray.min.js"></script>
         <script src="/static/assets/js/tibiakray-init.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            // Tu script aquí
-                let page = 1;
-        
-                const loadPhotos = async () => {
-                    const response = await fetch(`/todays/${page}`);
-                    const todays = await response.json();
-        
-                    const photoContainer = document.getElementById('photo-container');
-        
-                    todays.forEach(today => {
-                        const photoHTML = generatePhotoHTML(today);
-                        photoContainer.innerHTML += photoHTML;
-                    });
-        
-                    page++; // Incrementa el número de página para la próxima carga
-                };
-        
+            document.addEventListener('DOMContentLoaded', function () {
+        let page = 1;
+        let isLoading = false; // Para evitar múltiples solicitudes mientras se está cargando
+
+        const loadPhotos = async () => {
+            if (isLoading) return;
+
+            isLoading = true;
+
+            const response = await fetch(`/todays/${page}`);
+            const todays = await response.json();
+
+            const photoContainer = document.getElementById('photo-container');
+
+            todays.forEach((today) => {
+                const photoHTML = generatePhotoHTML(today);
+                photoContainer.innerHTML += photoHTML;
+            });
+
+            page++; // Incrementa el número de página para la próxima carga
+            isLoading = false;
+        };
                 const generatePhotoHTML = (today) => {
                     let photoHTML = ``;
                     if (today.Files.length == 1){
@@ -538,25 +542,25 @@
                 };
                 
         
-                // Carga fotos iniciales al cargar la página
-                window.onload = loadPhotos;
-                
-        
-                // Carga más fotos cuando el usuario baja la página
-                window.onscroll = () => {
-                    const loadMoreContainer = document.getElementById('load-more-container');
-                    const loadMoreBtn = document.getElementById('load-more-btn');
-        
-                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                const scrollThreshold = 200; // Ajusta este valor según tus necesidades
+                const loadMoreContainer = document.getElementById('load-more-container');
+
+                const handleScroll = () => {
+                    const scrollPosition = window.scrollY + window.innerHeight;
+                    const documentHeight = document.body.offsetHeight;
+
+                    if (scrollPosition >= documentHeight - scrollThreshold) {
                         loadPhotos();
                     }
-                    
                 };
-                
+
+                // Carga fotos iniciales al cargar la página
+                window.onload = loadPhotos;
+
+                // Carga más fotos cuando el usuario baja la página
+                window.addEventListener('scroll', handleScroll);
             });
-            
             </script>
         <!-- END: Scripts -->
     </body>
-    <div class="nk-gap-2"></div>
 </html>
