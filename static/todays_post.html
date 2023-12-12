@@ -8,9 +8,22 @@
         <meta name="author" content="AinhoSoft">
         <meta property="og:title" content="TibiaKray Todays">
         <meta property="og:description" content="{{.Todays.Description}}">
+        <meta property="og:url" content="/todays_post/{{.Todays.ID}}">
         {{if eq (len .Todays.Files) 1 }}
             {{range .Todays.Files}}
-                {{if eq .TypeFile ""}}
+                {{if eq .TypeFile "Twitch"}}
+                    <meta property="og:video" content="{{.PathConsume}}">
+                    <meta property="og:video:secure_url" content="{{.PathConsume}}">
+                    <meta property="og:video:type" content="video/mp4"> <!-- o el tipo de tu video -->
+                    <meta property="og:video:width" content="340">
+                    <meta property="og:video:height" content="200">
+                {{else if eq .TypeFile "mp4"}}
+                    <meta property="og:video" content="/image/{{.PathConsume}}">
+                    <meta property="og:video:secure_url" content="/image/{{.PathConsume}}">
+                    <meta property="og:video:type" content="video/mp4"> <!-- o el tipo de tu video -->
+                    <meta property="og:video:width" content="340">
+                    <meta property="og:video:height" content="200">
+                {{else}}
                 <meta property="og:image" content="/image/{{.PathConsume}}">
                 {{end}}
             {{end}}
