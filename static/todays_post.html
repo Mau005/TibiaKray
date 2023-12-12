@@ -3,11 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TibiaKray</title>
+        <title>TibiaKray Todays</title>
         <meta name="description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
         <meta name="author" content="AinhoSoft">
-        <meta property="og:title" content="TibiaKray Home">
-        <meta property="og:description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
+        <meta property="og:title" content="TibiaKray Todays">
+        <meta property="og:description" content="{{.Todays.Description}}">
+        {{if eq (len .Todays.Files) 1 }}
+            {{range .Todays.Files}}
+                {{if eq .TypeFile ""}}
+                <meta property="og:image" content="/image/{{.PathConsume}}">
+                {{end}}
+            {{end}}
+        {{end}}
         <meta name="author" content="AinhoSoft">
         <link rel="icon" type="image/png" href="/static/assets/images/favicon.png">
         <!-- START: Styles -->
