@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TibiaKray My Profile</title>
+        <title>TibiaKray Bosses</title>
         <meta name="description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
         <meta name="author" content="AinhoSoft">
-        <meta property="og:title" content="TibiaKray My Profile">
+        <meta property="og:title" content="TibiaKray Bosses">
+        <meta property="og:url" content="/tools">
         <meta property="og:description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
         <meta name="author" content="AinhoSoft">
         <link rel="icon" type="image/png" href="/static/assets/images/favicon.png">
@@ -65,6 +66,7 @@
         </div>
 
         <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
+        
         <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
         <!-- END: Page Background -->
         <!-- START: Page Border -->
@@ -117,7 +119,7 @@
                             <li class="">
                                 <a href="/creatures">{{.Lenguaje.creatures}}</a>
                             </li>
-                            <li class="">
+                            <li class="active">
                                 <a href="/bosses">{{.Lenguaje.bosses}}</a>
                             </li>
                         </ul>
@@ -288,173 +290,56 @@
         <div class="nk-main">
             <div class="nk-gap-4"></div>
             <div class="text-center">
-                <h2 class="nk-title display-4">{{.Lenguaje.myaccount}}</h2>
+                <h2 class="nk-title display-3">{{.Lenguaje.bosses}}</h2>
             </div>
-            <div class="nk-gap-4"></div>
-
-            <!-- END: Header Title -->
             <div class="container">
-                <div class="nk-social-profile nk-social-profile-container-offset">
-                    <div class="row">
-                        
-                        <div class="col-md-7 col-lg-9">
-                            <div class="nk-social-profile-info">
-                                <div class="nk-gap-2"></div>
-                                <h1 class="nk-social-profile-info-name">{{.UserName}}</h1>
-                                {{if eq .StreamMode false}}
-                                <div class="nk-social-profile-info-username">@{{.Email}}</div>
-                                {{else}}
-                                <div class="nk-social-profile-info-username">@{{.Lenguaje.systemstreamen}}</div>
-                                {{end}}
-                                
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row vertical-gap">
-                    <div class="col-lg-3">
-                        <!--
-                START: Sidebar
-
-                Additional Classes:
-                    .nk-sidebar-left
-                    .nk-sidebar-right
-                    .nk-sidebar-sticky
-            -->
-                        <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
-                            <div class="nk-gap-2"></div>
-                            <div class="nk-social-menu d-none d-lg-block">
-                                <div class="nk-social-menu">
-                                    <ul>
-                                        <li class="">
-                                            <a href="/auth/my_players"> {{.Lenguaje.characters}}</a>
-                                        </li>
-                                        <li class="">
-                                            <a href="/auth/my_favorite_picture">{{.Lenguaje.favoriteimages}}</a>
-                                        </li>
-                                        <li class="">
-                                            <a href="social-user-friends.html"> {{.Lenguaje.friends}}</a>
-                                        </li>
-                                        <li class="">
-                                            <a href="social-user-friends.html"> {{.Lenguaje.notifications}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="nk-accordion d-lg-none" id="nk-social-menu-mobile" role="tablist" aria-multiselectable="true">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="nk-social-menu-mobile-1-heading">
-                                        <a data-toggle="collapse" data-parent="#nk-social-menu-mobile" href="#nk-social-menu-mobile-1" aria-expanded="true" aria-controls="nk-social-menu-mobile-1" class="collapsed"> Menu </a>
-                                    </div>
-                                    <div id="nk-social-menu-mobile-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="nk-social-menu-mobile-1-heading">
-                                        <div class="nk-social-menu">
-                                            <ul>
-                                                <li class="">
-                                                    <a href="/auth/my_players"> {{.Lenguaje.characters}}<span class="nk-badge">4</span></a>
-                                                </li>
-                                                <li class="">
-                                                    <a href="/auth/my_favorite_picture">{{.Lenguaje.favoriteimages}}</a>
-                                                </li>
-                                                <li class="">
-                                                    <a href="social-user-friends.html"> {{.Lenguaje.friends}}</a>
-                                                </li>
-                                                <li class="">
-                                                    <a href="social-user-friends.html"> {{.Lenguaje.notifications}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="nk-gap-4 d-none d-lg-block"></div>
-                        </aside>
-                        <!-- END: Sidebar -->
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="nk-gap-2 d-none d-lg-block"></div>
-                        <div class="nk-social-container">
-                            <!-- START: Settings -->
-                            <div class="nk-tabs">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#tabs-2-1" role="tab" data-toggle="tab">{{.Lenguaje.myaccount}}</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#tabs-2-2" role="tab" data-toggle="tab">{{.Lenguaje.setting}}</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#tabs-2-3" role="tab" data-toggle="tab">Tibia</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade  show active" id="tabs-2-1">
-                                        <div class="nk-gap-1"></div>
-                                        <form action="/auth/change_password", method="post">
-                                            <a>{{.Lenguaje.setting}}</a>
-                                            <input type="hidden" class="form-control" name="email" placeholder="Account Email" value="{{.Email}}" disabled>
-                                            <div class="nk-gap-2"></div>
-                                            <input type="password" class="form-control" name="password" placeholder="{{.Lenguaje.changepassword}}">
-                                            <div class="nk-gap-2"></div>
-                                            <input type="password" class="form-control" name="password2" placeholder="{{.Lenguaje.newpassword}}">
-                                            <div class="mt-10">
-                                                <em>{{.Lenguaje.repeatnewpassword}}</em>
-                                            </div>
-                                            <div class="nk-gap-2"></div>
-                                            <button class="nk-btn link-effect-4 float-right">{{.Lenguaje.savechanges}}</button>
-                                        </form>
-                                        <div class="nk-gap-1"></div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tabs-2-2">
-                                        <div class="nk-gap-1"></div>
-                                        
-                                        <form method="POST" action="/auth/my_setting">
-                                            <div class="nk-gap-2"></div>
-                                            <div class="container">
-                                                <div class="row vertical-gap">
-                                                    
-                                                        {{if eq .StreamMode false}}
-                                                        <input type="checkbox" id="streammode" name="streammode" class="form-check-input"> {{.Lenguaje.modestream}} </label>
-                                                        {{else}}
-                                                        <input type="checkbox" id="streammode" name="streammode" class="form-check-input" checked> {{.Lenguaje.modestream}} </label>
-                                                        {{end}}
-                                                        
-                                                        <div class="nk-gap-2"></div>
-                                                        
-                                                        <select class="form-control" id="lenguaje" name="lenguaje">
-                                                            <option disabled selected>{{.Lenguaje.language}}</option>
-                                                            <option>{{.Lenguaje.en}}</option>
-                                                            <option>{{.Lenguaje.es}}</option>
-                                                            <option>{{.Lenguaje.br}}</option>
-                                                            <option>{{.Lenguaje.pl}}</option>
-                                                        </select>
-                                                        
-                                                        <div class="nk-gap-2"></div>
-                                                        <div class="nk-gap-2"></div>
-                                                        
-                                                    
+                <div class="nk-gap-4"></div>
+                <div class="container">
+                    <div class="nk-gap-4"></div>
+                    <!-- START: Posts List -->
+                    <div class="nk-blog-grid-3">
+                        <div class="nk-box-3 bg-dark-1">
+                            <div class="nk-gap-1"></div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>{{.Lenguaje.image}}</th>
+                                            <th>{{.Lenguaje.name}}</th>
+                                            <th style="display: flex; justify-content: center; align-items: center;">{{.Lenguaje.see}}</th>
+                                        </tr>
+                                    </thead>
+                                    {{range .Bosses}}
+                                    <tbody>
+                                        <tr class="order">
+                                            <td><img width="96" height="96" src="/image/{{.ImagePath}}" alt=""></td>
+                                            <td>{{.Name}}</td>
+                                            <td>
+                                                <form> 
+                                                    <div style="display: flex; justify-content: center; align-items: center;">
+                                                    <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{$.Lenguaje.getin}}</button>
                                                 </div>
-                                            </div>
-                                            <div class="nk-gap-2"></div>
-                                            <button class="nk-btn link-effect-4 float-right">{{.Lenguaje.savechanges}}</button>
-                                        </form>
-                                        <div class="nk-gap-1"></div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tabs-2-3">
-                                        <div class="nk-gap-1"></div>
-                                        <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=3XP0nyLz6Y8"></div>
-                                        <div class="nk-gap-1"></div>
-                                    </div>
-                                </div>
+                                                </form> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    {{end}}
+                                </table>
                             </div>
-                            <!-- END: Settings -->
                         </div>
-                        <div class="nk-gap-4"></div>
                     </div>
+                    <!-- END: Pagination -->
+                    <!-- END: Posts List -->
+                    <div class="nk-gap-4"></div>
+                    
                 </div>
                 <div class="nk-gap-4"></div>
                 <div class="nk-gap-3"></div>
             </div>
+            
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-4"></div>
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
                 <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
                 <div class="container">

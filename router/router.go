@@ -47,7 +47,11 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/shared_loot", toolshandler.SharedLootProcess).Methods("POST")
 	router.HandleFunc("/sharedexp", toolshandler.SharedExpHanlder).Methods("GET")
 	router.HandleFunc("/sharedexp", toolshandler.SharedExpProcess).Methods("POST")
-	router.HandleFunc("/tools", toolshandler.ToolsHandlerItems).Methods("GEt")
+	router.HandleFunc("/tools", toolshandler.ToolsHandlerItems).Methods("GET")
+
+	var creaturesHandler handler.CreaturesHandler
+	router.HandleFunc("/creatures", creaturesHandler.CreaturesHandler).Methods("GET")
+	router.HandleFunc("/bosses", creaturesHandler.BossesHandler).Methods("GET")
 
 	security := router.PathPrefix("/auth").Subrouter()
 	security.Use(middleware.CommonMiddleware)

@@ -22,7 +22,7 @@ func AutoMigrate() {
 		DB.AutoMigrate(models.ForumThreads{})
 		DB.AutoMigrate(models.Forum{})
 	*/
-	DB.AutoMigrate(models.Monster{}, models.Bosses{})
+	DB.AutoMigrate(models.Creatures{}, models.Bosses{})
 	DB.AutoMigrate(models.Player{})
 	DB.AutoMigrate(models.Todays{}, models.Comments{}, models.Voted{})
 	DB.AutoMigrate(models.NewsTicket{})

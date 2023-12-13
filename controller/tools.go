@@ -213,7 +213,6 @@ func (tc *ToolsController) InitRashid() string {
 		configuration.Rashid = "RashidSaturday"
 
 	}
-	fmt.Println(configuration.Friday)
 	return configuration.Rashid
 
 }

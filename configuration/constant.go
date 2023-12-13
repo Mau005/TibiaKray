@@ -42,6 +42,8 @@ const (
 	PATH_CONFIG           = "config.yml"
 	PATH_LENGUAJE_CLIENT  = "data/lenguaje.csv"
 	PATH_LENGUAJE_SERVER  = "data/errorServer.csv"
+	PATH_WEB_CREATURES    = "static/creatures.html"
+	PATH_WEB_BOSSES       = "static/bosses.html"
 	PATH_WEB_ERROR        = "static/error404.html"
 	PATH_WEB_ADMIN        = "static/admin.html"
 	PATH_WEB_INDEX        = "static/index.html"
@@ -54,8 +56,9 @@ const (
 	PATH_WEB_SHARED_EXP   = "static/shared_exp.html"
 	PATH_WEB_MY_FAVO_PIC  = "static/my_favorite_pictures.html"
 	PATH_WEB_MY_PLAYERS   = "static/my_players.html"
-	PATH_STATIC_CREATURES = "data/image/creatures/%s"
-	PATH_STATIC_BOSSES    = "data/image/bosses/%s"
+	PATH_STATIC_CREATURES = "creatures/%s"
+	PATH_STATIC_BOSSES    = "bosses/%s"
+	PATH_STATIC_PUBLIC    = "data/image/"
 )
 
 const (

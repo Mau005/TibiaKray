@@ -2,18 +2,12 @@ package models
 
 import "gorm.io/gorm"
 
-type Monster struct {
+type Creatures struct {
 	gorm.Model
-	Name       string `gorm:"unique, not null"`
+	Name       string `gorm:"unique"`
 	ImagePath  string
 	Experience uint
 	Abilities  string
 	Pushable   bool
 	MaxDamage  uint
-}
-
-type Elements struct {
-	gorm.Model
-	Name  string
-	Count int
 }

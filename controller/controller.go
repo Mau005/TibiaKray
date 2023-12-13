@@ -395,15 +395,22 @@ func (ac *ApiController) ResetDefaultWeb() {
 
 func (ac *ApiController) DownloadImage(url, filePath string) error {
 	// Realiza una solicitud HTTP para obtener la imagen
+	path_origin := configuration.PATH_STATIC_PUBLIC + filePath
+	_, err := os.Stat(path_origin)
+	if err == nil {
+		return errors.New("El archivo si existe")
+	}
 	response, err := http.Get(url)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 	defer response.Body.Close()
 
 	// Crea el archivo en el sistema de archivos
-	file, err := os.Create(filePath)
+	file, err := os.Create(path_origin)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 	defer file.Close()
@@ -411,6 +418,7 @@ func (ac *ApiController) DownloadImage(url, filePath string) error {
 	// Copia el cuerpo de la respuesta HTTP al archivo local
 	_, err = io.Copy(file, response.Body)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 
