@@ -25,12 +25,12 @@ func main() {
 		switch command {
 		case "creature":
 			log.Println("entro?")
-			creaturesController.CollectorCreature()
+			go creaturesController.CollectorCreature()
 		case "bosses":
-			creaturesController.CollectorBosses()
+			go creaturesController.CollectorBosses()
 		case "allcreatures":
-			creaturesController.CollectorCreature()
-			creaturesController.CollectorBosses()
+			go creaturesController.CollectorCreature()
+			go creaturesController.CollectorBosses()
 		}
 	}
 	/*
