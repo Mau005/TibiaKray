@@ -181,53 +181,44 @@
                         </div>
                         <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
                             <ul class="nk-nav">
+                                {{if eq .UserName ""}}
                                 <li class=" ">
-                                    <a href="page-contact.html"> Contact</a>
+                                    <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
                                 </li>
+                                {{else}}
                                 <li class=" ">
-                                    <a href="page-coming-soon.html"> Coming Soon</a>
+                                    <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
                                 </li>
-                                <li class=" ">
-                                    <a href="page-404.html"> 404</a>
-                                </li>
-                                <li class=" ">
-                                    <a href="page-age-check.html"> Age Check</a>
-                                </li>
+                                {{end}}
                                 <li class=" nk-drop-item">
-                                    <a href="#"> Sub Menu Example</a>
+                                    <a href="#">{{.Lenguaje.tools}}</a>
                                     <ul class="dropdown">
                                         <li class=" ">
-                                            <a href="#1"> Sub Item 1</a>
+                                            <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
                                         </li>
-                                        <li class=" nk-drop-item">
-                                            <a href="#2"> Sub Item 2</a>
-                                            <ul class="dropdown">
-                                                <li class=" ">
-                                                    <a href="#1"> Sub Item 1</a>
-                                                </li>
-                                                <li class=" ">
-                                                    <a href="#2"> Sub Item 2</a>
-                                                </li>
-                                            </ul>
+                                        <li class=" ">
+                                            <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
                                         </li>
-                                        <li class=" nk-drop-item">
-                                            <a href="#3"> Sub Item 3</a>
-                                            <ul class="dropdown">
-                                                <li class=" ">
-                                                    <a href="#"> Sub Item</a>
-                                                </li>
-                                            </ul>
+                                        <li class=" ">
+                                            <a href="/creatures"> {{.Lenguaje.creatures}}</a>
                                         </li>
-                                        <li class=" nk-drop-item">
-                                            <a href="#4"> Sub Item 4</a>
-                                            <ul class="dropdown">
-                                                <li class=" ">
-                                                    <a href="#"> Sub Item</a>
-                                                </li>
-                                            </ul>
+                                        <li class=" ">
+                                            <a href="/bosses"> {{.Lenguaje.bosses}}</a>
                                         </li>
                                     </ul>
                                 </li>
+                                {{if eq .UserName ""}}
+                                {{else}}
+                                    <li class=" ">
+                                        <a href="/logout">Desconectarse</a>
+                                    </li>
+                                {{end}}
+                                {{if ge .Access  3 }}
+                                <li class=" ">
+                                    <a href="/auth/admin">Admin</a>
+                                </li>
+                                {{end}}
+                                
                             </ul>
                         </div>
                         <div class="nk-nav-row">
