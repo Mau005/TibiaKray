@@ -26,6 +26,7 @@ const (
 	TIBIA_MONSTER    = "https://www.tibia.com/library/?subtopic=creatures"
 	TIBIA_BOSSES     = "https://www.tibia.com/library/?subtopic=boostablebosses"
 	TWITCH_CLIPS     = "https://clips.twitch.tv/embed?clip=%s&parent=%s&muted=true"
+	TWITCH_CANAL     = "https://player.twitch.tv/?channel=%s&parent=%s&muted=true"
 )
 
 // PRocesing ERROR WEBSCRAPING

@@ -418,10 +418,10 @@
                             </form>
                             <!-- END: Login Form -->
                             <!-- START: Lost Password Form -->
-                            <form class="nk-sign-form-lost" action="#">
-                                <input class="form-control" type="text" placeholder="{{.Lenguaje.user}} / Email">
+                            <form class="nk-sign-form-lost" action="/recovery" method="POST">
+                                <input class="form-control" type="text" name="recovery" placeholder="{{.Lenguaje.user}} / Email">
                                 <div class="nk-gap-2"></div>
-                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.password}}</button>
+                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.getin}}</button>
                             </form>
                             <!-- END: Lost Password Form -->
                             <!-- START: Register Form -->

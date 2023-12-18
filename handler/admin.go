@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -157,4 +158,54 @@ func (a *AdminHandler) UserRegisterHandler(w http.ResponseWriter, r *http.Reques
 		log.Println(err)
 	}
 	template.Execute(w, strucNew)
+}
+
+func (a *AdminHandler) StreamerHandlerAdmin(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	var adminCtl controller.AdminController
+
+	strucNew := struct {
+		models.StructModel
+		Title   string
+		Content string
+	}{
+		StructModel: sm,
+		Title:       "Streamers",
+		Content:     adminCtl.Streamers()}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ADMIN)
+	if err != nil {
+		log.Println(err)
+	}
+	template.Execute(w, strucNew)
+}
+
+func (a *AdminHandler) StreamerPOSTAdmin(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	name := r.FormValue("nombre")
+	title := r.FormValue("titulo")
+	url := r.FormValue("url")
+
+	var streamController controller.StreamerController
+	_, err := streamController.CreateStremer(models.Streamers{Name: name, Title: title, URL: fmt.Sprintf(configuration.TWITCH_CANAL, url, configuration.Config.Server.Ip)})
+	if err != nil {
+		log.Println(err)
+	}
+	a.StreamerHandlerAdmin(w, r)
 }

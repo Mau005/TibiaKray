@@ -364,7 +364,34 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="nk-gap-2"></div>
+            <div class="text-center">
+                <h2 class="nk-title display-3">{{.Lenguaje.streamsupport}}</h2>
+            </div>
+            <div class="container">
+                <div class="nk-box bg-dark-1">
+                    <div class="nk-carousel-2" data-autoplay="5000" data-dots="true">
+                        <div class="nk-carousel-inner">
+
+                            {{range .Streamer}}
+                                <div>
+                                    <div>
+                                        <blockquote class="nk-testimonial-2">
+                                            <div class="nk-testimonial-photo" style="background-image: url('assets/images/avatar-1-sm.jpg');"></div>
+                                            <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                                <iframe src="{{.URL}}" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+                                            </div>
+                                            <div class="nk-testimonial-name h4">{{.Name}}</div>
+                                            <div class="nk-testimonial-source">{{.Title}}</div>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            {{end}}
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="nk-gap-4"></div>
             <div class="nk-gap-4"></div>
             <div class="nk-gap-4"></div>

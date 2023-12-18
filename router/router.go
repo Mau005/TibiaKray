@@ -85,6 +85,8 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/todays_aproved", adminHandler.TodaysAproved).Methods("GET")
 	security.HandleFunc("/todays_aproved/{id}", adminHandler.TodaysAprovedPOST).Methods("POST")
 	security.HandleFunc("/user_register", adminHandler.UserRegisterHandler).Methods("GET")
+	security.HandleFunc("/streamer", adminHandler.StreamerHandlerAdmin).Methods("GET")
+	security.HandleFunc("/streamer", adminHandler.StreamerPOSTAdmin).Methods("POST")
 
 	return router
 }

@@ -72,6 +72,45 @@ func (ac *AdminController) TodaysAproved() string {
 	return comp.CreateTable(comp.CreateRowsTableFinally(title + contentRows))
 }
 
+func (ac *AdminController) Streamers() string {
+	var api ApiController
+	var comp components.Components
+
+	var streamersController StreamerController
+
+	streamer, _ := streamersController.GetStreamers()
+
+	title := comp.CreateColsTable("Streamer", "Titulo", "Tipo de URL", "URL", "Ver")
+	contentRows := ""
+	for _, object := range streamer {
+		contentRows += comp.CreateRowsTable(
+			object.Name,
+			api.NormalizeString(30, object.Title),
+			object.TypeUrl,
+			object.URL,
+			comp.CreateButtonForm("post", fmt.Sprintf(configuration.ROUTER_TODAYS_POST_APROVED, object.ID), "Aprobar"))
+	}
+
+	formCreateStream := `
+		<div>
+			<form action="/auth/streamer" method="POST">
+				<label for="nombre">Nombre:</label>
+				<input type="text" id="nombre" name="nombre" required>
+
+				<label for="titulo">Título:</label>
+				<textarea id="titulo" name="titulo" required></textarea>
+
+				<label for="url">Nombre del canal:</label>
+				<input type="text" id="url" name="url" required>
+
+				<button type="submit">Enviar</button>
+			</form>
+		<div>
+		`
+
+	return comp.CreateTable(comp.CreateRowsTableFinally(title+contentRows)) + formCreateStream
+}
+
 func (ac *AdminController) UserRegister() string {
 	var comp components.Components
 	title := comp.CreateColsTable("Usuario", "Correo", "Acceso", "Fecha Creación", "Acción")

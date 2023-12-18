@@ -16,6 +16,7 @@ import (
 var DB *gorm.DB
 
 func AutoMigrate() {
+	DB.AutoMigrate(models.Streamers{})
 	DB.AutoMigrate(models.Account{})
 	/*
 		DB.AutoMigrate(models.ForumThreadsContent{})
