@@ -45,6 +45,24 @@ func (eh *ErrorHandler) PageErrorMSG(codeerror, codeMSG int, router string, w ht
 	sc.NameButtonError = "Return"
 
 	template.Execute(w, sc)
+}
+
+func (eh *ErrorHandler) PageMSG(titleCode, codeMSG int, router string, w http.ResponseWriter, r *http.Request, sc models.StructModel) {
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ERROR)
+	if err != nil {
+		return
+	}
+	sc.TitleError = fmt.Sprintf("%s!", controller.LenguajeInternal[sc.LenguajeDefault][titleCode])
+	sc.MSGError = controller.LenguajeInternal[sc.LenguajeDefault][codeMSG]
+	if router == "" {
+		sc.RouterError = configuration.ROUTER_INDEX
+	} else {
+		sc.RouterError = router
+	}
+	sc.NameButtonError = "Return"
+
+	template.Execute(w, sc)
 
 }
 

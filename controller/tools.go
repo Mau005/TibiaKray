@@ -189,7 +189,6 @@ func (tc *ToolsController) InitRashid() string {
 	//1 es lunes tiene que ser lunes
 	day := int(date.Weekday())
 	if !(configuration.Config.Server.ServerSave <= date.Hour()) {
-		fmt.Println("Entro?")
 		day -= 1
 	}
 	if day == -1 {

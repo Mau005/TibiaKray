@@ -16,7 +16,7 @@ Access:
   AprovedTodays: 3
 
 Email:
-  SmtpUserName: ""
-  Password: ""
-  SmtpPort: 465
-  SmtpServer: ""
+  SmtpUsername: "no-reply@lostrespinos.cl"
+  Password: "maumau123"
+  SmptPort: "465"
+  SmtpServer: "mail.lostrespinos.cl"

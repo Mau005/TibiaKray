@@ -42,6 +42,11 @@ func NewRouter() *mux.Router {
 	router.NotFoundHandler = http.HandlerFunc(errHandler.DefaultError)
 	router.HandleFunc("/logout", AccountHandler.Logout).Methods("GET")
 
+	var recoveryHandler handler.RecoveryHandler
+	router.HandleFunc("/recovery/{code}", recoveryHandler.RecoveryHandler).Methods("GET")
+	router.HandleFunc("/recovery", recoveryHandler.RecoveryAccount).Methods("POST")
+	router.HandleFunc("/recovery_account", recoveryHandler.RecoveryChangePassword).Methods("POST")
+
 	var toolshandler handler.ToolsHandler
 	router.HandleFunc("/shared_loot", toolshandler.SharedLootHandler).Methods("GET")
 	router.HandleFunc("/shared_loot", toolshandler.SharedLootProcess).Methods("POST")

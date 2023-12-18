@@ -24,7 +24,6 @@ func main() {
 		command := os.Args[1]
 		switch command {
 		case "creature":
-			log.Println("entro?")
 			go creaturesController.CollectorCreature()
 		case "bosses":
 			go creaturesController.CollectorBosses()

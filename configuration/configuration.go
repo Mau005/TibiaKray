@@ -35,9 +35,9 @@ type Server struct {
 }
 
 type Email struct {
-	SmtpUserName string `yaml:"SmtpUserName"`
+	SmtpUsername string `yaml:"SmtpUsername"`
 	Password     string `yaml:"Password"`
-	SmtpPort     string `yaml:"SmtpPort"`
+	SmptPort     string `yaml:"SmptPort"`
 	SmtpServer   string `yaml:"SmtpServer"`
 }
 
@@ -63,6 +63,7 @@ func LoadConfiguration(fileName string) error {
 		return err
 	}
 	Config = &config
+
 	Security = "secret-key" //default keypass
 	if !config.Server.Debug {
 		Security, _ = GenerateSecretKey(int(Config.Server.LengthSecurity))

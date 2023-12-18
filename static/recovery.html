@@ -3,14 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TibiaKray Home</title>
+        <title>TibiaKray</title>
         <meta name="description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
         <meta name="author" content="AinhoSoft">
         <meta property="og:title" content="TibiaKray Home">
-        <meta property="og:url" content="/">
         <meta property="og:description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
         <meta name="author" content="AinhoSoft">
-
         <link rel="icon" type="image/png" href="/static/assets/images/favicon.png">
         <!-- START: Styles -->
         <!-- Google Fonts -->
@@ -67,7 +65,7 @@
         </div>
 
         <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
-        
+
         <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
         <!-- END: Page Background -->
         <!-- START: Page Border -->
@@ -108,7 +106,7 @@
                             <img src="/static/assets/images/logo.png" alt="" width="90">
                         </a>
                         <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
-                            <li class="active">
+                            <li class="">
                                 <a href="/"> {{.Lenguaje.news}}</a>
                             </li>
                             <li class="">
@@ -262,7 +260,7 @@
         <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
             <div class="nano">
                 <div class="nano-content">
-                    <a href="/" class="nk-nav-logo">
+                    <a href="index.html" class="nk-nav-logo">
                         <img src="/static/assets/images/logo.png" alt="" width="90">
                     </a>
                     <div class="nk-navbar-mobile-content">
@@ -277,97 +275,48 @@
         <!-- Daily Image fun-->
 
         <div class="nk-main">
-            <div class="text-center">
-                <h2 class="nk-title display-3">{{.Lenguaje.plusvoted}}</h2>
-            </div>
-            <!--
-            <iframe src="https://clips.twitch.tv/embed?clip=VibrantThankfulCrocodilePicoMause-bgI3kO2OVjbdEK2L&parent=127.0.0.1&autoplay=true" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
-            -->
-            <div class="container">
-                <div class="nk-carousel-2" data-arrows="true">
-                    <div class="nk-carousel-inner">
-                        {{range $index, $today := .Todays}}
-                            {{range $today.Files}}
-                            <div>
-                                <div class="container">
-                                    <h4 class="nk-sub-title text-center"> {{$.Lenguaje.getin}}: <span class="nk-typed" data-loop="true">
-                                        <span><a href="/todays_post/{{$today.ID}}">{{$today.Title}}</a></span></span>
-                                    </h4>
-                                </div>
-                                {{if eq .TypeFile "mp4"}}
-                                <div>
-                                    <center>
-                                        <video style="width: 100%; height: 100%;" src="/image/{{.PathConsume}}" muted autoplay controls></video>
-                                        </center>
-                                </div>
-                                {{else if eq .TypeFile "Twitch"}}
-                                    <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                                        <iframe src="{{.PathConsume}}" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+            <div class="nk-gap-4"></div>
+            <div class="nk-box">
+                <div class="nk-gap-4"></div>
+                <div class="container">
+                    <div class="nk-header-text">
+                        <div class="container">
+                            <div class="text-center">
+                                <div class="row">
+                                    <div class="col-lg-6 offset-lg-3">
+                                        <div class="nk-box-3 bg-dark-1">
+                                            <h2 class="nk-title h3 text-center">{{.Lenguaje.recoverPassword}}</h2>
+                                            <div class="nk-gap-2"></div>
+                                            <form action="/recovery_account" method="POST">
+                                                <input type="hidden" class="form-control required" name="hash" value="{{.Code}}">
+                                                <input type="number" class="form-control required" name="code" placeholder="{{.Lenguaje.indicateCode}}">
+                                                <div class="nk-gap-1"></div>
+                                                <input type="password" class="form-control required" name="recoverypassword" placeholder="{{.Lenguaje.newpassword}}">
+                                                <div class="nk-gap-1"></div>
+                                                <input type="password" class="form-control required" name="recoverypasswordtwo" placeholder="{{.Lenguaje.repeatnewpassword}}">
+                                                <div class="nk-gap-1"></div>
+                                                <button class="nk-btn nk-btn-lg link-effect-4">{{.Lenguaje.send}}</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                {{else}}
-                                    <a href="/image/{{.PathConsume}}">
-                                        <img src="/image/{{.PathConsume}}" alt="" class="nk-img-stretch">
-                                    </a>
-                                {{end}}
-                                
+                                </div>
                             </div>
-                            {{end}}
-                        {{end}}
+                        </div>
+                        <div class="nk-gap-4"></div>
                     </div>
                 </div>
                 <div class="nk-gap-4"></div>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="nk-box-3 bg-dark-1">
-                            <div class="nk-widget">
-                                <h4 class="nk-widget-title">{{.Lenguaje.news}}</h4>
-                                <div>
-                                    <ul class="nk-widget-categories">
-                                        {{range .NewsTicket}}
-                                        <li>
-                                            <a>{{.Title}}</a>
-                                            <li>{{.Content}}</li>
-                                        
-                                        </li>
-                                        {{end}}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="nk-box-3 bg-dark-1">
-                            <div class="nk-widget">
-                                <h4 class="nk-widget-title">{{.Lenguaje.profitstoday}}:</h4>
-                                <h1 class="nk-widget-title">
-                                {{if eq .SharedLootHight.Leader.Name ""}}
-                                <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
-                                    <span>{{.Lenguaje.profitstodaynot}}!.</span>
-                                </span>
-                                {{else}}
-                                <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
-                                    <span>Team Leader: {{.SharedLootHight.Leader.Name}} <em>Balance: {{.SharedLootHight.Balance}}</em>.</span>
-                                    {{range .SharedLootHight.Character}}
-                                    <span>Player: {{.Name }} <small>Balance: {{.Balance}}</small>.</span>
-                                    {{end}}
-                                </span>
-                                {{end}}
-                                </h1>
-                                <h4 class="nk-widget-title">Rashid:</h4>
-                                <h1 class="nk-widget-title">
-                                    <span class="nk-typed bg-white text-dark-1 pl-8 pr-8 pt-5 pb-5 m-5 d-inline-block">
-                                        <span>{{index .Lenguaje .Rashid}}!.</span>
-                                    </span>
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            
-            <div class="nk-gap-4"></div>
-            <div class="nk-gap-4"></div>
-            <div class="nk-gap-4"></div>
+            <div class="container">
+                <div class="nk-gap-4"></div>
+                <div class="nk-gap-3"></div>
+            </div>
+            <!-- START: Footer -->
+            <!--
+    Additional Classes:
+        .nk-footer-parallax
+        .nk-footer-parallax-opacity
+-->
             <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
                 <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
                 <div class="container">
@@ -427,10 +376,10 @@
                             </form>
                             <!-- END: Login Form -->
                             <!-- START: Lost Password Form -->
-                            <form class="nk-sign-form-lost" action="/recovery" method="POST">
-                                <input class="form-control" type="text" name="recovery" placeholder="{{.Lenguaje.user}} / Email">
+                            <form class="nk-sign-form-lost" action="#">
+                                <input class="form-control" type="text" placeholder="{{.Lenguaje.user}} / Email">
                                 <div class="nk-gap-2"></div>
-                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.getin}}</button>
+                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.password}}</button>
                             </form>
                             <!-- END: Lost Password Form -->
                             <!-- START: Register Form -->

@@ -5,6 +5,7 @@ const (
 )
 
 const (
+	MAX_LEN_PASSWORD       = 5
 	ACCES_ADMIN            = 3
 	MAX_FILE_SIZE          = 5 << 20 //3 mgbyttes
 	EXPIRATION_TOKEN       = 24      //HOURS
@@ -42,6 +43,12 @@ const (
 	PATH_CONFIG           = "config.yml"
 	PATH_LENGUAJE_CLIENT  = "data/lenguaje.csv"
 	PATH_LENGUAJE_SERVER  = "data/errorServer.csv"
+	PATH_STATIC_CREATURES = "creatures/%s"
+	PATH_STATIC_BOSSES    = "bosses/%s"
+	PATH_STATIC_PUBLIC    = "data/image/"
+	PATH_RECOVERY_EMAIL   = "data/email/recovery.html"
+)
+const (
 	PATH_WEB_CREATURES    = "static/creatures.html"
 	PATH_WEB_BOSSES       = "static/bosses.html"
 	PATH_WEB_ERROR        = "static/error404.html"
@@ -56,9 +63,7 @@ const (
 	PATH_WEB_SHARED_EXP   = "static/shared_exp.html"
 	PATH_WEB_MY_FAVO_PIC  = "static/my_favorite_pictures.html"
 	PATH_WEB_MY_PLAYERS   = "static/my_players.html"
-	PATH_STATIC_CREATURES = "creatures/%s"
-	PATH_STATIC_BOSSES    = "bosses/%s"
-	PATH_STATIC_PUBLIC    = "data/image/"
+	PATH_WEB_RECOVERY     = "static/recovery.html"
 )
 
 const (
@@ -68,6 +73,7 @@ const (
 	ROUTER_TODAYS_POST_APROVED = "/auth/todays_aproved/%d"
 	ROUTER_MY_PLAYERS          = "/auth/my_players"
 	ROUTER_UPLOAD_IMAGES       = "/auth/upload_image"
+	ROUTER_RECOVERY_CODE       = "http://%s/recovery/%s"
 )
 
 const (
@@ -83,6 +89,12 @@ const (
 	NotAuthorized
 	ErrorMaxFileSize
 	ErrorExpireSession
+	ProcessedSuccess
+	SavedSuccess
+	GenerateSucces
+	ChangePassword
+	ErrorExpiredProcess
+	AccountRecovery
 )
 const (
 	Sunday = iota

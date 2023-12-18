@@ -27,6 +27,7 @@ var Lenguaje map[string]map[string]string = make(map[string]map[string]string)  
 var LenguajeInternal map[string]map[int]string = make(map[string]map[int]string) //load data
 var Manager *ManagerController
 var CountVisit uint
+var RecoveryAccount map[string]RecoveryController //sistema para gestionar las recuperaciones
 
 var ExtencionImage = map[string]bool{
 	"jpg":  true,
@@ -39,6 +40,7 @@ var ExtencionImage = map[string]bool{
 type ApiController struct{}
 
 func (ac *ApiController) InitServices() error {
+	RecoveryAccount = make(map[string]RecoveryController) //Iniciamos la recuperacion de cuentas
 	CountVisit = 0
 	//Load COnfig
 	err := configuration.LoadConfiguration(configuration.PATH_CONFIG)
