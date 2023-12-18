@@ -34,7 +34,7 @@ func (sc *StreamerController) GetStreamers() (streamers []models.Streamers, err 
 	return
 }
 
-func (sc *StreamerController) GetIdStreamers(idStreamers uint) (streamers []models.Streamers, err error) {
+func (sc *StreamerController) GetIdStreamers(idStreamers uint) (streamers models.Streamers, err error) {
 	if err = database.DB.Where("id = ?", idStreamers).First(&streamers).Error; err != nil {
 		return
 	}

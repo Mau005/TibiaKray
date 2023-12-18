@@ -4,6 +4,40 @@ import "fmt"
 
 type Components struct{}
 
+func (c *Components) CreateForm(action, method, content string) string {
+	return fmt.Sprintf(`
+	<div>
+		<form action="%s" method="%s">
+			%s
+			<button type="submit">ntivar</button>
+		</form>
+	<div>
+	`, action, method, content)
+}
+func (c *Components) CreateFormImput(typeInput, idText, title, value string, required bool) string {
+	content := `<input type="%s" id="%s" name="%s" value="%s" required>`
+	if required {
+		content = `<input type="%s" id="%s" name="%s" value="%s">`
+	}
+
+	return fmt.Sprintf(`
+	<label for="%s">%s:</label>
+	%s
+	`, idText, title, fmt.Sprintf(content, typeInput, idText, idText, value))
+}
+
+func (c *Components) CreateFormTextArea(idTextArea, title, value string) string {
+	return fmt.Sprintf(`
+	<label for="%s">%s:</label>
+	<textarea id="%s" name="%s" required>%s</textarea>
+	`, idTextArea, title, idTextArea, idTextArea, value)
+}
+func (c *Components) CreateFormButton(nameButton string) string {
+	return fmt.Sprintf(`
+	<button type="submit">%s</button>
+	`, nameButton)
+}
+
 func (c *Components) CreateLabelADiv(content string) string {
 	return c.CreateDiv(fmt.Sprintf("<a>%s</a>", content))
 }

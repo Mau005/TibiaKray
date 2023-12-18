@@ -209,3 +209,84 @@ func (a *AdminHandler) StreamerPOSTAdmin(w http.ResponseWriter, r *http.Request)
 	}
 	a.StreamerHandlerAdmin(w, r)
 }
+
+func (a *AdminHandler) StreamerIDAdmin(w http.ResponseWriter, r *http.Request) {
+
+	args := mux.Vars(r)
+	idStream, err := strconv.Atoi(args["id"])
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	var streamController controller.StreamerController
+
+	stream, err := streamController.GetIdStreamers(uint(idStream))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	var adminCtl controller.AdminController
+
+	strucNew := struct {
+		models.StructModel
+		Title   string
+		Content string
+	}{
+		StructModel: sm,
+		Title:       "Streamers",
+		Content:     adminCtl.StreamerViews(stream)}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ADMIN)
+	if err != nil {
+		log.Println(err)
+	}
+	template.Execute(w, strucNew)
+}
+
+func (a *AdminHandler) StreamPatchAdmin(w http.ResponseWriter, r *http.Request) {
+	idStreamForm := r.FormValue("id")
+	name := r.FormValue("nombre")
+	title := r.FormValue("titulo")
+	url := r.FormValue("url")
+
+	idStream, err := strconv.Atoi(idStreamForm)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	var streamController controller.StreamerController
+
+	stream, err := streamController.GetIdStreamers(uint(idStream))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+	stream.Name = name
+	stream.URL = url
+	stream.Title = title
+	_, err = streamController.SaveStremer(stream)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	a.StreamerHandlerAdmin(w, r)
+}

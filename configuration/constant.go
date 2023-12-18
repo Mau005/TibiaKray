@@ -75,6 +75,7 @@ const (
 	ROUTER_MY_PLAYERS          = "/auth/my_players"
 	ROUTER_UPLOAD_IMAGES       = "/auth/upload_image"
 	ROUTER_RECOVERY_CODE       = "http://%s/recovery/%s"
+	ROUTER_STREAMER_ID         = "/auth/streamer/%d"
 )
 
 const (
