@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TibiaKray {{.Creature.Name}}</title>
+        <meta name="description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
+        <meta name="author" content="AinhoSoft">
+        <meta property="og:title" content="TibiaKray Creature: {{.Creature.Name}}">
+        <meta property="og:description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
+        <meta name="author" content="AinhoSoft">
+        <link rel="icon" type="image/png" href="/static/assets/images/favicon.png">
+        <!-- START: Styles -->
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300i,400,400i,700%7cMarcellus+SC" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/static/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+        <!-- FontAwesome -->
+        <script defer src="/static/assets/vendor/fontawesome-free/js/all.js"></script>
+        <script defer src="/static/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+        <!-- IonIcons -->
+        <link rel="stylesheet" href="/static/assets/vendor/ionicons/css/ionicons.min.css">
+        <!-- Revolution Slider -->
+        <link rel="stylesheet" href="/static/assets/vendor/revolution/css/settings.css">
+        <link rel="stylesheet" href="/static/assets/vendor/revolution/css/layers.css">
+        <link rel="stylesheet" href="/static/assets/vendor/revolution/css/navigation.css">
+        <!-- Flickity -->
+        <link rel="stylesheet" href="/static/assets/vendor/flickity/dist/flickity.min.css">
+        <!-- Photoswipe -->
+        <link rel="stylesheet" href="/static/assets/vendor/photoswipe/dist/photoswipe.css">
+        <link rel="stylesheet" href="/static/assets/vendor/photoswipe/dist/default-skin/default-skin.css">
+        <!-- DateTimePicker -->
+        <link rel="stylesheet" href="/static/assets/vendor/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
+        <!-- Summernote -->
+        <link rel="stylesheet" href="/static/assets/vendor/summernote/dist/summernote-bs4.css">
+        <!-- GODLIKE -->
+        <link rel="stylesheet" href="/static/assets/css/godlike.css">
+        <!-- Custom Styles -->
+        <link rel="stylesheet" href="/static/assets/css/custom.css">
+        <!-- END: Styles -->
+        <!-- jQuery -->
+        <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+    </head>
+    <!--
+    Additional Classes:
+        .nk-page-boxed
+-->
+    <body>
+        <!-- START: Page Preloader -->
+        <div class="nk-preloader">
+            <!--
+         Preloader animation
+         data-close-... data used for closing preloader
+         data-open-...  data used for opening preloader
+    -->
+            <div class="nk-preloader-bg" style="background-color: #000;" data-close-frames="23" data-close-speed="1.2" data-close-sprites="/static/assets/images/preloader-bg.png" data-open-frames="23" data-open-speed="1.2" data-open-sprites="./assets/images/preloader-bg-bw.png">
+            </div>
+            <div class="nk-preloader-content">
+                <div>
+                    <img class="nk-img" src="/static/assets/images/logo.png" alt="TibiaKray V1.0.0" width="170">
+                    <div class="nk-preloader-animation"></div>
+                </div>
+            </div>
+            <div class="nk-preloader-skip">Skip</div>
+        </div>
+
+        <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
+        <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
+        <!-- END: Page Background -->
+        <!-- START: Page Border -->
+        <div class="nk-page-border">
+            <div class="nk-page-border-t"></div>
+            <div class="nk-page-border-r"></div>
+            <div class="nk-page-border-b"></div>
+            <div class="nk-page-border-l"></div>
+        </div>
+        <header class="nk-header nk-header-opaque">
+            <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+                <div class="container">
+                    <div class="nk-nav-table">
+                        <a href="/" class="nk-nav-logo">
+                            <img src="/static/assets/images/logo.png" alt="" width="90">
+                        </a>
+                        <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
+                            <li class="">
+                                <a href="/"> {{.Lenguaje.news}}</a>
+                            </li>
+                            <li class="">
+                                <a href="/todays">{{.Lenguaje.today}}</a>
+                            </li>
+                            <li class="">
+                                <a href="/tools">{{.Lenguaje.tools}}</a>
+                            </li>
+                            {{if eq .TypeWeb "Boss"}}
+                                <li class="">
+                                    <a href="/creatures">{{.Lenguaje.creatures}}</a>
+                                </li>
+                                <li class="active">
+                                    <a href="/bosses">{{.Lenguaje.bosses}}</a>
+                                </li>
+                            {{else}}
+                                <li class="active">
+                                    <a href="/creatures">{{.Lenguaje.creatures}}</a>
+                                </li>
+                                <li class="">
+                                    <a href="/bosses">{{.Lenguaje.bosses}}</a>
+                                </li>
+                            {{end}}
+                        </ul>
+                        <ul class="nk-nav nk-nav-right nk-nav-icons">
+                            <li class="single-icon d-lg-none">
+                                <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                                    <span class="nk-icon-burger">
+                                        <span class="nk-t-1"></span>
+                                        <span class="nk-t-2"></span>
+                                        <span class="nk-t-3"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="single-icon">
+                                {{if eq .UserName ""}}
+                                <a href="#" class="nk-sign-toggle no-link-effect">
+                                    <span class="nk-icon-toggle">
+                                        <span class="nk-icon-toggle-front">
+                                            <span class="fa fa-sign-in"></span>
+                                        </span>
+                                        <span class="nk-icon-toggle-back">
+                                            <span class="nk-icon-close"></span>
+                                        </span>
+                                    </span>
+                                </a>
+                                {{else}}
+                                <a href="/auth/my_profile" class="no-link-effect">
+                                    <span class="nk-icon-toggle">
+                                        <span class="nk-icon-toggle-front">
+                                            <span class="fa fa-user"></span>
+                                        </span>
+                                    </span>
+                                </a>
+                                {{end}}
+                            </li>
+                            <li class="single-icon">
+                                <a href="#" class="no-link-effect" data-nav-toggle="#nk-side">
+                                    <span class="nk-icon-burger">
+                                        <span class="nk-t-1"></span>
+                                        <span class="nk-t-2"></span>
+                                        <span class="nk-t-3"></span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- END: Navbar -->
+        </header>
+        <!--
+    START: Right Navbar
+
+    Additional Classes:
+        .nk-navbar-right-side
+        .nk-navbar-left-side
+        .nk-navbar-lg
+        .nk-navbar-align-center
+        .nk-navbar-align-right
+        .nk-navbar-overlay-content
+        .nk-navbar-light
+        .nk-navbar-no-link-effect
+-->
+        <nav class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-lg nk-navbar-align-center nk-navbar-overlay-content" id="nk-side">
+            <div class="nk-navbar-bg">
+                <div class="bg-image">
+                    <img src="/static/assets/images/bg-nav-side.jpg" alt="" class="jarallax-img">
+                </div>
+            </div>
+            <div class="nano">
+                <div class="nano-content">
+                    <div class="nk-nav-table">
+                        <div class="nk-nav-row">
+                            <a href="/" class="nk-nav-logo">
+                                <img src="/static/assets/images/logo.png" alt="" width="150">
+                            </a>
+                        </div>
+                        <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
+                            <ul class="nk-nav">
+                                {{if eq .UserName ""}}
+                                <li class=" ">
+                                    <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
+                                </li>
+                                {{else}}
+                                <li class=" ">
+                                    <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
+                                </li>
+                                {{end}}
+                                <li class=" nk-drop-item">
+                                    <a href="#">{{.Lenguaje.tools}}</a>
+                                    <ul class="dropdown">
+                                        <li class=" ">
+                                            <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/creatures"> {{.Lenguaje.creatures}}</a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/bosses"> {{.Lenguaje.bosses}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {{if eq .UserName ""}}
+                                {{else}}
+                                    <li class=" ">
+                                        <a href="/logout">Desconectarse</a>
+                                    </li>
+                                {{end}}
+                                {{if ge .Access  3 }}
+                                <li class=" ">
+                                    <a href="/auth/admin">Admin</a>
+                                </li>
+                                {{end}}
+                                
+                            </ul>
+                        </div>
+                        <div class="nk-nav-row">
+                            <div class="nk-nav-footer"> &copy; 2023 AinhoSoft. </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- END: Right Navbar -->
+        <!--
+    START: Navbar Mobile
+
+    Additional Classes:
+        .nk-navbar-left-side
+        .nk-navbar-right-side
+        .nk-navbar-lg
+        .nk-navbar-overlay-content
+        .nk-navbar-light
+        .nk-navbar-no-link-effect
+-->
+        <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
+            <div class="nano">
+                <div class="nano-content">
+                    <a href="index.html" class="nk-nav-logo">
+                        <img src="/static/assets/images/logo.png" alt="" width="90">
+                    </a>
+                    <div class="nk-navbar-mobile-content">
+                        <ul class="nk-nav">
+                            <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Navbar Mobile -->
+        <!-- Daily Image fun-->
+
+        <div class="nk-main">
+            <!-- END: Header Title -->
+            <div class="nk-gap-4"></div>
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-8 bg-dark-1">
+                        <div class="nk-gap-2"></div>
+                        <h1>{{.Creature.Name}}</h1>
+                        <!--2 verde 5 rojo, 6 blanco 1 naranjo-->
+                        <!--warning naranjo, success verde,  -->
+                        <div class="nk-post-text mt-1">
+                            <div class="row vertical-gap">
+                                <div class="col-md-4">
+                                    {{if gt .Creature.Ice 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Ice}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Ice</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Ice}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Ice 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Ice}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Ice</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Ice}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Ice}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Ice</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Ice}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    {{if gt .Creature.Earth 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Earth}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Earth</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Earth}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Earth 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Earth}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Earth</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Earth}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Earth}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Earth</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Earth}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    {{if gt .Creature.Fire 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Fire}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Fire</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Fire}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Fire 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Fire}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Earth</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Fire}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Fire}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Fire</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Fire}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                   
+                                    
+                                </div>
+                                <div class="col-md-4">
+                                    {{if gt .Creature.Physical 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Physical}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Physical</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Physical}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Physical 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Physical}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Physical</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Physical}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Physical}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Physical</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Physical}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    {{if gt .Creature.Energy 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Energy}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Energy</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Energy}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Energy 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Energy}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Energy</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Energy}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Energy}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Energy</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Energy}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{if gt .Creature.Death 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Death}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Death</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Death}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Death 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Death}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Death</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Death}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Death}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Death</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Death}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    {{if gt .Creature.Holy 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Holy}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Holy</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Holy}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Holy 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Holy}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Holy</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Holy}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Holy}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Holy</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Holy}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    {{if gt .Creature.Healing 100 }}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Healing}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: green;">Healing</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-2" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: green;">{{.Creature.Healing}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else if eq .Creature.Healing 100}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Healing}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: white;">Healing</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-6" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: white;">{{.Creature.Healing}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <div class="nk-progress nk-progress-lg nk-count" data-progress="{{.Creature.Healing}}" data-progress-mask="{$}%">
+                                        <div class="nk-progress-title" style="color: red;">Healing</div>
+                                        <div class="nk-progress-line">
+                                            <div class="bg-main-5" style="width: 16%">
+                                                <div class="nk-progress-percent" style="color: red;">{{.Creature.Healing}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <div class="nk-counter-2">
+                                        <h3 class="nk-counter-title h4">{{.NameDamage}}</h3>
+                                        {{if gt .MaxDamage 100}}
+                                        <div style="color: green;" class="nk-count">{{.MaxDamage}}</div>
+                                        {{else if ge .MaxDamage 80}}
+                                        <div class="nk-count">{{.MaxDamage}}</div>
+                                        {{else}}
+                                        <div style="color: red;" class="nk-count">{{.MaxDamage}}</div>
+                                        {{end}}
+                                        <div class="nk-gap"></div>
+                                        <p>{{.Lenguaje.elementMaxDamage}}.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+
+                            <h3>Push Object: {{.Creature.PushObject}}</h3>
+                            <div class="col-md-4"></div>
+                            <h3>Summon - Convince: {{.Creature.SummonConvince}}</h3>
+                            <div class="col-md-4"></div>
+                            <h3>Pushable: {{.Creature.Pushable}}</h3>
+                            <div class="col-md-4"></div>
+                            <h3>Paralyzable: {{.Creature.Paralyzable}}</h3>
+
+                            {{if ne .Creature.Locations ""}}
+                            <h3>Locations:</h3>
+                            <p>{{.Creature.Locations}}</p>
+                            {{end}}
+
+                            <h3>Loots:</h3>
+                            {{if ne .Creature.Loot ""}}
+                            <p>{{.Creature.Loot}}</p>
+                            {{else}}
+                            <p>?</p>
+                            {{end}}
+                        </div>
+                            
+
+                        
+                            {{if ge .Access  2 }}
+                            
+                            <div class=" nk-box-3">
+                                <h2>Admin Update creature</h2>
+                                {{if eq .TypeWeb "Boss"}}
+                                <form action="/auth/boss_update" method="post">
+                                {{else}}
+                                <form action="/auth/creature_update" method="post">
+                                {{end}}    
+                                    <input type="hidden" name="id_creature" placeholder="id" value="{{.Creature.ID}}">
+                                    
+                                    <div class="row vertical-gap">
+                                        <div class="col-md-4">
+                                            <label for="name">Name</label>
+                                            <input class="form-control" type="text" name="name" placeholder="Name" value="{{.Creature.Name}}" disabled>
+                                            
+                                            
+                                            <label for="health">Health</label>
+                                            <input class="form-control" type="number" name="health" placeholder="Health" value="{{.Creature.Health}}">
+                                        
+                                            <label for="experience">Experience</label>
+                                            <input class="form-control" type="number" name="experience" placeholder="experience" value="{{.Creature.Experience}}">
+                                            
+            
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="armor">Armor</label>
+                                            <input class="form-control" type="number" name="armor" placeholder="Armor" value="{{.Creature.Armor}}">
+                                            
+                    
+                                            <label for="haste">Haste</label>
+                                            <input class="form-control" type="number" name="haste" placeholder="Haste" value="{{.Creature.Haste}}">
+                                           
+                    
+                                            <label for="charm">Charm</label>
+                                            <input class="form-control" type="number" name="charm" placeholder="Charm" value="{{.Creature.Charm}}">
+                                            
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="mitigation">Mitigation</label>
+                                            <input class="form-control" type="number" name="mitigation" placeholder="Mitigation" value="{{.Creature.Mitigation}}"  step="any">
+                                            
+                    
+                                            <label for="dificulty">Dificulty</label>
+                                            <input class="form-control" type="number" name="dificulty" placeholder="Dificulty" value="{{.Creature.Dificulty}}">
+                                            
+
+                                            <label for="location">Location</label>
+                                            <input class="form-control" type="text" name="location" placeholder="Location" value="{{.Creature.Locations}}">
+                                            
+                                        </div>
+                                        <div class="col-md-4">  
+                                            <label for="physical">Physical</label>
+                                            <input class="form-control" type="number" name="physical" placeholder="physical" value="{{.Creature.Physical}}">
+                                        
+                                            <label for="earth">Earth</label>
+                                            <input class="form-control" type="number" name="earth" placeholder="earth" value="{{.Creature.Earth}}">
+                                        
+                                            <label for="fire">Fire</label>
+                                            <input class="form-control" type="number" name="fire" placeholder="fire" value="{{.Creature.Fire}}">
+                                        
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="death">Death</label>
+                                            <input class="form-control" type="number" name="death" placeholder="death" value="{{.Creature.Death}}">
+                                        
+                                            <label for="energy">Energy</label>
+                                            <input class="form-control" type="number" name="energy" placeholder="energy" value="{{.Creature.Energy}}">
+                                        
+                                            <label for="holy">Holy</label>
+                                            <input class="form-control" type="number" name="holy" placeholder="holy" value="{{.Creature.Holy}}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="ice">Ice</label>
+                                            <input class="form-control" type="number" name="ice" placeholder="ice" value="{{.Creature.Ice}}">
+                                        
+                                            <label for="healing">Healing</label>
+                                            <input class="form-control" type="number" name="healing" placeholder="healing" value="{{.Creature.Healing}}">
+                                            
+                                            <label class="form-check-label"> PushObject</label>
+                                            <input type="checkbox" name="pushobj" {{if .Creature.PushObject}}checked{{end}}> 
+                                    
+                                            <label class="form-check-label">SummonConvince</label>
+                                            <input type="checkbox" name="summonconvince" {{if .Creature.SummonConvince}}checked{{end}}> 
+        
+                                            <label class="form-check-label">Pushable</label>
+                                            <input type="checkbox" name="pushable"  {{if .Creature.Pushable}}checked{{end}}> 
+
+                                           
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-check-label">Paralyzable</label>
+                                            <input type="checkbox" name="paralyzable" {{if .Creature.Paralyzable}}checked{{end}}> 
+
+                                        </div>
+                                        
+                                    </div>
+                                    <label class="form-check-label">Race
+                                        <select name="race" class="form-control" name="creatureType">
+                                                <option value="Amphibians">Amphibians</option>
+                                                <option value="Aquatic">Aquatic</option>
+                                                <option value="Bird">Bird</option>
+                                                <option value="Construct">Construct</option>
+                                                <option value="Demon">Demon</option>
+                                                <option value="Dragon">Dragon</option>
+                                                <option value="Elemental">Elemental</option>
+                                                <option value="Extra Dimensional">Extra Dimensional</option>
+                                                <option value="Fey">Fey</option>
+                                                <option value="Giant">Giant</option>
+                                                <option value="Human">Human</option>
+                                                <option value="Humanoid">Humanoid</option>
+                                                <option value="Lycanthrope">Lycanthrope</option>
+                                                <option value="Magical">Magical</option>
+                                                <option value="Mammal">Mammal</option>
+                                                <option value="Plant">Plant</option>
+                                                <option value="Reptile">Reptile</option>
+                                                <option value="Slime">Slime</option>
+                                                <option value="Undead">Undead</option>
+                                                <option value="Vermin">Vermin</option>
+                                            </select>
+                                    </label>
+
+                                    <label for="loot">Loots</label>
+                                    <input class="form-control" type="text" name="loot" placeholder="Loot" value="{{.Creature.Loot}}">
+                                            
+                                    
+                                    <div class="nk-gap-2"></div>
+                                   
+                                    <button class="nk-btn nk-btn-color-white link-effect-4">Update</button>
+                                </form>
+                            </div>
+                            {{end}}
+                            
+
+                    </div>
+                    
+                    <div class="col-lg-4 bg-dark-2">
+                        <aside class="nk-sidebar nk-sidebar-right">
+                            <div class="nk-gap-5 d-none + d-lg-block"></div>
+                            <div class="nk-gap d-lg-none"></div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a class="nk-image-box-3 nk-post-image">
+                                                <img src="/image/{{.Creature.ImagePath}}" alt="">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Race:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{.Creature.Race}}</td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td><strong>Vida:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Health 0}} {{.Creature.Health}} {{else}} ? {{end}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Experience:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Experience 0}} {{.Creature.Experience}} {{else}} ? {{end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Max Damage:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.MaxDamage 0}} {{.Creature.MaxDamage}} {{else}} ? {{end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Armor:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Armor 0}} {{.Creature.Armor}} {{else}} ? {{end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Haste:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Haste 0}} {{.Creature.Haste}} {{else}} ? {{end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Charm:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Charm 0}} {{.Creature.Charm}} {{else}} ? {{end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mitigation:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Mitigation 0.0}} {{.Creature.Mitigation}}% {{else}} ?% {{end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dificulty:</strong> &nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{if gt .Creature.Dificulty 0}} {{.Creature.Dificulty}} {{else}} ? {{end}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="nk-gap-5 d-lg-none"></div>
+                        </aside>
+                        <div class="nk-gap-4"></div>
+                        <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+                            <div class="nk-widget">
+                                {{if eq .TypeWeb "Boss"}}
+                                <h4 class="nk-widget-title">{{.Lenguaje.otherBosses}}</h4>
+                                {{else}}
+                                <h4 class="nk-widget-title">{{.Lenguaje.otherCreatures}}</h4>
+                                {{end}}
+                                <div>
+                                    {{range .Creatures}}
+                                    <div class="nk-widget-post">
+                                        <a href="/creatures/{{.ID}}" class="nk-image-box-1 nk-post-image">
+                                            <img src="/image/{{.ImagePath}}" alt="">
+                                        </a>
+                                        <h3 class="nk-post-title"><a href="/creatures/{{.ID}}">{{.Name}}</a></h3>
+                                    </div>
+                                    {{end}}
+                                </div>
+                            </div>
+                            <div class="nk-gap-4"></div>
+                        </aside>
+                        <!-- END: Sidebar -->
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="nk-gap-4"></div>
+            
+
+            
+
+            <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
+                <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
+                <div class="container">
+                    <div class="nk-gap-2"></div>
+                    <div class="nk-gap"></div>
+                    <p> &copy; 2023 AinhoSoft.</p>
+                    <div class="nk-footer-links">
+                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}</a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
+                    </div>
+                    <div class="nk-gap-4"></div>
+                </div>
+            </footer>
+            <!-- END: Footer -->
+        </div>
+        <div class="nk-side-buttons nk-side-buttons-visible">
+            <ul>
+                <li>
+                    <span class="nk-btn nk-btn-lg nk-btn-icon nk-bg-audio-toggle">
+                        <span class="icon">
+                            <span class="ion-android-volume-up nk-bg-audio-pause-icon"></span>
+                            <span class="ion-android-volume-off nk-bg-audio-play-icon"></span>
+                        </span>
+                    </span>
+                </li>
+                <li class="nk-scroll-top">
+                    <span class="nk-btn nk-btn-lg nk-btn-icon">
+                        <span class="icon ion-ios-arrow-up"></span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="nk-sign-form">
+            <div class="nk-gap-5"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
+                        <div class="nk-sign-form-container">
+                            <div class="nk-sign-form-toggle h3">
+                                <a href="#" class="nk-sign-form-login-toggle active">{{.Lenguaje.login}}</a>
+                                <a href="#" class="nk-sign-form-register-toggle">{{.Lenguaje.register}}</a>
+                            </div>
+                            <div class="nk-gap-2"></div>
+                            <!-- START: Login Form -->
+                            <form class="nk-sign-form-login active" method="POST" action="/login">
+                                <input class="form-control" type="text" name="user" id="user" placeholder="{{.Lenguaje.user}} / Email">
+                                <div class="nk-gap-2"></div>
+                                <input class="form-control" type="password" name="passworduser" id="passworduser" placeholder="{{.Lenguaje.password}}">
+                                <div class="nk-gap-2"></div>
+                                <div class="form-check float-left">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input"> {{.Lenguaje.remember}} </label>
+                                </div>
+                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.login}}</button>
+                                <div class="clearfix"></div>
+                                <div class="nk-gap-1"></div>
+                                <a class="nk-sign-form-lost-toggle float-right" href="#">{{.Lenguaje.lostpassword}}?</a>
+                            </form>
+                            <!-- END: Login Form -->
+                            <!-- START: Lost Password Form -->
+                            <form class="nk-sign-form-lost" action="/recovery" method="POST">
+                                <input class="form-control" type="text" name="recovery" placeholder="{{.Lenguaje.user}} / Email">
+                                <div class="nk-gap-2"></div>
+                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.getin}}</button>
+                            </form>
+                            <!-- END: Lost Password Form -->
+                            <!-- START: Register Form -->
+                            <form class="nk-sign-form-register" action="/create_user" method="POST">
+                                <input class="form-control" type="text" name="username" id="username" placeholder="{{.Lenguaje.user}}">
+                                <div class="nk-gap-2"></div>
+                                <input class="form-control" type="password" name="password" id="password" placeholder="{{.Lenguaje.password}}">
+                                <div class="nk-gap-2"></div>
+                                <input class="form-control" type="password"  name="passwordTwo" id="passwordTwo"  placeholder="{{.Lenguaje.repeat}} {{.Lenguaje.password}}">
+                                <div class="nk-gap-2"></div>
+                                <input class="form-control" type="email" name="email" id="email" placeholder="Email">
+                                <div class="nk-gap-2"></div>
+                                <div class="form-check float-left">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="policy" id="policy" class="form-check-input"> {{.Lenguaje.acceptpolicies}} </label>
+                                </div>
+                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.register}}</button>
+                            </form>
+                            <!-- END: Register Form -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nk-gap-5"></div>
+        </div>
+        <!-- END: Sign Form -->
+        <!-- START: Scripts -->
+        <!-- Object Fit Polyfill -->
+        <script src="/static/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
+        <!-- GSAP -->
+        <script src="/static/assets/vendor/gsap/dist/gsap.min.js"></script>
+        <script src="/static/assets/vendor/gsap/dist/ScrollToPlugin.min.js"></script>
+        <!-- Popper -->
+        <script src="/static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Sticky Kit -->
+        <script src="/static/assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+        <!-- Jarallax -->
+        <script src="/static/assets/vendor/jarallax/dist/jarallax.min.js"></script>
+        <script src="/static/assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
+        <!-- imagesLoaded -->
+        <script src="/static/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+        <!-- Flickity -->
+        <script src="/static/assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+        <!-- Isotope -->
+        <script src="/static/assets/vendor/isotope-layout/dist/isotope.pkgd.min.js"></script>
+        <!-- Photoswipe -->
+        <script src="/static/assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
+        <script src="/static/assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+        <!-- Typed.js -->
+        <script src="/static/assets/vendor/typed.js/lib/typed.min.js"></script>
+        <!-- Jquery Validation -->
+        <script src="/static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+        <!-- Jquery Countdown + Moment -->
+        <script src="/static/assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
+        <script src="/static/assets/vendor/moment/min/moment.min.js"></script>
+        <script src="/static/assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+        <!-- Hammer.js -->
+        <script src="/static/assets/vendor/hammerjs/hammer.min.js"></script>
+        <!-- NanoSroller -->
+        <script src="/static/assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+        <!-- SoundManager2 -->
+        <script src="/static/assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+        <!-- DateTimePicker -->
+        <script src="/static/assets/vendor/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+        <!-- Revolution Slider -->
+        <script src="/static/assets/vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
+        <script src="/static/assets/vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.video.min.js"></script>
+        <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+        <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+        <!-- Keymaster -->
+        <script src="/static/assets/vendor/keymaster/keymaster.js"></script>
+        <!-- Summernote -->
+        <script src="/static/assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+        <!-- GODLIKE -->
+        <script src="/static/assets/js/tibiakray.min.js"></script>
+        <script src="/static/assets/js/tibiakray-init.js"></script>
+        <!-- END: Scripts -->
+    </body>
+</html>

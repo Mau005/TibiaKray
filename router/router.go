@@ -56,7 +56,9 @@ func NewRouter() *mux.Router {
 
 	var creaturesHandler handler.CreaturesHandler
 	router.HandleFunc("/creatures", creaturesHandler.CreaturesHandler).Methods("GET")
+	router.HandleFunc("/creatures/{id}", creaturesHandler.CreaturesIdHandler).Methods("GET")
 	router.HandleFunc("/bosses", creaturesHandler.BossesHandler).Methods("GET")
+	router.HandleFunc("/bosses/{id}", creaturesHandler.BossesIDHandler).Methods("GET")
 
 	security := router.PathPrefix("/auth").Subrouter()
 	security.Use(middleware.CommonMiddleware)
@@ -77,6 +79,9 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/my_players", AccountHandler.MyProfilePLayers).Methods("GET")
 	security.HandleFunc("/search_player", AccountHandler.SearchMyPlayer).Methods("POST")
 
+	security.HandleFunc("/creature_update", creaturesHandler.CreaturesPost).Methods("POST")
+	security.HandleFunc("/boss_update", creaturesHandler.BossPost).Methods("POST")
+
 	var votedHanlder handler.VotedHandler
 	security.HandleFunc("/voted_todays/{id}", votedHanlder.AddVotedTodays).Methods("POST")
 
@@ -85,6 +90,8 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/todays_aproved", adminHandler.TodaysAproved).Methods("GET")
 	security.HandleFunc("/todays_aproved/{id}", adminHandler.TodaysAprovedPOST).Methods("POST")
 	security.HandleFunc("/user_register", adminHandler.UserRegisterHandler).Methods("GET")
+
+	//Sistem Streamaer
 	security.HandleFunc("/streamer", adminHandler.StreamerHandlerAdmin).Methods("GET")
 	security.HandleFunc("/streamer", adminHandler.StreamerPOSTAdmin).Methods("POST")
 	security.HandleFunc("/streamer/{id}", adminHandler.StreamerIDAdmin).Methods("GET")

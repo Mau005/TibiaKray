@@ -303,7 +303,7 @@
                                             <td><img width="96" height="96" src="/image/{{.ImagePath}}" alt=""></td>
                                             <td>{{.Name}}</td>
                                             <td>
-                                                <form> 
+                                                <form action="/creatures/{{.ID}}" method="get"> 
                                                     <div style="display: flex; justify-content: center; align-items: center;">
                                                     <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{$.Lenguaje.getin}}</button>
                                                 </div>
@@ -311,7 +311,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                {{end}}
+                                    {{end}}
                             </table>
                         </div>
                     </div>

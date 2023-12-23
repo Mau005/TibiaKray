@@ -97,5 +97,8 @@ bosses,Bosses,Jefes,Chefes,Szefowie
 name,Name,Nombre,Nome,Nazwa
 see,See,Ver,Ver,Widzieć
 recoverPassword,Recover Passwords,Recuperar Contraseñas,Recuperar senhas,Odzyskaj hasła
-indicateCode,Indicate Code,Indicar código,Indicar Código, Wskaż kod
+indicateCode,Indicate Code,Indicar código,Indicar Código," Wskaż kod"
 streamsupport,Stream that have given us their support,Stream que nos han brindado su apoyo,Stream que nos deu seu apoio,Stream  który udzielił nam wsparcia
+otherCreatures,Other Creatures,Otras Criaturas,Outras criaturas,Inne stworzenia
+otherBosses,Other Bosses,Otros Jefes,Outros chefes,Inni szefowie
+elementMaxDamage,Element with maximum damage,Elemento con maximo daño,Elemento com dano máximo,Element z maksymalnymi obrażeniami

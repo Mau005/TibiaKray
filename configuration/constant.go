@@ -50,6 +50,7 @@ const (
 	PATH_RECOVERY_EMAIL   = "data/email/recovery.html"
 )
 const (
+	PATH_WEB_CREATURES_ID = "static/creatures_id.html"
 	PATH_WEB_CREATURES    = "static/creatures.html"
 	PATH_WEB_BOSSES       = "static/bosses.html"
 	PATH_WEB_ERROR        = "static/error404.html"
@@ -76,6 +77,8 @@ const (
 	ROUTER_UPLOAD_IMAGES       = "/auth/upload_image"
 	ROUTER_RECOVERY_CODE       = "http://%s/recovery/%s"
 	ROUTER_STREAMER_ID         = "/auth/streamer/%d"
+	ROUTER_CREATURE_ID         = "/creatures/%d"
+	ROUTER_BOSSES_ID           = "/bosses/%d"
 )
 
 const (
