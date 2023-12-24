@@ -200,9 +200,9 @@ func (ec *EntitysCreatures) MaxDamageChangesBoss(creature models.Bosses) (name s
 		name = "Ice"
 		cant = creature.Ice
 	}
-	if creature.Physical >= cant {
-		name = "Physical"
-		cant = creature.Physical
+	if creature.Holy >= cant {
+		name = "Holy"
+		cant = creature.Holy
 	}
 	if creature.Earth >= cant {
 		name = "Earth"
@@ -220,9 +220,9 @@ func (ec *EntitysCreatures) MaxDamageChangesBoss(creature models.Bosses) (name s
 		name = "Energy"
 		cant = creature.Energy
 	}
-	if creature.Holy >= cant {
-		name = "Holy"
-		cant = creature.Holy
+	if creature.Physical >= cant {
+		name = "Physical"
+		cant = creature.Physical
 	}
 
 	return

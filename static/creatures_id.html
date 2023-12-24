@@ -568,6 +568,10 @@
                                             <label for="experience">Experience</label>
                                             <input class="form-control" type="number" name="experience" placeholder="experience" value="{{.Creature.Experience}}">
                                             
+                                            <label for="maxdamage">MaxDamage</label>
+                                            <input class="form-control" type="number" name="maxdamage" placeholder="maxdamage" value="{{.Creature.MaxDamage}}">
+                                            
+
             
                                         </div>
                                         <div class="col-md-4">
@@ -623,7 +627,12 @@
                                         
                                             <label for="healing">Healing</label>
                                             <input class="form-control" type="number" name="healing" placeholder="healing" value="{{.Creature.Healing}}">
-                                            
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-check-label">Paralyzable</label>
+                                            <input type="checkbox" name="paralyzable" {{if .Creature.Paralyzable}}checked{{end}}> 
+
                                             <label class="form-check-label"> PushObject</label>
                                             <input type="checkbox" name="pushobj" {{if .Creature.PushObject}}checked{{end}}> 
                                     
@@ -632,12 +641,6 @@
         
                                             <label class="form-check-label">Pushable</label>
                                             <input type="checkbox" name="pushable"  {{if .Creature.Pushable}}checked{{end}}> 
-
-                                           
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="form-check-label">Paralyzable</label>
-                                            <input type="checkbox" name="paralyzable" {{if .Creature.Paralyzable}}checked{{end}}> 
 
                                         </div>
                                         
@@ -666,7 +669,7 @@
                                                 <option value="Vermin">Vermin</option>
                                             </select>
                                     </label>
-
+                                    <div class="nk-gap-2"></div>
                                     <label for="loot">Loots</label>
                                     <input class="form-control" type="text" name="loot" placeholder="Loot" value="{{.Creature.Loot}}">
                                             

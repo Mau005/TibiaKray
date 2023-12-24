@@ -146,6 +146,13 @@ func (ch *CreaturesHandler) CreaturesPost(w http.ResponseWriter, r *http.Request
 	holyStr := r.FormValue("holy")
 	iceStr := r.FormValue("ice")
 	healingStr := r.FormValue("healing")
+	maxdamageStr := r.FormValue("maxdamage")
+	maxdamage, err := strconv.ParseUint(maxdamageStr, 10, 64)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Invalid MaxDamge value", http.StatusBadRequest)
+	}
+	creature.MaxDamage = uint(maxdamage)
 
 	// Parse numerical values
 	physical, err := strconv.ParseUint(physicalStr, 10, 64)
@@ -377,6 +384,13 @@ func (ch *CreaturesHandler) BossPost(w http.ResponseWriter, r *http.Request) {
 	holyStr := r.FormValue("holy")
 	iceStr := r.FormValue("ice")
 	healingStr := r.FormValue("healing")
+	maxdamageStr := r.FormValue("maxdamage")
+	maxdamage, err := strconv.ParseUint(maxdamageStr, 10, 64)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Invalid MaxDamge value", http.StatusBadRequest)
+	}
+	creature.MaxDamage = uint(maxdamage)
 
 	// Parse numerical values
 	physical, err := strconv.ParseUint(physicalStr, 10, 64)
