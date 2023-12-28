@@ -77,6 +77,8 @@ const (
 	ROUTER_UPLOAD_IMAGES       = "/auth/upload_image"
 	ROUTER_RECOVERY_CODE       = "http://%s/recovery/%s"
 	ROUTER_STREAMER_ID         = "/auth/streamer/%d"
+	ROUTER_NEWS_TICKET_ID      = "/auth/newsticket/%d"
+	ROUTER_NEWS_TICKET         = "/auth/newsticket"
 	ROUTER_CREATURE_ID         = "/creatures/%d"
 	ROUTER_BOSSES_ID           = "/bosses/%d"
 )

@@ -290,3 +290,133 @@ func (a *AdminHandler) StreamPatchAdmin(w http.ResponseWriter, r *http.Request) 
 	}
 	a.StreamerHandlerAdmin(w, r)
 }
+
+func (a *AdminHandler) NewsTicketHandler(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	var adminCtl controller.AdminController
+
+	strucNew := struct {
+		models.StructModel
+		Title   string
+		Content string
+	}{
+		StructModel: sm,
+		Title:       "NewsTickets",
+		Content:     adminCtl.NewsTicket() + adminCtl.ViewNewsTicket(models.NewsTicket{}, "create")}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ADMIN)
+	if err != nil {
+		log.Println(err)
+	}
+	template.Execute(w, strucNew)
+}
+
+func (a *AdminHandler) NewsTicketProcesing(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	var ticketController controller.NewsTicketController
+
+	idStr, err := strconv.ParseUint(r.FormValue("id_ticket"), 10, 64)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	newsTicket := models.NewsTicket{}
+	typeForm := r.FormValue("typeForm")
+
+	if typeForm == "update" {
+		newsTicket, err = ticketController.GetIDNewsTicket(uint(idStr))
+		if err != nil {
+			log.Println(err)
+			return
+		}
+	}
+	newsTicket.Title = r.FormValue("Title")
+	newsTicket.Content = r.FormValue("Content")
+	newsTicket.ContentBr = r.FormValue("ContentBr")
+	newsTicket.ContentEn = r.FormValue("ContentEn")
+	newsTicket.ContentPl = r.FormValue("ContentPl")
+	newsTicket.StatusNews = r.FormValue("StatusNews") == "on"
+
+	if typeForm == "create" {
+		var accountController controller.AccountController
+		account, err := accountController.GetAccount(sm.Email)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		newsTicket.Account = *account
+		newsTicket.AccountID = &account.ID
+		newsTicket, err = ticketController.CreateNewsTicket(newsTicket)
+		if err != nil {
+			log.Println(err)
+		}
+	} else if typeForm == "update" {
+		newsTicket, err = ticketController.SaveNewsTicket(newsTicket)
+		if err != nil {
+			log.Println(err)
+		}
+		http.Redirect(w, r, configuration.ROUTER_NEWS_TICKET, http.StatusSeeOther)
+		return
+	} else {
+		log.Println("No pudo gestionar si actualizar o crear")
+	}
+	http.Redirect(w, r, fmt.Sprintf(configuration.ROUTER_NEWS_TICKET_ID, newsTicket.ID), http.StatusSeeOther)
+}
+
+func (a *AdminHandler) NewsTicketIDHandler(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	sm := api.GetBaseWeb(r)
+
+	if !(sm.Access >= configuration.ACCES_ADMIN) {
+		var errorHandler ErrorHandler
+		errorHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPrivileges, configuration.ROUTER_INDEX, w, r, sm)
+		return
+	}
+
+	var adminCtl controller.AdminController
+	var newsTicketController controller.NewsTicketController
+
+	args := mux.Vars(r)
+
+	idTicket, err := strconv.ParseUint(args["id"], 10, 64)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	newsTicket, err := newsTicketController.GetIDNewsTicket(uint(idTicket))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	strucNew := struct {
+		models.StructModel
+		Title   string
+		Content string
+	}{
+		StructModel: sm,
+		Title:       "NewsTickets",
+		Content:     adminCtl.ViewNewsTicket(newsTicket, "update")}
+
+	template, err := template.ParseFiles(configuration.PATH_WEB_ADMIN)
+	if err != nil {
+		log.Println(err)
+	}
+	template.Execute(w, strucNew)
+}

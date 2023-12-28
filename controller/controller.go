@@ -70,12 +70,6 @@ func (ac *ApiController) InitServices() error {
 	//End Lenguaje
 
 	//init News for tibia.com
-	var cc CollectorController
-	err = cc.GenerateNewsTibia()
-	if err != nil {
-		log.Println(fmt.Sprintf("[NEWS][ERROR] %s", err.Error()))
-	}
-	log.Println("[NEWS] Load for Tibia.com")
 	//End News for tibia.com
 
 	//init rashid
@@ -276,15 +270,6 @@ func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {
 
 	//Config Lenguaje
 
-	//End Lenguaje
-	if News != nil {
-		sc.News = *News
-	}
-	if NewsTicket != nil {
-		sc.NewsTicket = *NewsTicket
-	}
-	//
-	//
 	return sc
 }
 
@@ -378,12 +363,6 @@ func (ac *ApiController) ResetDefaultWeb() {
 
 		// Ejecuta tu función aquí
 		log.Println("Reset Data: ", nextSixAM)
-		var cc CollectorController
-		err := cc.GenerateNewsTibia()
-		if err != nil {
-			log.Println(fmt.Sprintf("[NEWS][ERROR] %s", err.Error()))
-		}
-		log.Println("[NEWS] Load for Tibia.com")
 
 		var toolsManager ToolsController
 		toolsManager.InitRashid()

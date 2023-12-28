@@ -34,18 +34,25 @@ func (hh *HomeHandler) Home(w http.ResponseWriter, r *http.Request) {
 	sc := api.GetBaseWeb(r)
 	var streamerController controller.StreamerController
 	stream, _ := streamerController.GetStreamers()
+	var newsTicketController controller.NewsTicketController
+	newTicket, err := newsTicketController.GetNewsTicket()
+	if err != nil {
+		log.Println(err)
+	}
 	modelNew := struct {
 		models.StructModel
 		Todays          []models.Todays
 		SharedLootHight models.SharedLoot
 		Rashid          string
 		Streamer        []models.Streamers
+		NewsTicket      []models.NewsTicket
 	}{
 		StructModel:     sc,
 		Todays:          data,
 		SharedLootHight: configuration.SharedLootHightNow,
 		Rashid:          configuration.Rashid,
 		Streamer:        stream,
+		NewsTicket:      newTicket,
 	}
 
 	templ.Execute(w, modelNew)

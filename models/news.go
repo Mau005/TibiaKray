@@ -16,6 +16,9 @@ type NewsTicket struct {
 	gorm.Model
 	Title      string
 	Content    string
+	ContentEn  string
+	ContentPl  string
+	ContentBr  string
 	AccountID  *uint
 	StatusNews bool
 	Account    Account `gorm:"foreignKey:AccountID"`

@@ -325,9 +325,16 @@
                                     <ul class="nk-widget-categories">
                                         {{range .NewsTicket}}
                                         <li>
-                                            <a>{{.Title}}</a>
-                                            <li>{{.Content}}</li>
-                                        
+                                            <a>{{.CreatedAt.Format "2006-01-02 15:04:05"}}<br> {{$.Lenguaje.tag}}: {{index $.Lenguaje .Title}}</a>
+                                            {{if eq $.LenguajeDefault "es"}}
+                                                <li>{{.Content}}</li>
+                                            {{else if eq $.LenguajeDefault "br"}}
+                                                <li>{{.ContentBr}}</li>
+                                            {{else if eq $.LenguajeDefault "pl"}}
+                                                <li>{{.ContentPl}}</li>
+                                            {{else}}
+                                                <li>{{.ContentEn}}</li>
+                                            {{end}}
                                         </li>
                                         {{end}}
                                     </ul>

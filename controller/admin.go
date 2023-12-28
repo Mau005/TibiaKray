@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/Mau005/KraynoSerer/components"
@@ -156,4 +157,69 @@ func (ac *AdminController) StreamerViews(stream models.Streamers) (content strin
 	`, stream.ID, stream.Name, stream.Title, stream.URL)
 
 	return
+}
+
+func (ac *AdminController) NewsTicket() string {
+	var api ApiController
+	var comp components.Components
+
+	var newsTicketController NewsTicketController
+
+	newsTicket, _ := newsTicketController.GetAllNewsTicket()
+
+	title := comp.CreateColsTable("Categoria", "Esp", "Fecha Creacion", "URL")
+	contentRows := ""
+	for _, object := range newsTicket {
+		contentRows += comp.CreateRowsTable(
+			object.Title,
+			api.NormalizeString(30, object.Content),
+			object.CreatedAt.Format("2006-01-02 15:04:05"),
+			comp.CreateButtonForm("get", fmt.Sprintf(configuration.ROUTER_NEWS_TICKET_ID, object.ID), "ver"))
+	}
+	return comp.CreateTable(comp.CreateRowsTableFinally(title + contentRows))
+}
+
+func (ac *AdminController) ViewNewsTicket(ticket models.NewsTicket, type_form string) string {
+	checket := `<input type="checkbox" name="StatusNews"><br>`
+	if ticket.StatusNews {
+		checket = `<input type="checkbox" name="StatusNews" checked><br>`
+	}
+	select_value := ""
+	if !(ticket.Title == "") {
+		select_value = fmt.Sprintf(`<option value="%s">%s</option>`, ticket.Title, strings.ToUpper(ticket.Title[:1])+ticket.Title[1:])
+	}
+
+	return fmt.Sprintf(`
+	<div>
+		<form action="/auth/newsticket" method="post">
+			<input type="hidden" name="id_ticket" value="%d"><br>
+			<input type="hidden" name="typeForm" value="%s"><br>
+
+			<label for="title">Title:</label>
+			<select class="form-control" name="Title">
+					%s
+					<option value="update">Update</option>
+					<option value="internal">Internal</option>
+					<option value="tibia">Tibia</option>
+				</select>
+
+			<label for="content">Content:</label>
+			<textarea id="content" name="Content" required>%s</textarea><br>
+
+			<label for="contentEn">Content (English):</label>
+			<textarea id="contentEn" name="ContentEn">%s</textarea><br>
+
+			<label for="contentPl">Content (Polish):</label>
+			<textarea id="contentPl" name="ContentPl">%s</textarea><br>
+
+			<label for="contentBr">Content (Portuguese):</label>
+			<textarea id="contentBr" name="ContentBr">%s</textarea><br>
+
+			<label for="statusNews">Status News:</label>
+			%s
+
+			<button type="submit">Submit</button>
+		</form>
+	<div>	
+	`, ticket.ID, type_form, select_value, ticket.Content, ticket.ContentEn, ticket.ContentPl, ticket.ContentBr, checket)
 }

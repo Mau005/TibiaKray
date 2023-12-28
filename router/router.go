@@ -91,6 +91,10 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/todays_aproved/{id}", adminHandler.TodaysAprovedPOST).Methods("POST")
 	security.HandleFunc("/user_register", adminHandler.UserRegisterHandler).Methods("GET")
 
+	security.HandleFunc("/newsticket", adminHandler.NewsTicketHandler).Methods("GET")
+	security.HandleFunc("/newsticket", adminHandler.NewsTicketProcesing).Methods("POST")
+	security.HandleFunc("/newsticket/{id}", adminHandler.NewsTicketIDHandler).Methods("GET")
+
 	//Sistem Streamaer
 	security.HandleFunc("/streamer", adminHandler.StreamerHandlerAdmin).Methods("GET")
 	security.HandleFunc("/streamer", adminHandler.StreamerPOSTAdmin).Methods("POST")
