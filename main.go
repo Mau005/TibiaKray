@@ -1,18 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 
-	conf "github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/router"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 func main() {
-
 	var api controller.ApiController
 	err := api.InitServices()
 	if err != nil {
@@ -32,14 +30,24 @@ func main() {
 			go creaturesController.CollectorBosses()
 		}
 	}
-	/*
 
-		creaturesController.CollectorCreature()
-		creaturesController.CollectorBosses()
-	*/
-	log.Println("Listening Server Run", fmt.Sprintf("%s:%d", conf.Config.Server.Ip, conf.Config.Server.Port))
-	log.Fatal(http.ListenAndServe(
-		fmt.Sprintf("%s:%d", conf.Config.Server.Ip, conf.Config.Server.Port),
-		router.NewRouter()))
+	certCache := autocert.DirCache("certs")
+
+	m := &autocert.Manager{
+		Cache:  certCache,
+		Prompt: autocert.AcceptTOS,
+		HostPolicy: autocert.HostWhitelist(
+			"tibiakray.info", // replace with your domain
+		),
+	}
+
+	server := &http.Server{
+		Addr:      ":8000", // Cambiado a puerto 8000
+		Handler:   router.NewRouter(),
+		TLSConfig: m.TLSConfig(),
+	}
+
+	log.Println("Starting HTTPS server on port 443...")
+	log.Fatal(server.ListenAndServeTLS("", ""))
 
 }

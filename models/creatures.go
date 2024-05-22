@@ -10,6 +10,7 @@ type Creatures struct {
 	Race       string
 	Experience uint
 	MaxDamage  uint
+	Abilities  string
 	Armor      uint
 	Haste      uint
 	Charm      uint
