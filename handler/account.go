@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 	"text/template"
 	"time"
 
@@ -29,7 +30,7 @@ func (ac *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	var accController controller.AccountController
 
-	token, err := accController.Login(email, password)
+	token, err := accController.Login(strings.ToLower(email), password)
 	if err != nil {
 		errHandler.PageErrorMSG(http.StatusUnauthorized, configuration.ErrorPassword, "", w, r, sc)
 		return
@@ -42,9 +43,9 @@ func (ac *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 func (ac *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 
-	email := r.FormValue("email")
+	email := strings.ToLower(r.FormValue("email"))
 	policy := r.FormValue("policy")
-	username := r.FormValue("username")
+	username := strings.ToLower(r.FormValue("username"))
 	passwordTwo := r.FormValue("passwordTwo")
 	password := r.FormValue("password")
 
@@ -252,6 +253,9 @@ func (ac *AccountHandler) MyProfilePLayers(w http.ResponseWriter, r *http.Reques
 	var accountManager controller.AccountController
 	acc, _ := accountManager.GetAccount(cm.Email)
 	players, err := playerManager.GetMyPlayer(acc.ID)
+	if err != nil {
+		log.Println(err)
+	}
 	strucNew := struct {
 		models.StructModel
 		Player  models.Player
@@ -283,6 +287,9 @@ func (ac *AccountHandler) SearchMyPlayer(w http.ResponseWriter, r *http.Request)
 
 	var accManager controller.AccountController
 	acc, err := accManager.GetAccount(sm.Email)
+	if err != nil {
+		log.Println(err)
+	}
 
 	var collectorAPI controller.CollectorController
 	pl, err := collectorAPI.GetPlayer(character)

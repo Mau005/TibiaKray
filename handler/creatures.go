@@ -21,6 +21,9 @@ func (ch *CreaturesHandler) CreaturesHandler(w http.ResponseWriter, r *http.Requ
 
 	var creaturesController controller.EntitysCreatures
 	creatures, err := creaturesController.GetCreatures()
+	if err != nil {
+		log.Println(err)
+	}
 
 	structNew := struct {
 		models.StructModel
@@ -45,6 +48,9 @@ func (ch *CreaturesHandler) BossesHandler(w http.ResponseWriter, r *http.Request
 
 	var creaturesController controller.EntitysCreatures
 	Bosses, err := creaturesController.GetBosses()
+	if err != nil {
+		log.Println(err)
+	}
 	structNew := struct {
 		models.StructModel
 		Bosses []models.Bosses

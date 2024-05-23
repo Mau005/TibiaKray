@@ -270,5 +270,8 @@ func (su *ImageHandler) GetPhotosHandler(w http.ResponseWriter, r *http.Request)
 
 	var todaysManager controller.TodaysController
 	photos, err := todaysManager.GetTodayPage(page)
+	if err != nil {
+		log.Println(err)
+	}
 	json.NewEncoder(w).Encode(photos)
 }

@@ -1,20 +1,19 @@
 DataBase:
-  Host: 
+  Host: localhost
   Port: 3306
   User: root
-  Password: 12345
-  NameDB: Kry
+  Password: F
+  NameDB: Kray
   SqlitePath: Kry.db
   Engine: sqlite
 Server:
   Ip: 127.0.0.1
   Port: 8000
   Debug: true
-  ServerSave: 6
+  ServerSave: 9
   LengthSecurity: 128
 Access:
   AprovedTodays: 3
-
 Email:
   SmtpUsername: "no-reply@lostrespinos.cl"
   Password: "maumau123"

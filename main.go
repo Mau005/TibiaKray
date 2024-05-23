@@ -7,7 +7,6 @@ import (
 
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/router"
-	"golang.org/x/crypto/acme/autocert"
 )
 
 func main() {
@@ -31,23 +30,16 @@ func main() {
 		}
 	}
 
-	certCache := autocert.DirCache("certs")
-
-	m := &autocert.Manager{
-		Cache:  certCache,
-		Prompt: autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist(
-			"tibiakray.info", // replace with your domain
-		),
-	}
-
 	server := &http.Server{
-		Addr:      ":8000", // Cambiado a puerto 8000
-		Handler:   router.NewRouter(),
-		TLSConfig: m.TLSConfig(),
+		Addr:    ":8000",
+		Handler: router.NewRouter(),
 	}
 
-	log.Println("Starting HTTPS server on port 443...")
-	log.Fatal(server.ListenAndServeTLS("", ""))
+	certFile := "/etc/letsencrypt/live/tibiakray.info/fullchain.pem"
+	keyFile := "/etc/letsencrypt/live/tibiakray.info/privkey.pem"
 
+	log.Println("Iniciando el servidor HTTPS en el puerto 8000")
+	if err := server.ListenAndServeTLS(certFile, keyFile); err != nil {
+		log.Fatal("Error al iniciar el servidor TLS: ", err)
+	}
 }
