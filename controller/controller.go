@@ -11,6 +11,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -373,14 +374,22 @@ func (ac *ApiController) ResetDefaultWeb() {
 	}
 
 }
-
 func (ac *ApiController) DownloadImage(url, filePath string) error {
-	// Realiza una solicitud HTTP para obtener la imagen
-	path_origin := configuration.PATH_STATIC_PUBLIC + filePath
-	_, err := os.Stat(path_origin)
-	if err == nil {
-		return errors.New("El archivo si existe")
+	pathOrigin := configuration.PATH_STATIC_PUBLIC + filePath
+
+	// Si el archivo ya existe, salir
+	if _, err := os.Stat(pathOrigin); err == nil {
+		return errors.New("el archivo ya existe")
 	}
+
+	// 🔹 Crear directorio si no existe
+	dir := filepath.Dir(pathOrigin)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		log.Println("error creando directorio:", err)
+		return err
+	}
+
+	// Descargar imagen
 	response, err := http.Get(url)
 	if err != nil {
 		log.Println(err)
@@ -388,21 +397,25 @@ func (ac *ApiController) DownloadImage(url, filePath string) error {
 	}
 	defer response.Body.Close()
 
-	// Crea el archivo en el sistema de archivos
-	file, err := os.Create(path_origin)
+	// Validar HTTP status
+	if response.StatusCode != http.StatusOK {
+		return fmt.Errorf("error descargando imagen: status %d", response.StatusCode)
+	}
+
+	// Crear archivo
+	file, err := os.Create(pathOrigin)
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 	defer file.Close()
 
-	// Copia el cuerpo de la respuesta HTTP al archivo local
-	_, err = io.Copy(file, response.Body)
-	if err != nil {
+	// Copiar contenido
+	if _, err = io.Copy(file, response.Body); err != nil {
 		log.Println(err)
 		return err
 	}
 
-	fmt.Printf("Imagen descargada con éxito: %s\n", filePath)
+	log.Printf("Imagen descargada con éxito: %s\n", filePath)
 	return nil
 }

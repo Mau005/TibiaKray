@@ -7,8 +7,8 @@ const (
 const (
 	MAX_LEN_PASSWORD       = 5
 	ACCES_ADMIN            = 3
-	MAX_FILE_SIZE          = 5 << 20 //3 mgbyttes
-	EXPIRATION_TOKEN       = 24      //HOURS
+	MAX_FILE_SIZE          = 50 << 20 //3 mgbyttes
+	EXPIRATION_TOKEN       = 24       //HOURS
 	NAME_SESSION           = "Authorization"
 	ERROR_SERVICE_SECURITY = "Service error in Security"
 	ERROR_PRIVILEGES_GEN   = "No Tienes los privilegios para acceder"

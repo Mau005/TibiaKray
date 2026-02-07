@@ -20,15 +20,17 @@ type Creatures struct {
 	Loot       string
 
 	//Elements
-	Physical uint
-	Earth    uint
-	Fire     uint
-	Death    uint
-	Energy   uint
-	Holy     uint
-	Ice      uint
-	Healing  uint
+	Physical int
+	Earth    int
+	Fire     int
+	Death    int
+	Energy   int
+	Holy     int
+	Ice      int
+	Healing  int
 	//End Elements
+
+	Attack string
 
 	PushObject     bool
 	SummonConvince bool

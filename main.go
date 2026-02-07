@@ -20,13 +20,24 @@ func main() {
 		var creaturesController controller.EntitysCreatures
 		command := os.Args[1]
 		switch command {
+		case "loadLua":
+			creaturesController.LoadLuaMonster()
 		case "creature":
-			go creaturesController.CollectorCreature()
+			go func() {
+				creaturesController.CollectorCreature()
+				creaturesController.LoadLuaMonster()
+			}()
+
 		case "bosses":
 			go creaturesController.CollectorBosses()
+			creaturesController.LoadLuaMonster()
 		case "allcreatures":
-			go creaturesController.CollectorCreature()
-			go creaturesController.CollectorBosses()
+			go func() {
+				creaturesController.CollectorCreature()
+				creaturesController.CollectorBosses()
+				creaturesController.LoadLuaMonster()
+			}()
+
 		}
 	}
 
@@ -34,12 +45,15 @@ func main() {
 		Addr:    ":8000",
 		Handler: router.NewRouter(),
 	}
-
-	certFile := "/etc/letsencrypt/live/tibiakray.info/fullchain.pem"
-	keyFile := "/etc/letsencrypt/live/tibiakray.info/privkey.pem"
-
-	log.Println("Iniciando el servidor HTTPS en el puerto 8000")
-	if err := server.ListenAndServeTLS(certFile, keyFile); err != nil {
-		log.Fatal("Error al iniciar el servidor TLS: ", err)
+	log.Println("HTTP :80 (ACME challenge)")
+	if err := server.ListenAndServe(); err != nil {
+		log.Println("HTTP server stopped:", err)
 	}
+	// certFile := "/etc/letsencrypt/live/tibiakray.info/fullchain.pem"
+	// keyFile := "/etc/letsencrypt/live/tibiakray.info/privkey.pem"
+
+	// log.Println("Iniciando el servidor HTTPS en el puerto 8000")
+	// if err := server.ListenAndServeTLS(certFile, keyFile); err != nil {
+	// 	log.Fatal("Error al iniciar el servidor TLS: ", err)
+	// }
 }

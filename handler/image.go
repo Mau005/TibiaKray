@@ -112,6 +112,7 @@ func (su *ImageHandler) LoadImage(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	filesize := handler.Size
+	fmt.Println(filesize, configuration.MAX_FILE_SIZE)
 	if filesize >= configuration.MAX_FILE_SIZE {
 		base := api.GetBaseWeb(r)
 		log.Println(err)

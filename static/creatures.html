@@ -1,95 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TibiaKray Creatures</title>
-        <meta name="description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
-        <meta name="author" content="AinhoSoft">
-        <meta property="og:title" content="TibiaKray Creatures">
-        <meta property="og:url" content="/tools">
-        <meta property="og:description" content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
-        <meta name="author" content="AinhoSoft">
-        <link rel="icon" type="image/png" href="/static/assets/images/favicon.png">
-        <!-- START: Styles -->
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300i,400,400i,700%7cMarcellus+SC" rel="stylesheet">
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="/static/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
-        <!-- FontAwesome -->
-        <script defer src="/static/assets/vendor/fontawesome-free/js/all.js"></script>
-        <script defer src="/static/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
-        <!-- IonIcons -->
-        <link rel="stylesheet" href="/static/assets/vendor/ionicons/css/ionicons.min.css">
-        <!-- Revolution Slider -->
-        <link rel="stylesheet" href="/static/assets/vendor/revolution/css/settings.css">
-        <link rel="stylesheet" href="/static/assets/vendor/revolution/css/layers.css">
-        <link rel="stylesheet" href="/static/assets/vendor/revolution/css/navigation.css">
-        <!-- Flickity -->
-        <link rel="stylesheet" href="/static/assets/vendor/flickity/dist/flickity.min.css">
-        <!-- Photoswipe -->
-        <link rel="stylesheet" href="/static/assets/vendor/photoswipe/dist/photoswipe.css">
-        <link rel="stylesheet" href="/static/assets/vendor/photoswipe/dist/default-skin/default-skin.css">
-        <!-- DateTimePicker -->
-        <link rel="stylesheet" href="/static/assets/vendor/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
-        <!-- Summernote -->
-        <link rel="stylesheet" href="/static/assets/vendor/summernote/dist/summernote-bs4.css">
-        <!-- GODLIKE -->
-        <link rel="stylesheet" href="/static/assets/css/godlike.css">
-        <!-- Custom Styles -->
-        <link rel="stylesheet" href="/static/assets/css/custom.css">
-        <!-- END: Styles -->
-        <!-- jQuery -->
-        <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
-    </head>
-    <!--
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TibiaKray Creatures</title>
+    <meta name="description"
+        content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
+    <meta name="author" content="AinhoSoft">
+    <meta property="og:title" content="TibiaKray Creatures">
+    <meta property="og:url" content="/tools">
+    <meta property="og:description"
+        content="Social network for Tibia, tools, share statistics, share photos and videos of your exploits in this beautiful game">
+    <meta name="author" content="AinhoSoft">
+    <link rel="icon" type="image/png" href="/static/assets/images/favicon.png">
+    <!-- START: Styles -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300i,400,400i,700%7cMarcellus+SC"
+        rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <script defer src="/static/assets/vendor/fontawesome-free/js/all.js"></script>
+    <script defer src="/static/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="/static/assets/vendor/ionicons/css/ionicons.min.css">
+    <!-- Revolution Slider -->
+    <link rel="stylesheet" href="/static/assets/vendor/revolution/css/settings.css">
+    <link rel="stylesheet" href="/static/assets/vendor/revolution/css/layers.css">
+    <link rel="stylesheet" href="/static/assets/vendor/revolution/css/navigation.css">
+    <!-- Flickity -->
+    <link rel="stylesheet" href="/static/assets/vendor/flickity/dist/flickity.min.css">
+    <!-- Photoswipe -->
+    <link rel="stylesheet" href="/static/assets/vendor/photoswipe/dist/photoswipe.css">
+    <link rel="stylesheet" href="/static/assets/vendor/photoswipe/dist/default-skin/default-skin.css">
+    <!-- DateTimePicker -->
+    <link rel="stylesheet" href="/static/assets/vendor/jquery-datetimepicker/build/jquery.datetimepicker.min.css">
+    <!-- Summernote -->
+    <link rel="stylesheet" href="/static/assets/vendor/summernote/dist/summernote-bs4.css">
+    <!-- GODLIKE -->
+    <link rel="stylesheet" href="/static/assets/css/godlike.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/assets/css/custom.css">
+    <!-- END: Styles -->
+    <!-- jQuery -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+</head>
+<!--
     Additional Classes:
         .nk-page-boxed
 -->
-    <body>
-        <!-- START: Page Preloader -->
-        <div class="nk-preloader">
-            <!--
+
+<body>
+    <!-- START: Page Preloader -->
+    <div class="nk-preloader">
+        <!--
          Preloader animation
          data-close-... data used for closing preloader
          data-open-...  data used for opening preloader
     -->
-            <div class="nk-preloader-bg" style="background-color: #000;" data-close-frames="23" data-close-speed="1.2" data-close-sprites="/static/assets/images/preloader-bg.png" data-open-frames="23" data-open-speed="1.2" data-open-sprites="./assets/images/preloader-bg-bw.png">
-            </div>
-            <div class="nk-preloader-content">
-                <div>
-                    <img class="nk-img" src="/static/assets/images/logo.png" alt="TibiaKray V1.0.0" width="170">
-                    <div class="nk-preloader-animation"></div>
-                </div>
-            </div>
-            <div class="nk-preloader-skip">Skip</div>
+        <div class="nk-preloader-bg" style="background-color: #000;" data-close-frames="23" data-close-speed="1.2"
+            data-close-sprites="/static/assets/images/preloader-bg.png" data-open-frames="23" data-open-speed="1.2"
+            data-open-sprites="./assets/images/preloader-bg-bw.png">
         </div>
+        <div class="nk-preloader-content">
+            <div>
+                <img class="nk-img" src="/static/assets/images/logo.png" alt="TibiaKray V1.0.0" width="170">
+                <div class="nk-preloader-animation"></div>
+            </div>
+        </div>
+        <div class="nk-preloader-skip">Skip</div>
+    </div>
 
-        <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
-        
-        <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
-        <!-- END: Page Background -->
-        <!-- START: Page Border -->
-        <div class="nk-page-border">
-            <div class="nk-page-border-t"></div>
-            <div class="nk-page-border-r"></div>
-            <div class="nk-page-border-b"></div>
-            <div class="nk-page-border-l"></div>
-        </div>
-        <!-- END: Page Border -->
-        <!--
+    <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.png');">
+    </div>
+
+    <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3"
+        data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true">
+    </div>
+    <!-- END: Page Background -->
+    <!-- START: Page Border -->
+    <div class="nk-page-border">
+        <div class="nk-page-border-t"></div>
+        <div class="nk-page-border-r"></div>
+        <div class="nk-page-border-b"></div>
+        <div class="nk-page-border-l"></div>
+    </div>
+    <!-- END: Page Border -->
+    <!--
     Additional Classes:
         .nk-header-opaque
 -->
-        <header class="nk-header nk-header-opaque">
-            <!--
+    <header class="nk-header nk-header-opaque">
+        <!--
     START: Top Contacts
 
     Additional Classes:
         .nk-contacts-top-light
 -->
-            <!-- END: Top Contacts -->
-            <!--
+        <!-- END: Top Contacts -->
+        <!--
         START: Navbar
 
         Additional Classes:
@@ -99,78 +110,78 @@
             .nk-navbar-light
             .nk-navbar-no-link-effect
     -->
-            
-            <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
-                <div class="container">
-                    <div class="nk-nav-table">
-                        <a href="/" class="nk-nav-logo">
-                            <img src="/static/assets/images/logo.png" alt="" width="90">
-                        </a>
-                        <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
-                            <li class="">
-                                <a href="/"> {{.Lenguaje.news}}</a>
-                            </li>
-                            <li class="">
-                                <a href="/todays">{{.Lenguaje.today}}</a>
-                            </li>
-                            <li class="">
-                                <a href="/tools">{{.Lenguaje.tools}}</a>
-                            </li>
-                            <li class="active">
-                                <a href="/creatures">{{.Lenguaje.creatures}}</a>
-                            </li>
-                            <li class="">
-                                <a href="/bosses">{{.Lenguaje.bosses}}</a>
-                            </li>
-                        </ul>
-                        <ul class="nk-nav nk-nav-right nk-nav-icons">
-                            <li class="single-icon d-lg-none">
-                                <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
-                                    <span class="nk-icon-burger">
-                                        <span class="nk-t-1"></span>
-                                        <span class="nk-t-2"></span>
-                                        <span class="nk-t-3"></span>
+
+        <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+            <div class="container">
+                <div class="nk-nav-table">
+                    <a href="/" class="nk-nav-logo">
+                        <img src="/static/assets/images/logo.png" alt="" width="90">
+                    </a>
+                    <ul class="nk-nav nk-nav-right d-none d-lg-block" data-nav-mobile="#nk-nav-mobile">
+                        <li class="">
+                            <a href="/"> {{.Lenguaje.news}}</a>
+                        </li>
+                        <li class="">
+                            <a href="/todays">{{.Lenguaje.today}}</a>
+                        </li>
+                        <li class="">
+                            <a href="/tools">{{.Lenguaje.tools}}</a>
+                        </li>
+                        <li class="active">
+                            <a href="/creatures">{{.Lenguaje.creatures}}</a>
+                        </li>
+                        <li class="">
+                            <a href="/bosses">{{.Lenguaje.bosses}}</a>
+                        </li>
+                    </ul>
+                    <ul class="nk-nav nk-nav-right nk-nav-icons">
+                        <li class="single-icon d-lg-none">
+                            <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                                <span class="nk-icon-burger">
+                                    <span class="nk-t-1"></span>
+                                    <span class="nk-t-2"></span>
+                                    <span class="nk-t-3"></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="single-icon">
+                            {{if eq .UserName ""}}
+                            <a href="#" class="nk-sign-toggle no-link-effect">
+                                <span class="nk-icon-toggle">
+                                    <span class="nk-icon-toggle-front">
+                                        <span class="fa fa-sign-in"></span>
                                     </span>
-                                </a>
-                            </li>
-                            <li class="single-icon">
-                                {{if eq .UserName ""}}
-                                <a href="#" class="nk-sign-toggle no-link-effect">
-                                    <span class="nk-icon-toggle">
-                                        <span class="nk-icon-toggle-front">
-                                            <span class="fa fa-sign-in"></span>
-                                        </span>
-                                        <span class="nk-icon-toggle-back">
-                                            <span class="nk-icon-close"></span>
-                                        </span>
+                                    <span class="nk-icon-toggle-back">
+                                        <span class="nk-icon-close"></span>
                                     </span>
-                                </a>
-                                {{else}}
-                                <a href="/auth/my_profile" class="no-link-effect">
-                                    <span class="nk-icon-toggle">
-                                        <span class="nk-icon-toggle-front">
-                                            <span class="fa fa-user"></span>
-                                        </span>
+                                </span>
+                            </a>
+                            {{else}}
+                            <a href="/auth/my_profile" class="no-link-effect">
+                                <span class="nk-icon-toggle">
+                                    <span class="nk-icon-toggle-front">
+                                        <span class="fa fa-user"></span>
                                     </span>
-                                </a>
-                                {{end}}
-                            </li>
-                            <li class="single-icon">
-                                <a href="#" class="no-link-effect" data-nav-toggle="#nk-side">
-                                    <span class="nk-icon-burger">
-                                        <span class="nk-t-1"></span>
-                                        <span class="nk-t-2"></span>
-                                        <span class="nk-t-3"></span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                                </span>
+                            </a>
+                            {{end}}
+                        </li>
+                        <li class="single-icon">
+                            <a href="#" class="no-link-effect" data-nav-toggle="#nk-side">
+                                <span class="nk-icon-burger">
+                                    <span class="nk-t-1"></span>
+                                    <span class="nk-t-2"></span>
+                                    <span class="nk-t-3"></span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-            <!-- END: Navbar -->
-        </header>
-        <!--
+            </div>
+        </nav>
+        <!-- END: Navbar -->
+    </header>
+    <!--
     START: Right Navbar
 
     Additional Classes:
@@ -183,71 +194,72 @@
         .nk-navbar-light
         .nk-navbar-no-link-effect
 -->
-        <nav class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-lg nk-navbar-align-center nk-navbar-overlay-content" id="nk-side">
-            <div class="nk-navbar-bg">
-                <div class="bg-image">
-                    <img src="/static/assets/images/bg-nav-side.jpg" alt="" class="jarallax-img">
-                </div>
+    <nav class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-lg nk-navbar-align-center nk-navbar-overlay-content"
+        id="nk-side">
+        <div class="nk-navbar-bg">
+            <div class="bg-image">
+                <img src="/static/assets/images/bg-nav-side.png" alt="" class="jarallax-img">
             </div>
-            <div class="nano">
-                <div class="nano-content">
-                    <div class="nk-nav-table">
-                        <div class="nk-nav-row">
-                            <a href="/" class="nk-nav-logo">
-                                <img src="/static/assets/images/logo.png" alt="" width="150">
-                            </a>
-                        </div>
-                        <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
-                            <ul class="nk-nav">
-                                {{if eq .UserName ""}}
-                                <li class=" ">
-                                    <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
-                                </li>
-                                {{else}}
-                                <li class=" ">
-                                    <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
-                                </li>
-                                {{end}}
-                                <li class=" nk-drop-item">
-                                    <a href="#">{{.Lenguaje.tools}}</a>
-                                    <ul class="dropdown">
-                                        <li class=" ">
-                                            <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="/creatures"> {{.Lenguaje.creatures}}</a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="/bosses"> {{.Lenguaje.bosses}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                {{if eq .UserName ""}}
-                                {{else}}
+        </div>
+        <div class="nano">
+            <div class="nano-content">
+                <div class="nk-nav-table">
+                    <div class="nk-nav-row">
+                        <a href="/" class="nk-nav-logo">
+                            <img src="/static/assets/images/logo.png" alt="" width="150">
+                        </a>
+                    </div>
+                    <div class="nk-nav-row nk-nav-row-full nk-nav-row-center">
+                        <ul class="nk-nav">
+                            {{if eq .UserName ""}}
+                            <li class=" ">
+                                <a href="#" class="nk-sign-toggle no-link-effect">Conenctate</a>
+                            </li>
+                            {{else}}
+                            <li class=" ">
+                                <a href="/auth/my_profile"> {{.Lenguaje.myprofile}}</a>
+                            </li>
+                            {{end}}
+                            <li class=" nk-drop-item">
+                                <a href="#">{{.Lenguaje.tools}}</a>
+                                <ul class="dropdown">
                                     <li class=" ">
-                                        <a href="/logout">Desconectarse</a>
+                                        <a href="/shared_loot"> {{.Lenguaje.sharedloot}}</a>
                                     </li>
-                                {{end}}
-                                {{if ge .Access  3 }}
-                                <li class=" ">
-                                    <a href="/auth/admin">Admin</a>
-                                </li>
-                                {{end}}
-                                
-                            </ul>
-                        </div>
-                        <div class="nk-nav-row">
-                            <div class="nk-nav-footer"> &copy; 2023 AinhoSoft. </div>
-                        </div>
+                                    <li class=" ">
+                                        <a href="/sharedexp"> {{.Lenguaje.sharedexp}}</a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="/creatures"> {{.Lenguaje.creatures}}</a>
+                                    </li>
+                                    <li class=" ">
+                                        <a href="/bosses"> {{.Lenguaje.bosses}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {{if eq .UserName ""}}
+                            {{else}}
+                            <li class=" ">
+                                <a href="/logout">Desconectarse</a>
+                            </li>
+                            {{end}}
+                            {{if ge .Access 3 }}
+                            <li class=" ">
+                                <a href="/auth/admin">Admin</a>
+                            </li>
+                            {{end}}
+
+                        </ul>
+                    </div>
+                    <div class="nk-nav-row">
+                        <div class="nk-nav-footer"> &copy; 2023 AinhoSoft. </div>
                     </div>
                 </div>
             </div>
-        </nav>
-        <!-- END: Right Navbar -->
-        <!--
+        </div>
+    </nav>
+    <!-- END: Right Navbar -->
+    <!--
     START: Navbar Mobile
 
     Additional Classes:
@@ -258,219 +270,612 @@
         .nk-navbar-light
         .nk-navbar-no-link-effect
 -->
-        <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
-            <div class="nano">
-                <div class="nano-content">
-                    <a href="/" class="nk-nav-logo">
-                        <img src="/static/assets/images/logo.png" alt="" width="90">
-                    </a>
-                    <div class="nk-navbar-mobile-content">
-                        <ul class="nk-nav">
-                            <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
-                        </ul>
-                    </div>
+    <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-left-side nk-navbar-overlay-content d-lg-none">
+        <div class="nano">
+            <div class="nano-content">
+                <a href="/" class="nk-nav-logo">
+                    <img src="/static/assets/images/logo.png" alt="" width="90">
+                </a>
+                <div class="nk-navbar-mobile-content">
+                    <ul class="nk-nav">
+                        <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                    </ul>
                 </div>
             </div>
         </div>
-        <!-- END: Navbar Mobile -->
-        <!-- Daily Image fun-->
+    </div>
+    <!-- END: Navbar Mobile -->
+    <!-- Daily Image fun-->
 
-        <div class="nk-main">
+    <div class="nk-main">
+        <div class="nk-gap-4"></div>
+        <div class="text-center">
+            <h2 class="nk-title display-3">{{.Lenguaje.creatures}}</h2>
+        </div>
+        <div class="container">
             <div class="nk-gap-4"></div>
-            <div class="text-center">
-                <h2 class="nk-title display-3">{{.Lenguaje.creatures}}</h2>
-            </div>
-            <div class="container">
-                <div class="nk-gap-4"></div>
-                <div class="container">
-                    <div class="nk-gap-4"></div>
-                    <!-- START: Posts List -->
-                    <div class="nk-blog-grid-3">
-                        <div class="nk-box-3 bg-dark-1">
-                            <div class="nk-gap-1"></div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>{{.Lenguaje.image}}</th>
-                                            <th>{{.Lenguaje.name}}</th>
-                                            <th style="display: flex; justify-content: center; align-items: center;">{{.Lenguaje.see}}</th>
-                                        </tr>
-                                    </thead>
-                                    {{range .Creatures}}
-                                    <tbody>
-                                        <tr class="order">
-                                            <td><img width="96" height="96" src="/image/{{.ImagePath}}" alt=""></td>
-                                            <td>{{.Name}}</td>
-                                            <td>
-                                                <form action="/creatures/{{.ID}}" method="get"> 
-                                                    <div style="display: flex; justify-content: center; align-items: center;">
-                                                    <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{$.Lenguaje.getin}}</button>
-                                                </div>
-                                                </form> 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    {{end}}
+            <div class="bg-zinc-950 text-zinc-100">
+                <div class="max-w-7xl mx-auto p-4 md:p-6">
+                    <!-- Header -->
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                        <div>
+                            <h1 class="text-2xl md:text-3xl font-bold">Bestiario</h1>
+                            <p class="text-zinc-400">Tabla de creaturas con filtros por nombre, raza y stats.</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <button id="btnReset"
+                                class="px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700">
+                                Limpiar filtros
+                            </button>
+                            <button id="btnReload" class="px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500">
+                                Recargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div
+                        class="mt-6 grid grid-cols-1 md:grid-cols-12 gap-3 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-4">
+                        <!-- Search -->
+                        <div class="md:col-span-4">
+                            <label class="text-sm text-zinc-300">Buscar por nombre</label>
+                            <input id="fName" type="text" placeholder="Ej: Wailing Widow"
+                                class="mt-1 w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+                        </div>
+
+                        <!-- Race -->
+                        <div class="md:col-span-3">
+                            <label class="text-sm text-zinc-300">Raza</label>
+                            <select id="fRace"
+                                class="mt-1 w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <option value="">Todas</option>
+                            </select>
+                        </div>
+
+                        <!-- Health -->
+                        <div class="md:col-span-2">
+                            <label class="text-sm text-zinc-300">Vida mín</label>
+                            <input id="fHpMin" type="number" min="0" placeholder="0"
+                                class="mt-1 w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="text-sm text-zinc-300">Vida máx</label>
+                            <input id="fHpMax" type="number" min="0" placeholder="99999"
+                                class="mt-1 w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+                        </div>
+
+                        <!-- Toggle flags -->
+                        <div class="md:col-span-1 flex items-end">
+                            <div class="w-full">
+                                <label class="text-sm text-zinc-300">Flags</label>
+                                <button id="btnFlags"
+                                    class="mt-1 w-full px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm">
+                                    Avanzado
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Advanced flags panel -->
+                        <div id="flagsPanel" class="hidden md:col-span-12">
+                            <div class="mt-2 grid grid-cols-2 md:grid-cols-6 gap-3">
+                                <label
+                                    class="flex items-center gap-2 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2">
+                                    <input id="fPushable" type="checkbox" class="accent-indigo-600">
+                                    <span class="text-sm">Pushable</span>
+                                </label>
+                                <label
+                                    class="flex items-center gap-2 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2">
+                                    <input id="fParalyzable" type="checkbox" class="accent-indigo-600">
+                                    <span class="text-sm">Paralyzable</span>
+                                </label>
+                                <label
+                                    class="flex items-center gap-2 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2">
+                                    <input id="fPushObject" type="checkbox" class="accent-indigo-600">
+                                    <span class="text-sm">PushObject</span>
+                                </label>
+                                <label
+                                    class="flex items-center gap-2 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2">
+                                    <input id="fSummonConvince" type="checkbox" class="accent-indigo-600">
+                                    <span class="text-sm">Summon/Convince</span>
+                                </label>
+
+                                <div
+                                    class="col-span-2 md:col-span-2 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2">
+                                    <div class="text-sm text-zinc-300 mb-1">Mitigation (min)</div>
+                                    <input id="fMitMin" type="number" step="0.01" min="0" max="1" placeholder="0.00"
+                                        class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table header / info -->
+                    <div class="mt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div class="text-sm text-zinc-400">
+                            <span id="countLabel">0</span> resultados
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <label class="text-sm text-zinc-300">Por página</label>
+                            <select id="pageSize"
+                                class="px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <option>10</option>
+                                <option selected>25</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+
+                            <label class="text-sm text-zinc-300 ml-2">Orden</label>
+                            <select id="sortBy"
+                                class="px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <option value="name.asc" selected>Nombre (A→Z)</option>
+                                <option value="name.desc">Nombre (Z→A)</option>
+                                <option value="health.desc">Vida (↓)</option>
+                                <option value="health.asc">Vida (↑)</option>
+                                <option value="exp.desc">Exp (↓)</option>
+                                <option value="exp.asc">Exp (↑)</option>
+                                <option value="armor.desc">Armor (↓)</option>
+                                <option value="armor.asc">Armor (↑)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="mt-3 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm">
+                                <thead class="bg-zinc-900 border-b border-zinc-800">
+                                    <tr class="text-left text-zinc-300">
+                                        <th class="px-4 py-3">Creatura</th>
+                                        <th class="px-4 py-3">Raza</th>
+                                        <th class="px-4 py-3">Vida</th>
+                                        <th class="px-4 py-3">Exp</th>
+                                        <th class="px-4 py-3">Elements</th>
+                                        <th class="px-4 py-3">Flags</th>
+                                        <th class="px-4 py-3">Ubicación</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody" class="divide-y divide-zinc-800"></tbody>
                             </table>
                         </div>
-                    </div>
 
-                    </div>
-                    <!-- END: Pagination -->
-                    <!-- END: Posts List -->
-                    <div class="nk-gap-4"></div>
-                    <div class="nk-gap-3"></div>
-                </div>
-                <div class="nk-gap-4"></div>
-                <div class="nk-gap-3"></div>
-            </div>
-            
-            <div class="nk-gap-4"></div>
-            <div class="nk-gap-4"></div>
-            <div class="nk-gap-4"></div>
-            <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
-                <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
-                <div class="container">
-                    <div class="nk-gap-2"></div>
-                    <div class="nk-gap"></div>
-                    <p> &copy; 2023 AinhoSoft.</p>
-                    <div class="nk-footer-links">
-                        <a href="#" class="link-effect">{{.Lenguaje.termservice}}</a> <span>|</span> <a href="#" class="link-effect">{{.Lenguaje.privacypolicy}}</a>
-                    </div>
-                    <div class="nk-gap-4"></div>
-                </div>
-            </footer>
-            <!-- END: Footer -->
-        </div>
-        <div class="nk-side-buttons nk-side-buttons-visible">
-            <ul>
-                <li>
-                    <span class="nk-btn nk-btn-lg nk-btn-icon nk-bg-audio-toggle">
-                        <span class="icon">
-                            <span class="ion-android-volume-up nk-bg-audio-pause-icon"></span>
-                            <span class="ion-android-volume-off nk-bg-audio-play-icon"></span>
-                        </span>
-                    </span>
-                </li>
-                <li class="nk-scroll-top">
-                    <span class="nk-btn nk-btn-lg nk-btn-icon">
-                        <span class="icon ion-ios-arrow-up"></span>
-                    </span>
-                </li>
-            </ul>
-        </div>
-        <div class="nk-sign-form">
-            <div class="nk-gap-5"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
-                        <div class="nk-sign-form-container">
-                            <div class="nk-sign-form-toggle h3">
-                                <a href="#" class="nk-sign-form-login-toggle active">{{.Lenguaje.login}}</a>
-                                <a href="#" class="nk-sign-form-register-toggle">{{.Lenguaje.register}}</a>
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-800 bg-zinc-900">
+                            <div class="text-sm text-zinc-400" id="pageInfo">Página 1</div>
+                            <div class="flex gap-2">
+                                <button id="prevPage"
+                                    class="px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 disabled:opacity-40"
+                                    disabled>
+                                    Anterior
+                                </button>
+                                <button id="nextPage"
+                                    class="px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 disabled:opacity-40"
+                                    disabled>
+                                    Siguiente
+                                </button>
                             </div>
-                            <div class="nk-gap-2"></div>
-                            <!-- START: Login Form -->
-                            <form class="nk-sign-form-login active" method="POST" action="/login">
-                                <input class="form-control" type="text" name="user" id="user" placeholder="{{.Lenguaje.user}} / Email">
-                                <div class="nk-gap-2"></div>
-                                <input class="form-control" type="password" name="passworduser" id="passworduser" placeholder="{{.Lenguaje.password}}">
-                                <div class="nk-gap-2"></div>
-                                <div class="form-check float-left">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input"> {{.Lenguaje.remember}} </label>
-                                </div>
-                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.login}}</button>
-                                <div class="clearfix"></div>
-                                <div class="nk-gap-1"></div>
-                                <a class="nk-sign-form-lost-toggle float-right" href="#">{{.Lenguaje.lostpassword}}?</a>
-                            </form>
-                            <!-- END: Login Form -->
-                            <!-- START: Lost Password Form -->
-                            <form class="nk-sign-form-lost" action="/recovery" method="POST">
-                                <input class="form-control" type="text" name="recovery" placeholder="{{.Lenguaje.user}} / Email">
-                                <div class="nk-gap-2"></div>
-                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.getin}}</button>
-                            </form>
-                            <!-- END: Lost Password Form -->
-                            <!-- START: Register Form -->
-                            <form class="nk-sign-form-register" action="/create_user" method="POST">
-                                <input class="form-control" type="text" name="username" id="username" placeholder="{{.Lenguaje.user}}">
-                                <div class="nk-gap-2"></div>
-                                <input class="form-control" type="password" name="password" id="password" placeholder="{{.Lenguaje.password}}">
-                                <div class="nk-gap-2"></div>
-                                <input class="form-control" type="password"  name="passwordTwo" id="passwordTwo"  placeholder="{{.Lenguaje.repeat}} {{.Lenguaje.password}}">
-                                <div class="nk-gap-2"></div>
-                                <input class="form-control" type="email" name="email" id="email" placeholder="Email">
-                                <div class="nk-gap-2"></div>
-                                <div class="form-check float-left">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" name="policy" id="policy" class="form-check-input"> {{.Lenguaje.acceptpolicies}} </label>
-                                </div>
-                                <button class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.register}}</button>
-                            </form>
-                            <!-- END: Register Form -->
                         </div>
                     </div>
+
+                    <div class="mt-4 text-xs text-zinc-500">
+                        Tip: Elements usa % (negativo = debilidad, positivo = resistencia, 100 = inmune).
+                    </div>
                 </div>
             </div>
-            <div class="nk-gap-5"></div>
+            <div class="nk-gap-4"></div>
+            <div class="nk-gap-3"></div>
         </div>
-        <!-- END: Sign Form -->
-        <!-- START: Scripts -->
-        <!-- Object Fit Polyfill -->
-        <script src="/static/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
-        <!-- GSAP -->
-        <script src="/static/assets/vendor/gsap/dist/gsap.min.js"></script>
-        <script src="/static/assets/vendor/gsap/dist/ScrollToPlugin.min.js"></script>
-        <!-- Popper -->
-        <script src="/static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- Sticky Kit -->
-        <script src="/static/assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
-        <!-- Jarallax -->
-        <script src="/static/assets/vendor/jarallax/dist/jarallax.min.js"></script>
-        <script src="/static/assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
-        <!-- imagesLoaded -->
-        <script src="/static/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-        <!-- Flickity -->
-        <script src="/static/assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
-        <!-- Isotope -->
-        <script src="/static/assets/vendor/isotope-layout/dist/isotope.pkgd.min.js"></script>
-        <!-- Photoswipe -->
-        <script src="/static/assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
-        <script src="/static/assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
-        <!-- Typed.js -->
-        <script src="/static/assets/vendor/typed.js/lib/typed.min.js"></script>
-        <!-- Jquery Validation -->
-        <script src="/static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-        <!-- Jquery Countdown + Moment -->
-        <script src="/static/assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
-        <script src="/static/assets/vendor/moment/min/moment.min.js"></script>
-        <script src="/static/assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
-        <!-- Hammer.js -->
-        <script src="/static/assets/vendor/hammerjs/hammer.min.js"></script>
-        <!-- NanoSroller -->
-        <script src="/static/assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
-        <!-- SoundManager2 -->
-        <script src="/static/assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
-        <!-- DateTimePicker -->
-        <script src="/static/assets/vendor/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
-        <!-- Revolution Slider -->
-        <script src="/static/assets/vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
-        <script src="/static/assets/vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
-        <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.video.min.js"></script>
-        <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-        <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-        <!-- Keymaster -->
-        <script src="/static/assets/vendor/keymaster/keymaster.js"></script>
-        <!-- Summernote -->
-        <script src="/static/assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
-        <!-- GODLIKE -->
-        <script src="/static/assets/js/tibiakray.min.js"></script>
-        <script src="/static/assets/js/tibiakray-init.js"></script>
-        <!-- END: Scripts -->
-    </body>
+
+        <div class="nk-gap-4"></div>
+        <div class="nk-gap-4"></div>
+        <div class="nk-gap-4"></div>
+        <footer class="nk-footer nk-footer-parallax nk-footer-parallax-opacity">
+            <img class="nk-footer-top-corner" src="/static/assets/images/footer-corner.png" alt="">
+            <div class="container">
+                <div class="nk-gap-2"></div>
+                <div class="nk-gap"></div>
+                <p> &copy; 2023 AinhoSoft.</p>
+                <div class="nk-footer-links">
+                    <a href="#" class="link-effect">{{.Lenguaje.termservice}}</a> <span>|</span> <a href="#"
+                        class="link-effect">{{.Lenguaje.privacypolicy}}</a>
+                </div>
+                <div class="nk-gap-4"></div>
+            </div>
+        </footer>
+        <!-- END: Footer -->
+    </div>
+    <div class="nk-side-buttons nk-side-buttons-visible">
+        <ul>
+            <li>
+                <span class="nk-btn nk-btn-lg nk-btn-icon nk-bg-audio-toggle">
+                    <span class="icon">
+                        <span class="ion-android-volume-up nk-bg-audio-pause-icon"></span>
+                        <span class="ion-android-volume-off nk-bg-audio-play-icon"></span>
+                    </span>
+                </span>
+            </li>
+            <li class="nk-scroll-top">
+                <span class="nk-btn nk-btn-lg nk-btn-icon">
+                    <span class="icon ion-ios-arrow-up"></span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="nk-sign-form">
+        <div class="nk-gap-5"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
+                    <div class="nk-sign-form-container">
+                        <div class="nk-sign-form-toggle h3">
+                            <a href="#" class="nk-sign-form-login-toggle active">{{.Lenguaje.login}}</a>
+                            <a href="#" class="nk-sign-form-register-toggle">{{.Lenguaje.register}}</a>
+                        </div>
+                        <div class="nk-gap-2"></div>
+                        <!-- START: Login Form -->
+                        <form class="nk-sign-form-login active" method="POST" action="/login">
+                            <input class="form-control" type="text" name="user" id="user"
+                                placeholder="{{.Lenguaje.user}} / Email">
+                            <div class="nk-gap-2"></div>
+                            <input class="form-control" type="password" name="passworduser" id="passworduser"
+                                placeholder="{{.Lenguaje.password}}">
+                            <div class="nk-gap-2"></div>
+                            <div class="form-check float-left">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input"> {{.Lenguaje.remember}} </label>
+                            </div>
+                            <button
+                                class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.login}}</button>
+                            <div class="clearfix"></div>
+                            <div class="nk-gap-1"></div>
+                            <a class="nk-sign-form-lost-toggle float-right" href="#">{{.Lenguaje.lostpassword}}?</a>
+                        </form>
+                        <!-- END: Login Form -->
+                        <!-- START: Lost Password Form -->
+                        <form class="nk-sign-form-lost" action="/recovery" method="POST">
+                            <input class="form-control" type="text" name="recovery"
+                                placeholder="{{.Lenguaje.user}} / Email">
+                            <div class="nk-gap-2"></div>
+                            <button
+                                class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.getin}}</button>
+                        </form>
+                        <!-- END: Lost Password Form -->
+                        <!-- START: Register Form -->
+                        <form class="nk-sign-form-register" action="/create_user" method="POST">
+                            <input class="form-control" type="text" name="username" id="username"
+                                placeholder="{{.Lenguaje.user}}">
+                            <div class="nk-gap-2"></div>
+                            <input class="form-control" type="password" name="password" id="password"
+                                placeholder="{{.Lenguaje.password}}">
+                            <div class="nk-gap-2"></div>
+                            <input class="form-control" type="password" name="passwordTwo" id="passwordTwo"
+                                placeholder="{{.Lenguaje.repeat}} {{.Lenguaje.password}}">
+                            <div class="nk-gap-2"></div>
+                            <input class="form-control" type="email" name="email" id="email" placeholder="Email">
+                            <div class="nk-gap-2"></div>
+                            <div class="form-check float-left">
+                                <label class="form-check-label">
+                                    <input type="checkbox" name="policy" id="policy" class="form-check-input">
+                                    {{.Lenguaje.acceptpolicies}} </label>
+                            </div>
+                            <button
+                                class="nk-btn nk-btn-color-white link-effect-4 float-right">{{.Lenguaje.register}}</button>
+                        </form>
+                        <!-- END: Register Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nk-gap-5"></div>
+    </div>
+    <!-- END: Sign Form -->
+    <!-- START: Scripts -->
+    <!-- Object Fit Polyfill -->
+    <script src="/static/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
+    <!-- GSAP -->
+    <script src="/static/assets/vendor/gsap/dist/gsap.min.js"></script>
+    <script src="/static/assets/vendor/gsap/dist/ScrollToPlugin.min.js"></script>
+    <!-- Popper -->
+    <script src="/static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Sticky Kit -->
+    <script src="/static/assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+    <!-- Jarallax -->
+    <script src="/static/assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="/static/assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
+    <!-- imagesLoaded -->
+    <script src="/static/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <!-- Flickity -->
+    <script src="/static/assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+    <!-- Isotope -->
+    <script src="/static/assets/vendor/isotope-layout/dist/isotope.pkgd.min.js"></script>
+    <!-- Photoswipe -->
+    <script src="/static/assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
+    <script src="/static/assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+    <!-- Typed.js -->
+    <script src="/static/assets/vendor/typed.js/lib/typed.min.js"></script>
+    <!-- Jquery Validation -->
+    <script src="/static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <!-- Jquery Countdown + Moment -->
+    <script src="/static/assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
+    <script src="/static/assets/vendor/moment/min/moment.min.js"></script>
+    <script src="/static/assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+    <!-- Hammer.js -->
+    <script src="/static/assets/vendor/hammerjs/hammer.min.js"></script>
+    <!-- NanoSroller -->
+    <script src="/static/assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+    <!-- SoundManager2 -->
+    <script src="/static/assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+    <!-- DateTimePicker -->
+    <script src="/static/assets/vendor/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+    <!-- Revolution Slider -->
+    <script src="/static/assets/vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script src="/static/assets/vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.video.min.js"></script>
+    <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="/static/assets/vendor/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <!-- Keymaster -->
+    <script src="/static/assets/vendor/keymaster/keymaster.js"></script>
+    <!-- Summernote -->
+    <script src="/static/assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+    <!-- GODLIKE -->
+    <script src="/static/assets/js/tibiakray.min.js"></script>
+    <script src="/static/assets/js/tibiakray-init.js"></script>
+    <!-- END: Scripts -->
+    <script>
+        // ---- CONFIG ----
+        // Cambia este endpoint a tu ruta real (ej: /api/creatures)
+        const API_URL = "/api/creatures";
+        let serverTotal = 0;
+        let serverPages = 1;
+
+        // Si aún no tienes endpoint, puedes pegar data aquí para probar:
+        // let creatures = [{Name:"Azure Frog", Race:"blood", Health:60, Experience:20, Armor:8, Mitigation:0.28, ...}, ...]
+        let creatures = [];
+        let filtered = [];
+        let page = 1;
+
+        const el = (id) => document.getElementById(id);
+
+        const ui = {
+            tbody: el("tbody"),
+            countLabel: el("countLabel"),
+            fName: el("fName"),
+            fRace: el("fRace"),
+            fHpMin: el("fHpMin"),
+            fHpMax: el("fHpMax"),
+            fMitMin: el("fMitMin"),
+            fPushable: el("fPushable"),
+            fParalyzable: el("fParalyzable"),
+            fPushObject: el("fPushObject"),
+            fSummonConvince: el("fSummonConvince"),
+            pageSize: el("pageSize"),
+            sortBy: el("sortBy"),
+            pageInfo: el("pageInfo"),
+            prevPage: el("prevPage"),
+            nextPage: el("nextPage"),
+            btnReset: el("btnReset"),
+            btnReload: el("btnReload"),
+            btnFlags: el("btnFlags"),
+            flagsPanel: el("flagsPanel"),
+        };
+
+        function safeStr(v) { return (v === null || v === undefined) ? "" : String(v); }
+        function toNum(v, def = 0) { const n = Number(v); return Number.isFinite(n) ? n : def; }
+
+        function normalize(s) {
+            return safeStr(s).trim().toLowerCase();
+        }
+
+        function uniqSorted(arr) {
+            return [...new Set(arr)].filter(Boolean).sort((a, b) => a.localeCompare(b));
+        }
+
+        function parseJsonMaybe(s) {
+            try { return JSON.parse(s); } catch { return null; }
+        }
+
+        function elementsBadge(c) {
+            const parts = [
+                ["P", c.Physical],
+                ["E", c.Earth],
+                ["F", c.Fire],
+                ["D", c.Death],
+                ["En", c.Energy],
+                ["H", c.Holy],
+                ["I", c.Ice],
+                ["He", c.Healing],
+            ].filter(([k, v]) => Number.isFinite(v) && v !== 0);
+
+            if (parts.length === 0) return `<span class="text-zinc-500">—</span>`;
+
+            return parts.slice(0, 5).map(([k, v]) => {
+                const cls = v >= 100 ? "bg-emerald-600/20 text-emerald-200 border-emerald-500/30"
+                    : v > 0 ? "bg-emerald-600/10 text-emerald-200/90 border-emerald-500/20"
+                        : "bg-rose-600/10 text-rose-200/90 border-rose-500/20";
+                return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg border ${cls} mr-1">
+                  <span class="font-semibold">${k}</span><span>${v}</span>
+                </span>`;
+            }).join("");
+        }
+
+        function flagsBadge(c) {
+            const b = [];
+            if (c.Pushable) b.push("Pushable");
+            if (c.Paralyzable) b.push("Paralyzable");
+            if (c.PushObject) b.push("PushObj");
+            if (c.SummonConvince) b.push("Summ/Conv");
+            if (!b.length) return `<span class="text-zinc-500">—</span>`;
+            return b.map(x => `<span class="inline-flex px-2 py-0.5 rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-200 mr-1">${x}</span>`).join("");
+        }
+
+        function rowHtml(c) {
+  const id = c.ID; // <- importante
+  const img = safeStr(c.ImagePath);
+  const name = safeStr(c.Name);
+  const race = safeStr(c.Race);
+  const hp = toNum(c.Health, 0);
+  const exp = toNum(c.Experience, 0);
+  const armor = toNum(c.Armor, 0);
+  const mit = (c.Mitigation !== null && c.Mitigation !== undefined) ? Number(c.Mitigation).toFixed(2) : "0.00";
+  const loc = safeStr(c.Locations);
+
+  return `
+  <tr
+    class="hover:bg-zinc-900/60 cursor-pointer"
+    data-id="${id}"
+    title="Abrir ${name}"
+  >
+    <td class="px-4 py-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-xs text-zinc-500">
+          <img width="96" height="96" src="${'/image/' + img}" alt="">
+        </div>
+        <div>
+          <div class="font-semibold">${name}</div>
+          <div class="text-xs text-zinc-500">${img}</div>
+        </div>
+      </div>
+    </td>
+    <td class="px-4 py-3">${race || `<span class="text-zinc-500">—</span>`}</td>
+    <td class="px-4 py-3">${hp}</td>
+    <td class="px-4 py-3">${mit}</td>
+    <td class="px-4 py-3 whitespace-nowrap">${elementsBadge(c)}</td>
+    <td class="px-4 py-3 whitespace-nowrap">${flagsBadge(c)}</td>
+    <td class="px-4 py-3 max-w-[420px]">
+      <div class="truncate text-zinc-300" title="${loc.replaceAll('"', '&quot;')}">${loc || "—"}</div>
+    </td>
+  </tr>
+  `;
+}
+
+
+
+        async function applyFiltersServer() {
+            const url = new URL(API_URL, window.location.origin);
+
+            // filtros
+            if (ui.fName.value.trim()) url.searchParams.set("name", ui.fName.value.trim());
+            if (ui.fRace.value) url.searchParams.set("race", ui.fRace.value);
+
+            if (ui.fHpMin.value) url.searchParams.set("hpMin", ui.fHpMin.value);
+            if (ui.fHpMax.value) url.searchParams.set("hpMax", ui.fHpMax.value);
+            if (ui.fMitMin.value) url.searchParams.set("mitMin", ui.fMitMin.value);
+
+            if (ui.fPushable.checked) url.searchParams.set("pushable", "true");
+            if (ui.fParalyzable.checked) url.searchParams.set("paralyzable", "true");
+            if (ui.fPushObject.checked) url.searchParams.set("pushObject", "true");
+            if (ui.fSummonConvince.checked) url.searchParams.set("summonConvince", "true");
+
+            // paginación
+            url.searchParams.set("page", String(page || 1));
+            url.searchParams.set("pageSize", String(Number(ui.pageSize.value) || 25));
+
+            // orden
+            url.searchParams.set("sort", ui.sortBy.value);
+
+            const res = await fetch(url.toString());
+            const payload = await res.json();
+
+            creatures = Array.isArray(payload.data) ? payload.data : [];
+            filtered = creatures; // solo alias, no se filtra en JS
+
+            serverTotal = Number(payload.total || 0);
+            serverPages = Number(payload.pages || 1);
+
+            ui.countLabel.textContent = serverTotal;
+
+            render();
+        }
+        function render() {
+            ui.tbody.innerHTML = filtered.map(rowHtml).join("");
+
+            ui.pageInfo.textContent = `Página ${page} / ${serverPages}`;
+
+            ui.prevPage.disabled = page <= 1;
+            ui.nextPage.disabled = page >= serverPages;
+        }
+
+        function debounce(fn, ms = 150) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn(...args), ms);
+            };
+        }
+
+        function fillRaceOptions() {
+            const races = uniqSorted(creatures.map(c => safeStr(c.Race).trim()).filter(Boolean));
+            ui.fRace.innerHTML = `<option value="">Todas</option>` + races.map(r =>
+                `<option value="${r.replaceAll('"', '&quot;')}">${r}</option>`
+            ).join("");
+        }
+
+        async function loadData() {
+            page = 1;
+            await applyFiltersServer();
+        }
+
+        // ---- Events ----
+        const onFilterChange = debounce(() => { page = 1; applyFiltersServer(); }, 200);
+
+
+        ui.fName.addEventListener("input", onFilterChange);
+        ui.fRace.addEventListener("change", onFilterChange);
+        ui.fHpMin.addEventListener("input", onFilterChange);
+        ui.fHpMax.addEventListener("input", onFilterChange);
+        ui.fMitMin.addEventListener("input", onFilterChange);
+
+        ui.fPushable.addEventListener("change", onFilterChange);
+        ui.fParalyzable.addEventListener("change", onFilterChange);
+        ui.fPushObject.addEventListener("change", onFilterChange);
+        ui.fSummonConvince.addEventListener("change", onFilterChange);
+
+        ui.pageSize.addEventListener("change", () => { page = 1; render(); });
+        ui.sortBy.addEventListener("change", () => { applySort(); render(); });
+
+        ui.prevPage.addEventListener("click", () => {
+            page = Math.max(1, page - 1);
+            applyFiltersServer();
+        });
+
+        ui.nextPage.addEventListener("click", () => {
+            page = Math.min(serverPages, page + 1);
+            applyFiltersServer();
+        });
+
+        ui.btnReset.addEventListener("click", () => {
+            ui.fName.value = "";
+            ui.fRace.value = "";
+            ui.fHpMin.value = "";
+            ui.fHpMax.value = "";
+            ui.fMitMin.value = "";
+            ui.fPushable.checked = false;
+            ui.fParalyzable.checked = false;
+            ui.fPushObject.checked = false;
+            ui.fSummonConvince.checked = false;
+            applyFiltersServer();
+        });
+
+        ui.btnReload.addEventListener("click", loadData);
+
+        ui.btnFlags.addEventListener("click", () => {
+            ui.flagsPanel.classList.toggle("hidden");
+        });
+ui.tbody.addEventListener("click", (e) => {
+  const tr = e.target.closest("tr[data-id]");
+  if (!tr) return;
+
+  const id = tr.getAttribute("data-id");
+  if (!id) return;
+
+  window.location.href = `/creatures/${id}`;
+});
+        // ---- Init ----
+        loadData();
+    </script>
+</body>
+
 </html>

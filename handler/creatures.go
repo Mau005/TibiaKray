@@ -1,36 +1,210 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
+	"github.com/Mau005/KraynoSerer/database"
 	"github.com/Mau005/KraynoSerer/models"
 	"github.com/gorilla/mux"
 )
 
 type CreaturesHandler struct{}
 
+func (ch *CreaturesHandler) GetCreaturesHandler(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+
+	name := q.Get("name")
+	race := q.Get("race")
+	sort := q.Get("sort")
+	page, _ := strconv.Atoi(q.Get("page"))
+	pageSize, _ := strconv.Atoi(q.Get("pageSize"))
+	if page < 1 {
+		page = 1
+	}
+	if pageSize <= 0 {
+		pageSize = 25
+	}
+	if pageSize > 5000 {
+		pageSize = 5000
+	}
+	var hpMin *uint
+	if v := q.Get("hpMin"); v != "" {
+		n, _ := strconv.Atoi(v)
+		u := uint(n)
+		hpMin = &u
+	}
+
+	var hpMax *uint
+	if v := q.Get("hpMax"); v != "" {
+		n, _ := strconv.Atoi(v)
+		u := uint(n)
+		hpMax = &u
+	}
+
+	var mitMin *float32
+	if v := q.Get("mitMin"); v != "" {
+		f, _ := strconv.ParseFloat(v, 32)
+		m := float32(f)
+		mitMin = &m
+	}
+
+	parseBool := func(key string) *bool {
+		if q.Get(key) == "" {
+			return nil
+		}
+		b := q.Get(key) == "true"
+		return &b
+	}
+
+	list, total, pageOut, pageSizeOut, err := ch.GetCreaturesFiltered(
+		name,
+		race,
+		hpMin,
+		hpMax,
+		mitMin,
+		parseBool("pushable"),
+		parseBool("paralyzable"),
+		parseBool("pushObject"),
+		parseBool("summonConvince"),
+		sort,
+		page,
+		pageSize,
+	)
+	pages := int64((total + int64(pageSizeOut) - 1) / int64(pageSizeOut))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println(pageOut, pageSizeOut)
+
+	resp := map[string]any{
+		"total":    total,
+		"page":     pageOut,
+		"pageSize": pageSizeOut,
+		"pages":    pages,
+		"data":     list,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
+}
+
+func (ch *CreaturesHandler) GetCreaturesFiltered(
+	name string,
+	race string,
+	hpMin *uint,
+	hpMax *uint,
+	mitMin *float32,
+	pushable *bool,
+	paralyzable *bool,
+	pushObject *bool,
+	summonConvince *bool,
+	sort string,
+	page int,
+	pageSize int,
+) (list []models.Creatures, total int64, pageOut int, pageSizeOut int, err error) {
+
+	db := database.DB.Model(&models.Creatures{})
+
+	// ---- Filters ----
+	if name != "" {
+		name = strings.ToLower(strings.TrimSpace(name))
+		db = db.Where("LOWER(name) LIKE ?", "%"+name+"%")
+	}
+	if race != "" {
+		db = db.Where("race = ?", race)
+	}
+	if hpMin != nil {
+		db = db.Where("health >= ?", *hpMin)
+	}
+	if hpMax != nil {
+		db = db.Where("health <= ?", *hpMax)
+	}
+	if mitMin != nil {
+		db = db.Where("mitigation >= ?", *mitMin)
+	}
+	if pushable != nil {
+		db = db.Where("pushable = ?", *pushable)
+	}
+	if paralyzable != nil {
+		db = db.Where("paralyzable = ?", *paralyzable)
+	}
+	if pushObject != nil {
+		db = db.Where("push_object = ?", *pushObject)
+	}
+	if summonConvince != nil {
+		db = db.Where("summon_convince = ?", *summonConvince)
+	}
+
+	// ---- Count total ----
+	if err = db.Count(&total).Error; err != nil {
+		return
+	}
+
+	// ---- Sorting ----
+	switch sort {
+	case "name.asc":
+		db = db.Order("name ASC")
+	case "name.desc":
+		db = db.Order("name DESC")
+	case "health.asc":
+		db = db.Order("health ASC")
+	case "health.desc":
+		db = db.Order("health DESC")
+	case "exp.asc":
+		db = db.Order("experience ASC")
+	case "exp.desc":
+		db = db.Order("experience DESC")
+	case "armor.asc":
+		db = db.Order("armor ASC")
+	case "armor.desc":
+		db = db.Order("armor DESC")
+	default:
+		db = db.Order("name ASC")
+	}
+
+	// ---- Pagination (validación + outputs) ----
+	if page < 1 {
+		page = 1
+	}
+	if pageSize <= 0 {
+		pageSize = 25
+	}
+	if pageSize > 5000 {
+		pageSize = 5000
+	}
+
+	pageOut = page
+	pageSizeOut = pageSize
+
+	offset := (page - 1) * pageSize
+
+	err = db.
+		Limit(pageSize).
+		Offset(offset).
+		Find(&list).Error
+
+	return
+}
+
 func (ch *CreaturesHandler) CreaturesHandler(w http.ResponseWriter, r *http.Request) {
 	var api controller.ApiController
 	sm := api.GetBaseWeb(r)
 
-	var creaturesController controller.EntitysCreatures
-	creatures, err := creaturesController.GetCreatures()
-	if err != nil {
-		log.Println(err)
-	}
-
 	structNew := struct {
 		models.StructModel
-		Creatures []models.Creatures
 	}{
 		StructModel: sm,
-		Creatures:   creatures,
 	}
 
 	templ, err := template.ParseFiles(configuration.PATH_WEB_CREATURES)
@@ -97,7 +271,7 @@ func (ch *CreaturesHandler) CreaturesIdHandler(w http.ResponseWriter, r *http.Re
 		models.StructModel
 		Creature   models.Creatures
 		Creatures  []models.Creatures
-		MaxDamage  uint
+		MaxDamage  int
 		NameDamage string
 		TypeWeb    string
 	}{
@@ -161,42 +335,42 @@ func (ch *CreaturesHandler) CreaturesPost(w http.ResponseWriter, r *http.Request
 	creature.MaxDamage = uint(maxdamage)
 
 	// Parse numerical values
-	physical, err := strconv.ParseUint(physicalStr, 10, 64)
+	physical, err := strconv.ParseInt(physicalStr, 10, 64)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Invalid physical value", http.StatusBadRequest)
 		return
 	}
 
-	earth, err := strconv.ParseUint(earthStr, 10, 64)
+	earth, err := strconv.ParseInt(earthStr, 10, 64)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Invalid earth value", http.StatusBadRequest)
 		return
 	}
 
-	fire, err := strconv.ParseUint(fireStr, 10, 64)
+	fire, err := strconv.ParseInt(fireStr, 10, 64)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Invalid fire value", http.StatusBadRequest)
 		return
 	}
 
-	death, err := strconv.ParseUint(deathStr, 10, 64)
+	death, err := strconv.ParseInt(deathStr, 10, 64)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Invalid death value", http.StatusBadRequest)
 		return
 	}
 
-	energy, err := strconv.ParseUint(energyStr, 10, 64)
+	energy, err := strconv.ParseInt(energyStr, 10, 64)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Invalid energy value", http.StatusBadRequest)
 		return
 	}
 
-	holy, err := strconv.ParseUint(holyStr, 10, 64)
+	holy, err := strconv.ParseInt(holyStr, 10, 64)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Invalid holy value", http.StatusBadRequest)
@@ -277,14 +451,14 @@ func (ch *CreaturesHandler) CreaturesPost(w http.ResponseWriter, r *http.Request
 	creature.Dificulty = uint(dificulty)
 	creature.Locations = locationStr
 	creature.Race = race
-	creature.Physical = uint(physical)
-	creature.Earth = uint(earth)
-	creature.Fire = uint(fire)
-	creature.Death = uint(death)
-	creature.Energy = uint(energy)
-	creature.Holy = uint(holy)
-	creature.Ice = uint(ice)
-	creature.Healing = uint(healing)
+	creature.Physical = int(physical)
+	creature.Earth = int(earth)
+	creature.Fire = int(fire)
+	creature.Death = int(death)
+	creature.Energy = int(energy)
+	creature.Holy = int(holy)
+	creature.Ice = int(ice)
+	creature.Healing = int(healing)
 	creature.Loot = r.FormValue("loot")
 
 	// Update boolean fields
@@ -334,7 +508,7 @@ func (ch *CreaturesHandler) BossesIDHandler(w http.ResponseWriter, r *http.Reque
 		models.StructModel
 		Creature   models.Bosses
 		Creatures  []models.Bosses
-		MaxDamage  uint
+		MaxDamage  int
 		NameDamage string
 		TypeWeb    string
 	}{
@@ -515,14 +689,14 @@ func (ch *CreaturesHandler) BossPost(w http.ResponseWriter, r *http.Request) {
 	creature.Dificulty = uint(dificulty)
 	creature.Locations = locationStr
 	creature.Race = race
-	creature.Physical = uint(physical)
-	creature.Earth = uint(earth)
-	creature.Fire = uint(fire)
-	creature.Death = uint(death)
-	creature.Energy = uint(energy)
-	creature.Holy = uint(holy)
-	creature.Ice = uint(ice)
-	creature.Healing = uint(healing)
+	creature.Physical = int(physical)
+	creature.Earth = int(earth)
+	creature.Fire = int(fire)
+	creature.Death = int(death)
+	creature.Energy = int(energy)
+	creature.Holy = int(holy)
+	creature.Ice = int(ice)
+	creature.Healing = int(healing)
 	creature.Loot = r.FormValue("loot")
 
 	// Update boolean fields

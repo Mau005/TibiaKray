@@ -64,7 +64,7 @@
             <div class="nk-preloader-skip">Skip</div>
         </div>
 
-        <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.svg');"></div>
+        <div class="nk-page-background op-8" style="background-image: url('/static/assets/images-svg/background.png');"></div>
         <div class="nk-page-background-audio d-none" data-audio="/static/assets/mp3/purpleplanetmusic-desolation.mp3" data-audio-volume="30" data-audio-autoplay="true" data-audio-loop="true" data-audio-pause-on-page-leave="true"></div>
         <!-- END: Page Background -->
         <!-- START: Page Border -->
@@ -184,7 +184,7 @@
         <nav class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-lg nk-navbar-align-center nk-navbar-overlay-content" id="nk-side">
             <div class="nk-navbar-bg">
                 <div class="bg-image">
-                    <img src="/static/assets/images/bg-nav-side.jpg" alt="" class="jarallax-img">
+                    <img src="/static/assets/images/bg-nav-side.png" alt="" class="jarallax-img">
                 </div>
             </div>
             <div class="nano">
@@ -371,13 +371,13 @@
                                 <li>
                                     <div class="nk-social-friends-avatar">
                                         {{if or (eq .Vocation "Elite Knight") (eq .Vocation "Knight")}}
-                                            <a href="#"><img src="/static/assets/images-svg/knight.jpg" alt="{{.Name}}"></a>
+                                            <a href="#"><img src="/static/assets/images-svg/knight.png" alt="{{.Name}}"></a>
                                         {{else if or (eq .Vocation "Paladin") (eq .Vocation "Royal Paladin")}}
                                             <a href="#"><img src="/static/assets/images-svg/paladin.jpg" alt="{{.Name}}"></a>
                                         {{else if or (eq .Vocation "Sorcerer") (eq .Vocation "Master Sorcerer")}}
                                             <a href="#"><img src="/static/assets/images-svg/sorcerer.jpg" alt="{{.Name}}"></a>
                                         {{else if or (eq .Vocation "Druid") (eq .Vocation "Elder Druid")}}
-                                            <a href="#"><img src="/static/assets/images-svg/druid.jpg" alt="{{.Name}}"></a>
+                                            <a href="#"><img src="/static/assets/images-svg/druid.png" alt="{{.Name}}"></a>
                                         {{else}}
                                             <a href="#"><img src="/static/assets/images-svg/no_vocation.jpg" alt="{{.Name}}"></a>
                                         {{end}}
