@@ -45,7 +45,7 @@ func main() {
 	}
 
 	server := &http.Server{
-		Addr:    fmt.Sprintf("%s:%d", configuration.Config.Server.Ip, configuration.Config.Server.Port),
+		Addr:    fmt.Sprintf(":%d", configuration.Config.Server.Port),
 		Handler: router.NewRouter(),
 	}
 	log.Println("HTTP :80 (ACME challenge)")
