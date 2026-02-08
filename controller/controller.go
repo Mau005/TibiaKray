@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Mau005/KraynoSerer/components"
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/database"
 	"github.com/Mau005/KraynoSerer/models"
@@ -38,7 +39,9 @@ var ExtencionImage = map[string]bool{
 	"bmp":  true,
 }
 
-type ApiController struct{}
+type ApiController struct {
+	Components components.Components
+}
 
 func (ac *ApiController) InitServices() error {
 	RecoveryAccount = make(map[string]RecoveryController) //Iniciamos la recuperacion de cuentas
@@ -243,6 +246,16 @@ func (ac *ApiController) GetSessionClaims(r *http.Request) (*models.Claims, erro
 		return claims, err
 	}
 	return claims, nil
+}
+
+func (ac *ApiController) GetFronEnd(title, description string, claim models.Claims, lenguaje map[string]string) (front models.FrontEnd) {
+
+	front.Title = ac.Components.CrceateTitle(title)
+	front.Meta = ac.Components.CreateMetaDefault(title, description)
+	front.Link = ac.Components.CreateLink()
+	front.ButtonVol = ac.Components.CreateButtonVolumen()
+	front.Login = ac.Components.CreateLogin(lenguaje)
+	return
 }
 
 func (ac *ApiController) GetBaseWeb(r *http.Request) (sc models.StructModel) {

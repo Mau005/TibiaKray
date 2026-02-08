@@ -6,6 +6,7 @@ import (
 	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/handler"
+	"github.com/gorilla/context"
 )
 
 func CommonMiddleware(next http.Handler) http.Handler {
@@ -45,7 +46,7 @@ func SessionMiddleware(next http.Handler) http.Handler {
 			}
 
 		}
-
+		context.Set(r)
 		next.ServeHTTP(w, r)
 
 	})

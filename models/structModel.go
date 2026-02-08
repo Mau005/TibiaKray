@@ -13,3 +13,14 @@ type StructModel struct {
 	StreamMode      bool
 	LenguajeDefault string
 }
+
+type FrontEnd struct {
+	Title     string
+	Meta      string
+	Link      string
+	Preload   string
+	Footer    string
+	ButtonVol string
+	Login     string
+	Scripts   string
+}

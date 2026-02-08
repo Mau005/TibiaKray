@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 
+	"github.com/Mau005/KraynoSerer/configuration"
 	"github.com/Mau005/KraynoSerer/controller"
 	"github.com/Mau005/KraynoSerer/router"
 )
@@ -32,6 +34,7 @@ func main() {
 			go creaturesController.CollectorBosses()
 			creaturesController.LoadLuaMonster()
 		case "allcreatures":
+
 			go func() {
 				creaturesController.CollectorCreature()
 				creaturesController.CollectorBosses()
@@ -42,7 +45,7 @@ func main() {
 	}
 
 	server := &http.Server{
-		Addr:    ":8000",
+		Addr:    fmt.Sprintf("%s:%d", configuration.Config.Server.Ip, configuration.Config.Server.Port),
 		Handler: router.NewRouter(),
 	}
 	log.Println("HTTP :80 (ACME challenge)")
