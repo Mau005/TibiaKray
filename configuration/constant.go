@@ -8,6 +8,9 @@ const (
 	NameDefaultServer = "TibiaKray"
 )
 const (
+	CtxClaim = "claim"
+)
+const (
 	MAX_LEN_PASSWORD       = 5
 	ACCES_ADMIN            = 3
 	MAX_FILE_SIZE          = 50 << 20 //3 mgbyttes
